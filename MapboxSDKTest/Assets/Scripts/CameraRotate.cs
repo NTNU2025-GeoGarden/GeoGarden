@@ -42,7 +42,8 @@ public class CameraRotate : MonoBehaviour
                 }
                     
             }
-            else if (Input.touchCount == 2)
+            // Disabled for now. Zooming the map causes more problems than it solves
+            /*else if (Input.touchCount == 2)
             {
                 Touch first = Input.GetTouch(0);
                 Touch second = Input.GetTouch(1);
@@ -61,7 +62,7 @@ public class CameraRotate : MonoBehaviour
                     double delta = pinchSpeed * (pinchDistance - _previousPinchDistance) / 100;
                     ZoomMap(delta);
                 }
-            }
+            }*/
                 
         }
         else
@@ -78,11 +79,12 @@ public class CameraRotate : MonoBehaviour
                 transform.Rotate(Vector3.up, delta.x * speed);
                 _previousPosition = currentPosition;
             }
-            
+            // Disabled for now. Zooming the map causes more problems than it solves
+            /*
             if (Input.mouseScrollDelta.y != 0)
             {
                 ZoomMap(Input.mouseScrollDelta.y * pinchSpeed);
-            }
+            }*/
         }
     }
 

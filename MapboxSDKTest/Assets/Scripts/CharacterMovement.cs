@@ -27,6 +27,12 @@ namespace Mapbox.Examples
 				_mapInformation = map.mapInformation;
 				_scale = map.mapInformation.Scale;
 				_readyForUpdates = true;
+				
+				// Snap character to final position when the map scale changes
+				_mapInformation.WorldScaleChanged += _ =>
+				{
+					transform.position = Target.position;
+				};
 			};
 		}
 

@@ -5,16 +5,20 @@ using UnityEngine;
 
 public class CameraRotate : MonoBehaviour
 {
-    private Vector2 _previousPosition;
-    private double _previousPinchDistance;
+    public GameObject map;
+    public GameObject playerMaxRange;
+    public GameObject playerRangeQuad;
+    
     public float speed = 1;
     public float pinchSpeed = 1;
-    public GameObject map;
-    private MapboxMapBehaviour _mapboxMapBehaviour;
+    
+    private MapboxMapBehaviour _map;
+    private Vector2 _previousPosition;
+    private double _previousPinchDistance;
 
     private void Start()
     {
-        _mapboxMapBehaviour = map.GetComponent<MapboxMapBehaviour>();
+        _map = map.GetComponent<MapboxMapBehaviour>();
     }
 
     private void Update()
@@ -84,7 +88,7 @@ public class CameraRotate : MonoBehaviour
 
     private void ZoomMap(double delta)
     {
-        MapInformation info = _mapboxMapBehaviour.MapInformation;
+        MapInformation info = _map.MapInformation;
 
         if (info.Zoom < 6 && delta < 0)
             delta = 0;
@@ -94,8 +98,16 @@ public class CameraRotate : MonoBehaviour
         //f(n)=1.5625⋅2(15−n)
 
         float newZoom = info.Zoom + (float)delta;
-                        
-        _mapboxMapBehaviour.MapInformation.SetInformation(info.LatitudeLongitude,
-            newZoom, info.Pitch, info.Bearing, (float)1.5625*(float)Math.Pow(2, 15 - newZoom));
+        float newScale = 1.5625f * (float)Math.Pow(2, 15 - newZoom);
+        
+        
+        _map.MapInformation.SetInformation(info.LatitudeLongitude,
+            newZoom, info.Pitch, info.Bearing, newScale);
+
+        
+        Vector3 radiusScale = new(1 / (newScale * 4), 1 / (newScale * 4), 1);
+        
+        playerMaxRange.transform.localScale = radiusScale;
+        playerRangeQuad.transform.localScale = radiusScale;
     }
 }

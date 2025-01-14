@@ -4,7 +4,6 @@ using Mapbox.BaseModule.Data.Vector2d;
 using Mapbox.BaseModule.Map;
 using Mapbox.Example.Scripts.Map;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class ResourceSpawner : MonoBehaviour
 {
@@ -17,16 +16,15 @@ public class ResourceSpawner : MonoBehaviour
     void Start()
     {
         _map = mapObject.GetComponent<MapboxMapBehaviour>();
-    }
-    
-        // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
+
+
+        foreach (LatitudeLongitude latLong in resourceLocations)
         {
-            int index = Random.Range(0, resourceLocations.Count);
-            Instantiate(resourcePrefab, _map.MapInformation.ConvertLatLngToPosition(resourceLocations[index]),
+            GameObject newObj = Instantiate(resourcePrefab, _map.MapInformation.ConvertLatLngToPosition(latLong),
                 Quaternion.identity);
+
+            newObj.GetComponent<SnapResourceToMap>().latLong = latLong;
+            newObj.GetComponent<SnapResourceToMap>().mapObject = mapObject;
         }
     }
 }

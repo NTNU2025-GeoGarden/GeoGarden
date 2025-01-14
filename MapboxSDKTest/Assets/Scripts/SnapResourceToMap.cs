@@ -13,19 +13,13 @@ public class SnapResourceToMap : MonoBehaviour
     private void Start()
     {
         _map = mapObject.GetComponent<MapboxMapBehaviour>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        
         _map.MapInformation.WorldScaleChanged += MapInformationChanged;
         _map.MapInformation.LatitudeLongitudeChanged += MapInformationChanged;
-        
-        return;
-
-        void MapInformationChanged(IMapInformation info)
-        {
-            transform.position = info.ConvertLatLngToPosition(latLong);
-        }
+    }
+    
+    void MapInformationChanged(IMapInformation info)
+    {
+        transform.position = info.ConvertLatLngToPosition(latLong);
     }
 }

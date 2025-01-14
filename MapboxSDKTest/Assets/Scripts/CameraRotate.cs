@@ -55,21 +55,7 @@ public class CameraRotate : MonoBehaviour
                                                      Math.Pow(first.position.x - second.position.x, 2));
 
                     double delta = pinchSpeed * (pinchDistance - _previousPinchDistance) / 100;
-                    MapInformation info = _mapboxMapBehaviour.MapInformation;
-
-                    if (info.Zoom < 6 && delta < 0)
-                        delta = 0;
-                    else if (info.Zoom > 15 && delta > 0)
-                        delta = 0;
-                        
-                    //f(n)=1.5625⋅2(15−n)
-
-                    float newZoom = info.Zoom + (float)delta;
-                        
-                    _mapboxMapBehaviour.MapInformation.SetInformation(info.LatitudeLongitude,
-                        newZoom, info.Pitch, info.Bearing, (float)1.5625*(float)Math.Pow(2, 15 - newZoom));
-
-                    print(info.Zoom);
+                    ZoomMap(delta);
                 }
             }
                 
@@ -88,6 +74,28 @@ public class CameraRotate : MonoBehaviour
                 transform.Rotate(Vector3.up, delta.x * speed);
                 _previousPosition = currentPosition;
             }
+            
+            if (Input.mouseScrollDelta.y != 0)
+            {
+                ZoomMap(Input.mouseScrollDelta.y * pinchSpeed);
+            }
         }
+    }
+
+    private void ZoomMap(double delta)
+    {
+        MapInformation info = _mapboxMapBehaviour.MapInformation;
+
+        if (info.Zoom < 6 && delta < 0)
+            delta = 0;
+        else if (info.Zoom > 15 && delta > 0)
+            delta = 0;
+                        
+        //f(n)=1.5625⋅2(15−n)
+
+        float newZoom = info.Zoom + (float)delta;
+                        
+        _mapboxMapBehaviour.MapInformation.SetInformation(info.LatitudeLongitude,
+            newZoom, info.Pitch, info.Bearing, (float)1.5625*(float)Math.Pow(2, 15 - newZoom));
     }
 }

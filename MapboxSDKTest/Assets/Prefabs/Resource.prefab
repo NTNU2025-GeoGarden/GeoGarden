@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4469507254805827651}
   - component: {fileID: 3235327296236393611}
   - component: {fileID: 6434852330647821051}
+  - component: {fileID: 4697276268214221618}
   m_Layer: 0
   m_Name: Resource
   m_TagString: Untagged
@@ -123,3 +124,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a677efc56538d747942c0660f22303a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  latLong:
+    Latitude: 0
+    Longitude: 0
+  mapObject: {fileID: 0}
+--- !u!114 &4697276268214221618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5107434709404205053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58441ee34c29cec43973bb6cdecd3e26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  types: 
+  minQuality: 0
+  maxQuality: 0

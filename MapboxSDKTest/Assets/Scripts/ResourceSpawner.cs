@@ -10,6 +10,7 @@ public class ResourceSpawner : MonoBehaviour
 {
     public GameObject mapObject;
     public GameObject resourcePrefab;
+    public Transform player;
     public List<ResourceCluster> clusters;
 
     private MapboxMapBehaviour _map;
@@ -33,6 +34,7 @@ public class ResourceSpawner : MonoBehaviour
             int spawnerIndex = random.Next(cluster.spawners.Count);
 
             newObj.GetComponent<MapResource>().spawner = cluster.spawners[spawnerIndex];
+            newObj.GetComponent<MapResource>().player = player;
         }
     }
 }

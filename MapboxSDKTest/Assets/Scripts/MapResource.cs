@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Mapbox.BaseModule.Data.Vector2d;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -34,4 +36,44 @@ public struct ResourceDrop
 public class MapResource : MonoBehaviour
 {
     public ResourceSpawn spawner;
+    public bool isTaken;
+    public GameObject text;
+    public Transform player;
+
+    public TMP_Text textQuality;
+    public TMP_Text textQuantity;
+
+    
+    public void Start()
+    {
+        
+        GetComponent<Renderer>().material.color = spawner.minQuality switch
+        {
+            Quality.Common    => Color.white,
+            Quality.Uncommon  => new Color(0.19f, 0.38f, 0.65f),
+            Quality.Rare      => new Color(0.91f, 0.09f, 0.32f),
+            Quality.Legendary => new Color(0.91f, 0.63f, 0.09f),
+            Quality.Special   => Color.black,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        textQuality.text = spawner.maxQuality switch
+        {
+            Quality.Common => "Common?",
+            Quality.Uncommon => "<Color=#3061a6>Uncommon?",
+            Quality.Rare => "<Color=#e81752>Rare?",
+            Quality.Legendary => "<Color=#e8a117>Legendary?",
+            Quality.Special => "<Color='black'>Special",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        
+        textQuantity.text =
+            spawner.drops[0].minAmount == spawner.drops[0].maxAmount ? spawner.drops[0].minAmount.ToString() : $"{spawner.drops[0].minAmount}~{spawner.drops[0].maxAmount}";
+
+    }
+
+    public void Update()
+    {
+        text.transform.LookAt(player);
+    }
 }

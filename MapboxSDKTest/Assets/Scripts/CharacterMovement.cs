@@ -36,6 +36,16 @@ namespace Mapbox.Examples
 			};
 		}
 
+		private void OnTriggerEnter(Collider other)
+		{
+			other.GetComponent<Renderer>().material.color = Color.green;
+		}
+
+		private void OnTriggerExit(Collider other)
+		{
+			other.GetComponent<Renderer>().material.color = Color.white;
+		}
+
 		void Update()
 		{
 			if (!_readyForUpdates)

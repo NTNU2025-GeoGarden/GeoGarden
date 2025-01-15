@@ -19,7 +19,8 @@ public class ResourceSpawner : MonoBehaviour
     {
         _map = mapObject.GetComponent<MapboxMapBehaviour>();
 
-        Random random = new(DateTime.Today.DayOfYear);
+        Random random = new(DateTime.Now.Year * 1000 + DateTime.Now.DayOfYear);
+        
 
         foreach (ResourceCluster cluster in clusters)
         {

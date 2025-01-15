@@ -33,5 +33,5 @@ public struct ResourceDrop
 
 public class MapResource : MonoBehaviour
 {
-    
+    public ResourceSpawn spawner;
 }

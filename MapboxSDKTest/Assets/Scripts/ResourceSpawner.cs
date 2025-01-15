@@ -29,6 +29,10 @@ public class ResourceSpawner : MonoBehaviour
                 
             newObj.GetComponent<SnapResourceToMap>().latLong = cluster.latLng;
             newObj.GetComponent<SnapResourceToMap>().mapObject = mapObject;
+
+            int spawnerIndex = random.Next(cluster.spawners.Count);
+
+            newObj.GetComponent<MapResource>().spawner = cluster.spawners[spawnerIndex];
         }
     }
 }

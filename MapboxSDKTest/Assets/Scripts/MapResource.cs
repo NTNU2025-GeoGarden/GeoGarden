@@ -35,19 +35,22 @@ public struct ResourceDrop
 
 public class MapResource : MonoBehaviour
 {
+    public delegate void CollectResource();
+    public CollectResource OnCollectResource;
+    
     public ResourceSpawn spawner;
-    public bool isTaken;
+    public bool IsTaken { get; private set; }
     public GameObject text;
     public Transform player;
 
     public TMP_Text textQuality;
     public TMP_Text textQuantity;
-
     
     public void Start()
     {
+        OnCollectResource += TryCollectThisResource;
         
-        GetComponent<Renderer>().material.color = spawner.minQuality switch
+        GetComponent<Renderer>().material.color = spawner.maxQuality switch
         {
             Quality.Common    => Color.white,
             Quality.Uncommon  => new Color(0.19f, 0.38f, 0.65f),
@@ -75,5 +78,15 @@ public class MapResource : MonoBehaviour
     public void Update()
     {
         text.transform.LookAt(player);
+    }
+
+    private void TryCollectThisResource()
+    {
+        GetComponent<Renderer>().material.color = Color.gray;
+        textQuality.text = "Collected!";
+        textQuantity.text = "Good work!";
+        IsTaken = true;
+        
+        // Award resources to player
     }
 }

@@ -249,15 +249,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapObject: {fileID: 2058358912}
   resourcePrefab: {fileID: 5107434709404205053, guid: 5f42555a5d090af498e050770a65e52f, type: 3}
-  resourceLocations:
-  - Latitude: 63.41701359825972
-    Longitude: 10.404913469642498
-  - Latitude: 63.418809156592204
-    Longitude: 10.40148231368432
-  - Latitude: 63.41179468595348
-    Longitude: 10.388367287409555
-  - Latitude: 63.42253929288758
-    Longitude: 10.348788972151644
+  clusters:
+  - latLng:
+      Latitude: 63.41691457770877
+      Longitude: 10.40462920941138
+    spawners:
+    - drops:
+      - drop: 0
+        minAmount: 1
+        maxAmount: 1
+      minQuality: 2
+      maxQuality: 2
+  - latLng:
+      Latitude: 63.41691457770877
+      Longitude: 10.40462920941138
+    spawners:
+    - drops:
+      - drop: 0
+        minAmount: 1
+        maxAmount: 1
+      minQuality: 2
+      maxQuality: 2
+  - latLng:
+      Latitude: 63.41177146041552
+      Longitude: 10.388477587348453
+    spawners:
+    - drops:
+      - drop: 1
+        minAmount: 100
+        maxAmount: 100
+      - drop: 0
+        minAmount: 1
+        maxAmount: 3
+      minQuality: 0
+      maxQuality: 1
+  - latLng:
+      Latitude: 63.42126065404037
+      Longitude: 10.397741779089417
+    spawners:
+    - drops:
+      - drop: 1
+        minAmount: 10
+        maxAmount: 50
+      minQuality: 0
+      maxQuality: 0
 --- !u!1 &482478434
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,7 +27,7 @@ public class MapResourceManager : MonoBehaviour, IPersistence
         
         _map = mapObject.GetComponent<MapboxMapBehaviour>();
 
-        _map.MapServiceReady += service =>
+        _map.MapServiceReady += _ =>
         {
             AddInGameSpawners();
         };

@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f099b163f9a4046900de64c9ce73b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fileName: gamedata.geogarden
 --- !u!4 &122040212
 Transform:
   m_ObjectHideFlags: 0

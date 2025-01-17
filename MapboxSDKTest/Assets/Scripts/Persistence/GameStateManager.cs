@@ -1,15 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Serialization;
 
 namespace Persistence
 {
     public class GameStateManager : MonoBehaviour
     {
+        [Header("Save data storage config")] [SerializeField]
+        private string fileName;
+        
         public static GameStateManager Instance { get; private set; }
 
         private GameState _gameState;
         private List<IPersistence> _persistenceObjs;
+        private FileDataHandler _dataHandler;
 
         private void Awake()
         {
@@ -23,6 +28,7 @@ namespace Persistence
 
         public void Start()
         {
+            _dataHandler     = new FileDataHandler(Application.persistentDataPath, fileName);
             _persistenceObjs = FindAllPersistenceObjs();
             LoadGame();
         }
@@ -44,12 +50,15 @@ namespace Persistence
             // --> Contains what nodes the user might have already visited
             // Load gamestate
 
-            
-            if (_gameState != null) return;
-            
-            Debug.Log("No data. Initializing game state to default values.");
-            NewGame();
+            _gameState = _dataHandler.Load();
 
+
+            if (_gameState == null)
+            {
+                Debug.Log("No data. Initializing game state to default values.");
+                NewGame();
+            }
+            
             // Push loaded data to other scripts
 
             foreach (IPersistence persistenceObj in _persistenceObjs)
@@ -67,6 +76,8 @@ namespace Persistence
             {
                 persistenceObj.SaveData(ref _gameState);
             }
+            
+            _dataHandler.Save(_gameState);
         }
 
         private List<IPersistence> FindAllPersistenceObjs()

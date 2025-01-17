@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using Mapbox.BaseModule.Data.Vector2d;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public struct ResourceCluster
@@ -33,22 +33,33 @@ public struct ResourceDrop
     public int maxAmount;
 }
 
+[Serializable]
 public class MapResource : MonoBehaviour
 {
     public delegate void CollectResource();
     public CollectResource OnCollectResource;
-    
+
     public ResourceSpawn spawner;
-    public bool IsTaken { get; private set; }
+    public LatitudeLongitude latLng;
     public GameObject text;
     public Transform player;
 
     public TMP_Text textQuality;
     public TMP_Text textQuantity;
+
+    public bool collected;
     
     public void Start()
     {
         OnCollectResource += TryCollectThisResource;
+
+        if (collected)
+        {
+            GetComponent<Renderer>().material.color = Color.gray;
+            textQuality.text = "Collected!";
+            textQuantity.text = "Good work!";
+            return;
+        }
         
         GetComponent<Renderer>().material.color = spawner.maxQuality switch
         {
@@ -85,8 +96,9 @@ public class MapResource : MonoBehaviour
         GetComponent<Renderer>().material.color = Color.gray;
         textQuality.text = "Collected!";
         textQuantity.text = "Good work!";
-        IsTaken = true;
-        
+        collected = true;
+
+        MapResourceManager.OnRegisterCollectResource(latLng);
         // Award resources to player
     }
 }

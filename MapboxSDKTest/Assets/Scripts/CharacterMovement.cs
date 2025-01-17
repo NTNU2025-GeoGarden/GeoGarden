@@ -52,7 +52,7 @@ namespace Mapbox.Examples
 		private void OnTriggerEnter(Collider other)
 		{
 			_resourceRef = other.GetComponent<MapResource>();
-			if (_resourceRef.IsTaken)
+			if (_resourceRef.collected)
 			{
 				_resourceRef = null;
 				return;
@@ -65,7 +65,7 @@ namespace Mapbox.Examples
 
 		private void OnTriggerExit(Collider other)
 		{
-			if(_resourceRef != null && !_resourceRef.IsTaken)
+			if(_resourceRef != null && !_resourceRef.collected)
 				other.GetComponent<Renderer>().material.color = _resourceColorRef;
 			
 			resourcesUI.SetActive(false);

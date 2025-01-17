@@ -10,8 +10,17 @@ namespace Mapbox.Examples
 {
 	public class CharacterMovement : MonoBehaviour
 	{
+		public delegate void HandleResourceCollected();
+
+		public static HandleResourceCollected OnCollectResource;
+		
+		public GameObject resourcesUI;
+		private MapResource _resourceRef = null;
+		private Color _resourceColorRef;
+		
 		public MapBehaviourCore MapBehaviour;
 		private IMapInformation _mapInformation;
+		
 		public Transform Target;
 		public Animator CharacterAnimator;
 		public float Speed;
@@ -21,13 +30,53 @@ namespace Mapbox.Examples
 		public bool SnapToTerrain = false;
 
 		private void Start()
-		{ 
+		{
+			OnCollectResource += CollectResource;
+			
+			resourcesUI.SetActive(false);
+			
 			MapBehaviour.Initialized += map =>
 			{
 				_mapInformation = map.mapInformation;
 				_scale = map.mapInformation.Scale;
 				_readyForUpdates = true;
+				
+				// Snap character to final position when the map scale changes
+				_mapInformation.WorldScaleChanged += _ =>
+				{
+					transform.position = Target.position;
+				};
 			};
+		}
+
+		private void OnTriggerEnter(Collider other)
+		{
+			_resourceRef = other.GetComponent<MapResource>();
+			if (_resourceRef.IsTaken)
+			{
+				_resourceRef = null;
+				return;
+			}
+
+			_resourceColorRef = other.GetComponent<Renderer>().material.color;
+			other.GetComponent<Renderer>().material.color = Color.green;
+			resourcesUI.SetActive(true);
+		}
+
+		private void OnTriggerExit(Collider other)
+		{
+			if(_resourceRef != null && !_resourceRef.IsTaken)
+				other.GetComponent<Renderer>().material.color = _resourceColorRef;
+			
+			resourcesUI.SetActive(false);
+			_resourceRef = null;
+		}
+
+		private void CollectResource()
+		{
+			_resourceRef.OnCollectResource();
+			resourcesUI.SetActive(false);
+			_resourceRef = null;
 		}
 
 		void Update()

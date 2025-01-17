@@ -1,10 +1,9 @@
 using Mapbox.BaseModule.Map;
 using Mapbox.BaseModule.Utilities;
-using Mapbox.Example.Scripts.Map;
 using Mapbox.LocationModule;
 using UnityEngine;
 
-namespace Mapbox.Example.Scripts.LocationBehaviours
+namespace Mapbox
 {
     public class SnapTransformToLocationProvider : MonoBehaviour
     {

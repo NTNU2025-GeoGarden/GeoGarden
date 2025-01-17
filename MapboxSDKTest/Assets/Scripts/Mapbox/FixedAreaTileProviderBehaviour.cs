@@ -1,6 +1,7 @@
+using Mapbox.Example.Scripts.TileProviderBehaviours;
 using Mapbox.UnityMapService.TileProviders;
 
-namespace Mapbox.Example.Scripts.TileProviderBehaviours
+namespace Mapbox
 {
     public class FixedAreaTileProviderBehaviour : TileProviderBehaviour
     {

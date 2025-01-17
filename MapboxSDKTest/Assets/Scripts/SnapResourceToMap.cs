@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SnapResourceToMap : MonoBehaviour
 {
-    public LatitudeLongitude latLong;
+    public LatitudeLongitude latLng;
     public GameObject mapObject;
     private MapboxMapBehaviour _map;
 
@@ -20,6 +20,6 @@ public class SnapResourceToMap : MonoBehaviour
     
     void MapInformationChanged(IMapInformation info)
     {
-        transform.position = info.ConvertLatLngToPosition(latLong);
+        transform.position = info.ConvertLatLngToPosition(latLng);
     }
 }

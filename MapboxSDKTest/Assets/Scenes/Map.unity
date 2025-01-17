@@ -119,6 +119,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &122040210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 122040212}
+  - component: {fileID: 122040211}
+  m_Layer: 0
+  m_Name: PersistenceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &122040211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122040210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f099b163f9a4046900de64c9ce73b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: gamedata.geogarden
+--- !u!4 &122040212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122040210}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 800.0416, y: -814.85657, z: 1294.7112}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &166616394
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +259,7 @@ GameObject:
   - component: {fileID: 378390710}
   - component: {fileID: 378390711}
   m_Layer: 0
-  m_Name: ResourceSpawner
+  m_Name: ResourceManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,11 +294,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapObject: {fileID: 2058358912}
   resourcePrefab: {fileID: 5107434709404205053, guid: 5f42555a5d090af498e050770a65e52f, type: 3}
-  player: {fileID: 2146842193}
+  player: {fileID: 4601729577895354}
   clusters:
   - latLng:
-      Latitude: 63.41691457770877
-      Longitude: 10.40462920941138
+      Latitude: 63.41675106870272
+      Longitude: 10.40531798267956
     spawners:
     - drops:
       - drop: 0
@@ -261,37 +306,46 @@ MonoBehaviour:
         maxAmount: 1
       minQuality: 2
       maxQuality: 2
-  - latLng:
-      Latitude: 63.41691457770877
-      Longitude: 10.40462920941138
-    spawners:
     - drops:
-      - drop: 0
-        minAmount: 1
-        maxAmount: 1
-      minQuality: 2
+      - drop: 2
+        minAmount: 20
+        maxAmount: 45
+      minQuality: 1
       maxQuality: 2
   - latLng:
-      Latitude: 63.41177146041552
-      Longitude: 10.388477587348453
-    spawners:
-    - drops:
-      - drop: 1
-        minAmount: 100
-        maxAmount: 100
-      - drop: 0
-        minAmount: 1
-        maxAmount: 3
-      minQuality: 0
-      maxQuality: 1
-  - latLng:
-      Latitude: 63.42126065404037
-      Longitude: 10.397741779089417
+      Latitude: 63.421254216524936
+      Longitude: 10.397765068167999
     spawners:
     - drops:
       - drop: 1
         minAmount: 10
-        maxAmount: 50
+        maxAmount: 15
+      minQuality: 0
+      maxQuality: 0
+    - drops:
+      - drop: 1
+        minAmount: 10
+        maxAmount: 15
+      minQuality: 1
+      maxQuality: 1
+  - latLng:
+      Latitude: 63.411783852384254
+      Longitude: 10.388939775243005
+    spawners:
+    - drops:
+      - drop: 2
+        minAmount: 2
+        maxAmount: 2
+      minQuality: 3
+      maxQuality: 3
+  - latLng:
+      Latitude: 63.41939375140254
+      Longitude: 10.39329921804698
+    spawners:
+    - drops:
+      - drop: 0
+        minAmount: 1
+        maxAmount: 4
       minQuality: 0
       maxQuality: 0
 --- !u!1 &482478434
@@ -3251,3 +3305,4 @@ SceneRoots:
   - {fileID: 4601729577895354}
   - {fileID: 877329829}
   - {fileID: 378390710}
+  - {fileID: 122040212}

@@ -6,7 +6,6 @@ public enum ResourceType
     Item
 }
 
-
 /// <summary>
 /// Quality is used to describe the rarity of an item in GeoGarden. It gives the player an indication
 /// of the worth and value of the item, and how difficult it is to get.
@@ -18,4 +17,11 @@ public enum Quality
     Rare,
     Legendary,
     Special
+}
+
+public struct InventoryItem
+{
+    public ResourceType type;
+    public Quality quality;
+    public int amount;
 }

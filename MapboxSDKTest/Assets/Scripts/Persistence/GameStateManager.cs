@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace Persistence
@@ -20,10 +21,19 @@ namespace Persistence
         {
             if (Instance != null)
             {
-                Debug.LogError("More than one GameStateManager already exsists. This should not be possible. Are there more than one GameStateManager scripts in the scene?");
+                Debug.Log("Already loaded. Destroying.");
+                Destroy(gameObject);
             }
 
             Instance = this;
+            DontDestroyOnLoad(this);
+
+            SceneManager.sceneLoaded += (_, _) =>
+            {
+                _dataHandler     = new FileDataHandler(Application.persistentDataPath, fileName);
+                _persistenceObjs = FindAllPersistenceObjs();
+                LoadGame();
+            };
         }
 
         public void Start()

@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using Mapbox.BaseModule.Map;
 using Mapbox.Example.Scripts.Map;
 using Unity.Mathematics;
@@ -16,15 +17,15 @@ public class HomeCameraRotation : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            if (Input.touchCount == 1)
+            if (Input.touchCount != 1) return;
+            Touch touch = Input.GetTouch(0);
+            
+            switch (touch.phase)
             {
-                Touch touch = Input.GetTouch(0);
-                if (touch.phase == TouchPhase.Began)
-                {
+                case TouchPhase.Began:
                     _previousPosition = touch.position;
-                }
-
-                if (touch.phase == TouchPhase.Moved)
+                    break;
+                case TouchPhase.Moved:
                 {
                     Vector2 currentPosition = touch.position;
                     Vector2 delta = currentPosition - _previousPosition;
@@ -50,17 +51,15 @@ public class HomeCameraRotation : MonoBehaviour
                             transform.Translate(new Vector3(0f, 0f, -0.6f - transform.position.z));
                             break;
                     }
-                        
                     
-                        
-                        
-
-                    //transform.Rotate(Vector3.up, delta.x * speed);
-                    //transform.Rotate(Vector3.left, delta.y * speed);
-                    //transform.Rotate(0, 0, -transform.rotation.eulerAngles.z);
                     _previousPosition = currentPosition;
+                    break;
                 }
-                    
+                default:
+                case TouchPhase.Stationary:
+                case TouchPhase.Ended:
+                case TouchPhase.Canceled:
+                    break;
             }
         }
         else
@@ -70,13 +69,12 @@ public class HomeCameraRotation : MonoBehaviour
                 _previousPosition = Input.mousePosition;
             }
 
-            if (Input.GetMouseButton(0))
-            {
-                Vector2 currentPosition = Input.mousePosition;
-                Vector2 delta = currentPosition - _previousPosition;
-                transform.Rotate(Vector3.up, delta.x * speed);
-                _previousPosition = currentPosition;
-            }
+            if (!Input.GetMouseButton(0)) return;
+            
+            Vector2 currentPosition = Input.mousePosition;
+            Vector2 delta = currentPosition - _previousPosition;
+            transform.Rotate(Vector3.up, delta.x * speed);
+            _previousPosition = currentPosition;
         }
     }
 }

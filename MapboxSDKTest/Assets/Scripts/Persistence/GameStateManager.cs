@@ -40,7 +40,6 @@ namespace Persistence
         {
             _dataHandler     = new FileDataHandler(Application.persistentDataPath, fileName);
             _persistenceObjs = FindAllPersistenceObjs();
-            LoadGame();
         }
 
         public void OnApplicationQuit()
@@ -51,6 +50,12 @@ namespace Persistence
         public void NewGame()
         {
             _gameState = new GameState();
+            _gameState.inventory.Add(new InventoryItem
+            {
+                amount  = 3,
+                quality = Quality.Common,
+                type    = ResourceType.Seed
+            });
         }
 
         public void LoadGame()

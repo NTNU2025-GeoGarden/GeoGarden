@@ -12,12 +12,6 @@ namespace Persistence
         {
             mapResources = new Dictionary<int, List<SavedMapResource>>();
             inventory = new List<InventoryItem>();
-            inventory.Add(new InventoryItem
-            {
-                type = ResourceType.Seed,
-                quality = Quality.Common,
-                amount = 3
-            });
         }
     }
 }

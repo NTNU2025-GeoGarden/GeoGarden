@@ -13,7 +13,8 @@ namespace Persistence
         
         public static GameStateManager Instance { get; private set; }
 
-        private GameState _gameState;
+        public static GameState CurrentState { get; private set; }
+        
         private List<IPersistence> _persistenceObjs;
         private FileDataHandler _dataHandler;
 
@@ -49,11 +50,33 @@ namespace Persistence
 
         public void NewGame()
         {
-            _gameState = new GameState();
-            _gameState.inventory.Add(new InventoryItem
+            CurrentState = new GameState();
+            
+            CurrentState.inventory.Add(new InventoryItem
             {
-                amount  = 3,
+                amount  = 1,
                 quality = Quality.Common,
+                type    = ResourceType.Seed
+            });
+            
+            CurrentState.inventory.Add(new InventoryItem
+            {
+                amount  = 1,
+                quality = Quality.Uncommon,
+                type    = ResourceType.Seed
+            });
+            
+            CurrentState.inventory.Add(new InventoryItem
+            {
+                amount  = 1,
+                quality = Quality.Rare,
+                type    = ResourceType.Seed
+            });
+            
+            CurrentState.inventory.Add(new InventoryItem
+            {
+                amount  = 1,
+                quality = Quality.Legendary,
                 type    = ResourceType.Seed
             });
         }
@@ -65,10 +88,10 @@ namespace Persistence
             // --> Contains what nodes the user might have already visited
             // Load gamestate
 
-            _gameState = _dataHandler.Load();
+            CurrentState = _dataHandler.Load();
 
 
-            if (_gameState == null)
+            if (CurrentState == null)
             {
                 Debug.Log("No data. Initializing game state to default values.");
                 NewGame();
@@ -78,7 +101,7 @@ namespace Persistence
 
             foreach (IPersistence persistenceObj in _persistenceObjs)
             {
-                persistenceObj.LoadData(_gameState);
+                persistenceObj.LoadData(CurrentState);
             }
         }
 
@@ -86,13 +109,14 @@ namespace Persistence
         {
             // TODO - pass data to other scripts so they can update
             // TODO - save using the data handler
-            
+
+            GameState currentState = CurrentState;
             foreach (IPersistence persistenceObj in _persistenceObjs)
             {
-                persistenceObj.SaveData(ref _gameState);
+                persistenceObj.SaveData(ref currentState);
             }
             
-            _dataHandler.Save(_gameState);
+            _dataHandler.Save(currentState);
         }
 
         private List<IPersistence> FindAllPersistenceObjs()

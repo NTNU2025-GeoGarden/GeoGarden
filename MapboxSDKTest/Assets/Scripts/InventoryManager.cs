@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Persistence;
 using UnityEngine;
@@ -6,22 +7,14 @@ public class InventoryManager : MonoBehaviour, IPersistence
 {
     public InventoryItemUI baseItem;
     private List<GameObject> _inventoryUIitems;
-    
+
     public void Start()
     {
-        
+        LoadData(GameStateManager.CurrentState);
     }
-
-    public void Update()
-    {
-        
-    }
-
+    
     public void LoadData(GameState state)
     {
-        Debug.Log("ran once");
-        Debug.Log(state.inventory);
-        
         if (_inventoryUIitems != null)
         {
             foreach (GameObject obj in _inventoryUIitems)
@@ -36,9 +29,15 @@ public class InventoryManager : MonoBehaviour, IPersistence
             _inventoryUIitems = new List<GameObject>();
         }
 
+        int count = 0;
         foreach (InventoryItem item in state.inventory)
         {
-            Debug.Log(item);
+            InventoryItemUI newInventoryItem = Instantiate(baseItem.gameObject, transform).GetComponent<InventoryItemUI>();
+            newInventoryItem.Item = item;
+            newInventoryItem.transform.localPosition = new Vector3((count - (float)Math.Floor(count / 4f)) * 225 + 25, -25 - (float)Math.Floor(count / 4f) * 225, 0);
+
+
+            count++;
         }
     }
 

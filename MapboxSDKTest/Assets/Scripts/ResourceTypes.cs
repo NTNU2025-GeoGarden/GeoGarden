@@ -1,4 +1,5 @@
-public enum ResourceType
+using System;
+using UnityEngine;public enum ResourceType
 {
     Seed,
     Water,

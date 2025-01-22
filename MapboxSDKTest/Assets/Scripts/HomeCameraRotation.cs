@@ -1,13 +1,10 @@
-using System;
-using System.Net;
-using Mapbox.BaseModule.Map;
-using Mapbox.Example.Scripts.Map;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class HomeCameraRotation : MonoBehaviour
 {
     public float speed = 1;
+    public GameObject plantSeedCanvas;
+    public bool uiOpen;
     
     private Vector2 _previousPosition;
     private double _previousPinchDistance;
@@ -19,7 +16,7 @@ public class HomeCameraRotation : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            if (Input.touchCount != 1)
+            if (Input.touchCount != 1 || uiOpen)
             {
                 
             }
@@ -69,7 +66,8 @@ public class HomeCameraRotation : MonoBehaviour
                                 if (hit.transform.CompareTag("PlantSpot"))
                                 {
                                     GardenSpot spot = hit.transform.GetComponent<GardenSpot>();
-                                    
+                                    Debug.Log(spot.ID);
+                                    plantSeedCanvas.SetActive(true);
                                 }
                             }
                             

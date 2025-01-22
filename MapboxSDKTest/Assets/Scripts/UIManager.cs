@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject inventoryCanvas;
+    public GameObject UICanvas;
     
     public void HandleMapButtonClick()
     {
@@ -15,13 +15,13 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadSceneAsync("Home");
     }
 
-    public void HandleInventoryButton()
+    public void HandleUICanvasOpenButton()
     {
-        inventoryCanvas.SetActive(true);
+        UICanvas.SetActive(true);
     }
 
-    public void HandleInventoryCloseButton()
+    public void HandleUICanvasCloseButton()
     {
-        inventoryCanvas.SetActive(false);
+        UICanvas.SetActive(false);
     }
 }

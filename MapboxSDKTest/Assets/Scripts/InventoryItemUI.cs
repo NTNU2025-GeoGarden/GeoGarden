@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class InventoryItemUI : MonoBehaviour
 {
+    public IInventoryHandler ClickHandler;
     public InventoryItem DisplayedItem;
     public TMP_Text amount;
     
@@ -17,6 +18,16 @@ public class InventoryItemUI : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
+    {
+        UpdateInformation();
+    }
+
+    public void HandleItemClicked()
+    {
+        ClickHandler.HandleCallbackFromItem(DisplayedItem);
+    }
+
+    public void UpdateInformation()
     {
         amount.text = "x" + DisplayedItem.Amount;
         
@@ -39,12 +50,17 @@ public class InventoryItemUI : MonoBehaviour
         {
             case Quality.Common:
                 itemBg.color = Color.white;
+                star1.SetActive(false);
+                star2.SetActive(false);
                 break;
             case Quality.Uncommon:
                 itemBg.color = new Color(0.29f, 0.722f, 1f);
+                star1.SetActive(false);
+                star2.SetActive(false);
                 break;
             case Quality.Rare:
                 itemBg.color = new Color(1f, 0.325f, 0.204f);
+                star1.SetActive(false);
                 star2.SetActive(true);
                 break;
             case Quality.Special:
@@ -57,5 +73,4 @@ public class InventoryItemUI : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
     }
-    
 }

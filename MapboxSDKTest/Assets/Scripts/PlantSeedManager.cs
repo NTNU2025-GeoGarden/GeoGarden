@@ -2,18 +2,22 @@ using System;
 using System.Collections.Generic;
 using Persistence;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class InventoryManager : MonoBehaviour, IPersistence, IInventoryHandler, IUIScreen
+public class PlantSeedManager : MonoBehaviour, IPersistence, IInventoryHandler, IUIScreen
 {
     public InventoryItemUI baseItem;
-    private List<GameObject> _inventoryUIitems;
+    public InventoryItemUI previewItem;
+    public Button plantButton;
     public HomeCameraRotation cam;
+    
+    private List<GameObject> _inventoryUIitems;
 
     public void Start()
     {
         LoadData(GameStateManager.CurrentState);
     }
-    
+
     public void LoadData(GameState state)
     {
         if (_inventoryUIitems != null)
@@ -37,19 +41,34 @@ public class InventoryManager : MonoBehaviour, IPersistence, IInventoryHandler, 
             newInventoryItem.DisplayedItem = new InventoryItem(id, amount);
             newInventoryItem.transform.localPosition = new Vector3((count - (float)Math.Floor(count / 4f)) * 225 + 25, -25 - (float)Math.Floor(count / 4f) * 225, 0);
             newInventoryItem.ClickHandler = this;
-
+            
             count++;
         }
+        
+        previewItem.gameObject.SetActive(false);
     }
 
     public void SaveData(ref GameState state)
     {
-        Debug.Log("inventory save");
     }
 
     public void HandleCallbackFromItem(InventoryItem item)
     {
-        Debug.Log("Got called");
+        previewItem.gameObject.SetActive(true);
+        plantButton.interactable = true;
+        
+        previewItem.DisplayedItem = item;
+        previewItem.UpdateInformation();
+    }
+
+    public void OnDisable()
+    {
+        previewItem.gameObject.SetActive(false);
+        plantButton.interactable = false;
+        
+        previewItem.DisplayedItem = null;
+        
+        HandleUIClose();
     }
 
     private void OnEnable()
@@ -57,11 +76,6 @@ public class InventoryManager : MonoBehaviour, IPersistence, IInventoryHandler, 
         HandleUIOpen();
     }
     
-    private void OnDisable()
-    {
-        HandleUIClose();
-    }
-
     public void HandleUIOpen()
     {
         cam.uiOpen = true;

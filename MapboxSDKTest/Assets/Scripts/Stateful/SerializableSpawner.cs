@@ -1,12 +1,13 @@
+using Map;
 using Mapbox.BaseModule.Data.Vector2d;
 
-namespace Persistence
+namespace Stateful
 {
     [System.Serializable]
-    public struct SavedMapResource
+    public struct SerializableSpawner
     {
         public LatitudeLongitude latLng;
-        public ResourceSpawn spawner;
+        public Spawner spawner;
         public bool collected;
     }
 }

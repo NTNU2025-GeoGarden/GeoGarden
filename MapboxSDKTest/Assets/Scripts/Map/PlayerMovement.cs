@@ -1,21 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Mapbox.BaseModule.Map;
 using Mapbox.BaseModule.Utilities;
-using Mapbox.Example.Scripts.Map;
 using UnityEngine;
 
-namespace Mapbox.Examples
+namespace Map
 {
-	public class CharacterMovement : MonoBehaviour
+	public class PlayerMovement : MonoBehaviour
 	{
 		public delegate void HandleResourceCollected();
 
 		public static HandleResourceCollected OnCollectResource;
 		
 		public GameObject resourcesUI;
-		private MapResource _resourceRef = null;
+		private SpawnerOnMap _ref = null;
 		private Color _resourceColorRef;
 		
 		public MapBehaviourCore MapBehaviour;
@@ -51,10 +47,10 @@ namespace Mapbox.Examples
 
 		private void OnTriggerEnter(Collider other)
 		{
-			_resourceRef = other.GetComponent<MapResource>();
-			if (_resourceRef.collected)
+			_ref = other.GetComponent<SpawnerOnMap>();
+			if (_ref.collected)
 			{
-				_resourceRef = null;
+				_ref = null;
 				return;
 			}
 
@@ -65,18 +61,18 @@ namespace Mapbox.Examples
 
 		private void OnTriggerExit(Collider other)
 		{
-			if(_resourceRef != null && !_resourceRef.collected)
+			if(_ref != null && !_ref.collected)
 				other.GetComponent<Renderer>().material.color = _resourceColorRef;
 			
 			resourcesUI.SetActive(false);
-			_resourceRef = null;
+			_ref = null;
 		}
 
 		private void CollectResource()
 		{
-			_resourceRef.OnCollectResource();
+			_ref.OnCollectResource();
 			resourcesUI.SetActive(false);
-			_resourceRef = null;
+			_ref = null;
 		}
 
 		void Update()

@@ -1,6 +1,6 @@
-namespace Persistence
+namespace Stateful
 {
-    public interface IPersistence
+    public interface IUsingGameState
     {
         void LoadData(GameState state);
         void SaveData(ref GameState state);

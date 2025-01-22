@@ -1,9 +1,10 @@
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using Structs;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Persistence
+namespace Stateful
 {
     public class GameStateManager : MonoBehaviour
     {
@@ -14,7 +15,7 @@ namespace Persistence
 
         public static GameState CurrentState { get; private set; }
         
-        private List<IPersistence> _persistenceObjs;
+        private List<IUsingGameState> _persistenceObjs;
         private FileDataHandler _dataHandler;
 
         private void Awake()
@@ -56,10 +57,10 @@ namespace Persistence
             CurrentState.Inventory.Add((2, 1));
             CurrentState.Inventory.Add((3, 1));
             
-            CurrentState.GardenSpots.Add(new SavedGardenSpot
+            CurrentState.GardenSpots.Add(new SerializableGardenSpot
             {
-                State = GrowState.Vacant,
-                SeedID = 0
+                state = GrowState.Vacant,
+                seedID = 0
             });
         }
 
@@ -81,7 +82,7 @@ namespace Persistence
             
             // Push loaded data to other scripts
 
-            foreach (IPersistence persistenceObj in _persistenceObjs)
+            foreach (IUsingGameState persistenceObj in _persistenceObjs)
             {
                 persistenceObj.LoadData(CurrentState);
             }
@@ -93,7 +94,7 @@ namespace Persistence
             // TODO - save using the data handler
 
             GameState currentState = CurrentState;
-            foreach (IPersistence persistenceObj in _persistenceObjs)
+            foreach (IUsingGameState persistenceObj in _persistenceObjs)
             {
                 persistenceObj.SaveData(ref currentState);
             }
@@ -101,11 +102,11 @@ namespace Persistence
             _dataHandler.Save(currentState);
         }
 
-        private List<IPersistence> FindAllPersistenceObjs()
+        private List<IUsingGameState> FindAllPersistenceObjs()
         {
-            IEnumerable<IPersistence> persistenceObjs = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IPersistence>();
+            IEnumerable<IUsingGameState> persistenceObjs = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IUsingGameState>();
             
-            return new List<IPersistence>(persistenceObjs);
+            return new List<IUsingGameState>(persistenceObjs);
         }
     }
 }

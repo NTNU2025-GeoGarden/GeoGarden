@@ -781,6 +781,7 @@ GameObject:
   - component: {fileID: 578348864}
   - component: {fileID: 578348863}
   - component: {fileID: 578348866}
+  - component: {fileID: 578348867}
   m_Layer: 5
   m_Name: Pick up
   m_TagString: Untagged
@@ -852,8 +853,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 578348866}
-        m_TargetAssemblyTypeName: ResourceUIHandler, Assembly-CSharp
+      - m_Target: {fileID: 578348867}
+        m_TargetAssemblyTypeName: UI.UIButtons, Assembly-CSharp
         m_MethodName: HandleGatherResource
         m_Mode: 1
         m_Arguments:
@@ -914,6 +915,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c4de6db7f4456ea4c6d04d9b161e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &578348867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578348861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80ea390c6b0a1f47a484742a860e263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UICanvas: {fileID: 0}
 --- !u!1 &587138066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,6 +1613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80ea390c6b0a1f47a484742a860e263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UICanvas: {fileID: 0}
 --- !u!114 &1003298507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2713,6 +2728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80ea390c6b0a1f47a484742a860e263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UICanvas: {fileID: 0}
 --- !u!114 &1761179247
 MonoBehaviour:
   m_ObjectHideFlags: 0

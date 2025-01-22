@@ -1,6 +1,6 @@
 ﻿public enum GrowState
 {
-    Seed,
+    Seeded,
     Stage1,
     Stage2,
     Stage3,
@@ -13,5 +13,6 @@ namespace Persistence
     public struct SavedGardenSpot
     {
         public GrowState State;
+        public int SeedID;
     }
 }

@@ -32,7 +32,7 @@ public class Item
 
 public static class Items
 {
-    public static List<Item> ItemList = new(
+    private static List<Item> _itemList = new(
         new Collection<Item>
         {
             new(0, "Debug Seed", "Variant of common",    ResourceType.Seed, Quality.Common),
@@ -44,6 +44,6 @@ public static class Items
 
     public static Item FromID(int id)
     {
-        return ItemList.Find(x => x.ID == id);
+        return _itemList.Find(x => x.ID == id);
     }
 }

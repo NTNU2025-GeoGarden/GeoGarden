@@ -58,7 +58,8 @@ namespace Persistence
             
             CurrentState.GardenSpots.Add(new SavedGardenSpot
             {
-                State = GrowState.Seed
+                State = GrowState.Seeded,
+                SeedID = 0
             });
         }
 

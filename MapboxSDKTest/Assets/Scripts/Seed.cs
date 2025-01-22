@@ -15,8 +15,13 @@ public class Seed
 
 public abstract class Seeds
 {
-    public static List<Seed> SeedList = new(new Collection<Seed>()
+    private static List<Seed> _seedList = new(new Collection<Seed>()
     {
         new(0, 4)
     });
+
+    public static Seed FromID(int id)
+    {
+        return _seedList.Find(x => x.ID == id);
+    }
 }

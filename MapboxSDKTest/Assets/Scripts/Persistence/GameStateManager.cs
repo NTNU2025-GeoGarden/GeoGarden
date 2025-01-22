@@ -55,6 +55,11 @@ namespace Persistence
             CurrentState.Inventory.Add((1, 1));
             CurrentState.Inventory.Add((2, 1));
             CurrentState.Inventory.Add((3, 1));
+            
+            CurrentState.GardenSpots.Add(new SavedGardenSpot
+            {
+                State = GrowState.Seed
+            });
         }
 
         public void LoadGame()

@@ -1,13 +1,6 @@
 using UnityEngine;
 
-public enum GrowState
-{
-    Seed,
-    Stage1,
-    Stage2,
-    Stage3,
-    Complete
-}
+
 
 public class GrowSpot : MonoBehaviour
 {

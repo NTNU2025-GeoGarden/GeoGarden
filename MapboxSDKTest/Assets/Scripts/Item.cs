@@ -35,10 +35,11 @@ public static class Items
     public static List<Item> ItemList = new(
         new Collection<Item>
         {
-            new(0, "Debug Seed", "Variant of common",   ResourceType.Seed, Quality.Common),
-            new(1, "Debug Seed", "Variant of uncommon", ResourceType.Seed, Quality.Uncommon),
-            new(2, "Debug Seed", "Variant of rare",     ResourceType.Seed, Quality.Rare),
-            new(3, "Debug Seed", "Variant of legendary",ResourceType.Seed, Quality.Legendary)
+            new(0, "Debug Seed", "Variant of common",    ResourceType.Seed, Quality.Common),
+            new(1, "Debug Seed", "Variant of uncommon",  ResourceType.Seed, Quality.Uncommon),
+            new(2, "Debug Seed", "Variant of rare",      ResourceType.Seed, Quality.Rare),
+            new(3, "Debug Seed", "Variant of legendary", ResourceType.Seed, Quality.Legendary),
+            new(4, "Debug Item", "Some product?",        ResourceType.Item, Quality.Common)
         });
 
     public static Item FromID(int id)

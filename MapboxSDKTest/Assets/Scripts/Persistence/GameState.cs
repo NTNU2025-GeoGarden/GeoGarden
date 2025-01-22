@@ -5,13 +5,13 @@ namespace Persistence
     [System.Serializable]
     public class GameState
     {
-        public List<InventoryItem> inventory;
-        public Dictionary<int, List<SavedMapResource>> mapResources;
+        public List<(int id, int amount)> Inventory;
+        public Dictionary<int, List<SavedMapResource>> MapResources;
 
         public GameState()
         {
-            mapResources = new Dictionary<int, List<SavedMapResource>>();
-            inventory = new List<InventoryItem>();
+            MapResources = new Dictionary<int, List<SavedMapResource>>();
+            Inventory = new List<(int id, int amount)>();
         }
     }
 }

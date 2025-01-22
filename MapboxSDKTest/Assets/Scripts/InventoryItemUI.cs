@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InventoryItemUI : MonoBehaviour
 {
-    public InventoryItem Item;
+    public InventoryItem DisplayedItem;
     public TMP_Text amount;
     
     public Image icon;
@@ -18,9 +18,9 @@ public class InventoryItemUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
-        amount.text = "x" + Item.amount;
+        amount.text = "x" + DisplayedItem.Amount;
         
-        switch(Item.type)
+        switch(DisplayedItem.Item.Type)
         {
             case ResourceType.Seed:
                 icon.sprite = seedIcon;
@@ -35,7 +35,7 @@ public class InventoryItemUI : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
         
-        switch(Item.quality)
+        switch(DisplayedItem.Item.Quality)
         {
             case Quality.Common:
                 itemBg.color = Color.white;

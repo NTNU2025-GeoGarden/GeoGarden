@@ -604,6 +604,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 251653661}
+  - component: {fileID: 251653662}
   m_Layer: 0
   m_Name: GrowSpotManager
   m_TagString: Untagged
@@ -626,6 +627,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &251653662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251653660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4247a16985b4fcc438158fe88b9570db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &330600476
 GameObject:
   m_ObjectHideFlags: 0

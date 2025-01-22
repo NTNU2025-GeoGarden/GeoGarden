@@ -30,10 +30,10 @@ public class InventoryManager : MonoBehaviour, IPersistence
         }
 
         int count = 0;
-        foreach (InventoryItem item in state.inventory)
+        foreach ((int id, int amount) in state.Inventory)
         {
             InventoryItemUI newInventoryItem = Instantiate(baseItem.gameObject, transform).GetComponent<InventoryItemUI>();
-            newInventoryItem.Item = item;
+            newInventoryItem.DisplayedItem = new InventoryItem(id, amount);
             newInventoryItem.transform.localPosition = new Vector3((count - (float)Math.Floor(count / 4f)) * 225 + 25, -25 - (float)Math.Floor(count / 4f) * 225, 0);
 
 

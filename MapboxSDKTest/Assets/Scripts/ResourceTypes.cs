@@ -19,10 +19,3 @@ public enum Quality
     Legendary,
     Special
 }
-
-public struct InventoryItem
-{
-    public ResourceType type;
-    public Quality quality;
-    public int amount;
-}

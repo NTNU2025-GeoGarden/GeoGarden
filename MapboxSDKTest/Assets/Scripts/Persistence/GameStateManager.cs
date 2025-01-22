@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace Persistence
 {
@@ -48,37 +47,14 @@ namespace Persistence
             SaveGame();
         }
 
-        public void NewGame()
+        private void NewGame()
         {
             CurrentState = new GameState();
-            
-            CurrentState.inventory.Add(new InventoryItem
-            {
-                amount  = 1,
-                quality = Quality.Common,
-                type    = ResourceType.Seed
-            });
-            
-            CurrentState.inventory.Add(new InventoryItem
-            {
-                amount  = 1,
-                quality = Quality.Uncommon,
-                type    = ResourceType.Seed
-            });
-            
-            CurrentState.inventory.Add(new InventoryItem
-            {
-                amount  = 1,
-                quality = Quality.Rare,
-                type    = ResourceType.Seed
-            });
-            
-            CurrentState.inventory.Add(new InventoryItem
-            {
-                amount  = 1,
-                quality = Quality.Legendary,
-                type    = ResourceType.Seed
-            });
+
+            CurrentState.Inventory.Add((0, 1));
+            CurrentState.Inventory.Add((1, 1));
+            CurrentState.Inventory.Add((2, 1));
+            CurrentState.Inventory.Add((3, 1));
         }
 
         public void LoadGame()

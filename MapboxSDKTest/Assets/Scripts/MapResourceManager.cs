@@ -36,7 +36,7 @@ public class MapResourceManager : MonoBehaviour, IPersistence
     public void LoadData(GameState state)
     {
         _todaysSeed = DateTime.Now.Year * 1000 + DateTime.Now.DayOfYear;
-        _mapResources = state.mapResources;
+        _mapResources = state.MapResources;
         
         if (_mapResources.ContainsKey(_todaysSeed))
         {
@@ -67,7 +67,7 @@ public class MapResourceManager : MonoBehaviour, IPersistence
 
     public void SaveData(ref GameState state)
     {
-        state.mapResources = _mapResources;
+        state.MapResources = _mapResources;
     }
 
     private void AddInGameSpawners()

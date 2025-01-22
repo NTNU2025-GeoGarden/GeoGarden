@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class IInventoryUI : MonoBehaviour, IUsingGameState, IUIScreenWithItemIcons
+    public class InventoryUI : MonoBehaviour, IUsingGameState, IUIScreenWithItemIcons
     {
         public ItemIcon baseItem;
         private List<GameObject> _inventoryUIitems;

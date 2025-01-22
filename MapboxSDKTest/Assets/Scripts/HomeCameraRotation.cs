@@ -68,7 +68,7 @@ public class HomeCameraRotation : MonoBehaviour
                             {
                                 if (hit.transform.CompareTag("PlantSpot"))
                                 {
-                                    GrowSpot spot = hit.transform.GetComponent<GrowSpot>();
+                                    GardenSpot spot = hit.transform.GetComponent<GardenSpot>();
                                     
                                 }
                             }

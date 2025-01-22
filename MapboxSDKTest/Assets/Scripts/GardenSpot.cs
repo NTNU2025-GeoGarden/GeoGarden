@@ -1,9 +1,8 @@
 using UnityEngine;
 
-
-
-public class GrowSpot : MonoBehaviour
+public class GardenSpot : MonoBehaviour
 {
+    public int ID;
     public GameObject perimiter;
     
     public GameObject statusSymbolAddPlant;

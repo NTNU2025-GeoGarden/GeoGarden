@@ -1,7 +1,7 @@
 ﻿public enum GrowState
 {
+    Vacant,
     Seeded,
-    Stage1,
     Stage2,
     Stage3,
     Complete

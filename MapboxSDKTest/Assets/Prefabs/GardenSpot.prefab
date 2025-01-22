@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1606336663615444556
 Transform:
   m_ObjectHideFlags: 0
@@ -858,7 +858,7 @@ GameObject:
   - component: {fileID: 3091306656789631734}
   - component: {fileID: 2387319623136501101}
   m_Layer: 0
-  m_Name: GrowSpot
+  m_Name: GardenSpot
   m_TagString: PlantSpot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -926,7 +926,7 @@ MonoBehaviour:
   growingStage1: {fileID: 7797052134960815165}
   growingStage2: {fileID: 1640733331049844036}
   growingStage3: {fileID: 5258806841265413487}
-  growingStage4: {fileID: 0}
+  growingStage4: {fileID: 3990665730144379734}
 --- !u!1 &9121219317390090858
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,7 +944,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &952469219038351943
 RectTransform:
   m_ObjectHideFlags: 0

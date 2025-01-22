@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GrowSpotManager : MonoBehaviour, IPersistence
 {
-    private List<SavedGrowSpot> growSpots;
+    private List<SavedGardenSpot> growSpots;
         
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

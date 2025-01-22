@@ -1,7 +1,7 @@
 ﻿namespace Persistence
 {
     [System.Serializable]
-    public struct SavedGrowSpot
+    public struct SavedGardenSpot
     {
         public GrowState state;
     }

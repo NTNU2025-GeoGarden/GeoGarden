@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1606336663615444556
 Transform:
   m_ObjectHideFlags: 0
@@ -799,7 +799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4515875953650375041
 RectTransform:
   m_ObjectHideFlags: 0
@@ -808,7 +808,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5455357717765487570}
   m_LocalRotation: {x: -0.2426039, y: -0.41298926, z: 0.7720948, w: 0.41767552}
-  m_LocalPosition: {x: 0, y: 0, z: -0.559}
+  m_LocalPosition: {x: 0, y: 0, z: -0.557}
   m_LocalScale: {x: 0.70000005, y: 0.6999999, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -816,7 +816,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: -205.79001, y: 126.944, z: -69.86301}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.239, y: -0.197}
+  m_AnchoredPosition: {x: 0.281, y: -0.264}
   m_SizeDelta: {x: 0.6, y: 0.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1318701206184871986
@@ -884,7 +884,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 9:99:99
+  m_text: 99:99:99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -949,7 +949,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -0.821403, w: 0}
+  m_margin: {x: 0, y: 0, z: -0.9903865, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -1097,6 +1097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   perimeter: {fileID: 298293289977255640}
+  state: 0
   statusSymbolAddPlant: {fileID: 9121219317390090858}
   statusSymbolNeedsWaterStage1: {fileID: 2965128243885544563}
   statusSymbolNeedsWaterStage2: {fileID: 7198048019101180863}

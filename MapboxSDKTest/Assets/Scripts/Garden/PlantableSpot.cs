@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Structs;
 using TMPro;
 using UnityEngine;
@@ -28,8 +29,8 @@ namespace Garden
 
         public void Update()
         {
-            if(!completionTime.Equals(DateTime.MinValue))
-                statusSymbolTimer.text = completionTime.Subtract(DateTime.Now).ToString();
+            if (!completionTime.Equals(DateTime.MinValue))
+                statusSymbolTimer.text = completionTime.Subtract(DateTime.Now).ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Garden
         public float speed = 1;
         public GameObject plantSeedCanvas;
         public bool uiOpen;
+        public int lastSelectedGardenSpotID = -1;
     
         private Vector2 _previousPosition;
         private double _previousPinchDistance;
@@ -68,7 +69,7 @@ namespace Garden
                                     if (hit.transform.CompareTag("PlantSpot"))
                                     {
                                         PlantableSpot spot = hit.transform.GetComponent<PlantableSpot>();
-                                        Debug.Log(spot.ID);
+                                        lastSelectedGardenSpotID = spot.ID;
                                         plantSeedCanvas.SetActive(true);
                                     }
                                 }

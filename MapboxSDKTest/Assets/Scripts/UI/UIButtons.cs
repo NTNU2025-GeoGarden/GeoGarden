@@ -1,4 +1,5 @@
 using Map;
+using Stateful.Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,6 +32,12 @@ namespace UI
         public void HandleGatherResource()
         {
             PlayerMovement.OnCollectResource();
+        }
+
+        public void HandlePlantSeed()
+        {
+            PlantSeedUI.OnPlayerPlantedSeed();
+            UICanvas.SetActive(false);
         }
     }
 }

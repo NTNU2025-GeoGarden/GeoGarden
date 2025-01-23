@@ -305,16 +305,16 @@ PrefabInstance:
       insertIndex: 67
       addedObject: {fileID: 839034846}
     - targetCorrespondingSourceObject: {fileID: 1471145234734430180, guid: 1e3311c9c2de2f649925ba69c2209a20, type: 3}
-      insertIndex: 28
+      insertIndex: -1
       addedObject: {fileID: 160250393}
     - targetCorrespondingSourceObject: {fileID: 1471145234734430180, guid: 1e3311c9c2de2f649925ba69c2209a20, type: 3}
-      insertIndex: 29
+      insertIndex: -1
       addedObject: {fileID: 1128818797}
     - targetCorrespondingSourceObject: {fileID: 1471145234734430180, guid: 1e3311c9c2de2f649925ba69c2209a20, type: 3}
-      insertIndex: 30
+      insertIndex: -1
       addedObject: {fileID: 1281024755}
     - targetCorrespondingSourceObject: {fileID: 1471145234734430180, guid: 1e3311c9c2de2f649925ba69c2209a20, type: 3}
-      insertIndex: 32
+      insertIndex: -1
       addedObject: {fileID: 158746717}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e3311c9c2de2f649925ba69c2209a20, type: 3}
@@ -1126,7 +1126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gardenDepth: 4
-  gardenSpot: {fileID: 2387319623136501101, guid: 292f07eb3ba449b46a26c0b3092cb3b3, type: 3}
+  plantableSpot: {fileID: 2387319623136501101, guid: 292f07eb3ba449b46a26c0b3092cb3b3, type: 3}
 --- !u!1 &251788754
 GameObject:
   m_ObjectHideFlags: 0
@@ -6622,6 +6622,7 @@ MonoBehaviour:
   speed: 13
   plantSeedCanvas: {fileID: 256131434}
   uiOpen: 0
+  lastSelectedGardenSpotID: -1
 --- !u!1 &1962584931
 GameObject:
   m_ObjectHideFlags: 0
@@ -6721,8 +6722,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1962584933}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: HandleUICanvasCloseButton
+        m_TargetAssemblyTypeName: UI.UIButtons, Assembly-CSharp
+        m_MethodName: HandlePlantSeed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

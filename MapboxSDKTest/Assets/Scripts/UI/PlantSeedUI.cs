@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Garden;
 using Stateful;
+using Stateful.Managers;
 using Structs;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,9 @@ namespace UI
 {
     public class PlantSeedUI : MonoBehaviour, IUsingGameState, IUIScreenWithItemIcons
     {
+        public delegate void PlayerPlantedSeed();
+        public static PlayerPlantedSeed OnPlayerPlantedSeed;
+        
         public ItemIcon baseItem;
         public ItemIcon previewItem;
         public Button plantButton;
@@ -20,6 +24,8 @@ namespace UI
         public void Start()
         {
             LoadData(GameStateManager.CurrentState);
+
+            OnPlayerPlantedSeed += SeedPlanted;
         }
 
         public void LoadData(GameState state)
@@ -78,6 +84,11 @@ namespace UI
         private void OnEnable()
         {
             cam.uiOpen = true;
+        }
+
+        private void SeedPlanted()
+        {
+            GardenSpotManager.OnPlantSeed(cam.lastSelectedGardenSpotID, previewItem.DisplayedItem.Item.AppendID);
         }
     }
 }

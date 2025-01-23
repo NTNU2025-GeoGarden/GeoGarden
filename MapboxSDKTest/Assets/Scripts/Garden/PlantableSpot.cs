@@ -4,7 +4,6 @@ using Stateful.Managers;
 using Structs;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Garden
 {
@@ -18,15 +17,20 @@ namespace Garden
         
         public GameObject perimeter;
         public GameObject statusSymbolAddPlant;
-        public GameObject statusSymbolNeedsWaterStage1;
-        public GameObject statusSymbolNeedsWaterStage2;
-        public GameObject statusSymbolNeedsWaterStage3;
+        public GameObject statusSymbolNeedsWater;
         public GameObject growingStage1;
         public GameObject growingStage2;
         public GameObject growingStage3;
         public GameObject growingStage4;
 
         public TMP_Text statusSymbolTimer;
+        public AudioClip waterPopSoundEffect;
+        
+        private AudioSource _audioSource;
+        public void Start()
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
 
         public void Update()
         {
@@ -40,6 +44,15 @@ namespace Garden
                     GardenSpotManager.OnSeedTimeout(spotID);
                     needsWater = true;
                 }
+            }
+        }
+
+        public void UserPoppedWaterPopup()
+        {
+            if (needsWater)
+            {
+                _audioSource.PlayOneShot(waterPopSoundEffect);
+                needsWater = false;
             }
         }
     }

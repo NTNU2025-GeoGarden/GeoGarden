@@ -1,3 +1,4 @@
+using Stateful.Managers;
 using Structs;
 using UnityEngine;
 
@@ -74,6 +75,12 @@ namespace Garden
                                         
                                         if(spot.state == GrowState.Vacant)
                                             plantSeedCanvas.SetActive(true);
+
+                                        if (spot.needsWater)
+                                        {
+                                            spot.UserPoppedWaterPopup();
+                                            GardenSpotManager.OnPlantWater(lastSelectedGardenSpotID);
+                                        }
                                     }
                                 }
                             

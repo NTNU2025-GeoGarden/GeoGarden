@@ -69,32 +69,39 @@ namespace Stateful.Managers
             plantableSpot.growingStage4.SetActive(false);
             plantableSpot.perimeter.SetActive(false);
             plantableSpot.statusSymbolAddPlant.SetActive(false);
+            plantableSpot.statusSymbolFinished.SetActive(false);
+            plantableSpot.statusSymbolNeedsWater.SetActive(false);
             plantableSpot.statusSymbolTimer.gameObject.SetActive(false);
-            
-            plantableSpot.statusSymbolTimer.gameObject.SetActive(true);
             
             switch(serializedSpot.state)
             {
                 case GrowState.Vacant:
                     plantableSpot.perimeter.SetActive(true);
+                    plantableSpot.statusSymbolAddPlant.SetActive(true);
                     plantableSpot.completionTime = DateTime.MinValue;
                     break;
                 case GrowState.Seeded:
                     plantableSpot.growingStage1.SetActive(true);
+                    
                     plantableSpot.completionTime = serializedSpot.stateCompletionTime;
+                    plantableSpot.statusSymbolTimer.gameObject.SetActive(true);
                     break;
                 case GrowState.Stage2:
                     plantableSpot.growingStage2.SetActive(true);
+                    
                     plantableSpot.completionTime = serializedSpot.stateCompletionTime;
+                    plantableSpot.statusSymbolTimer.gameObject.SetActive(true);
                     break;
                 case GrowState.Stage3:
                     plantableSpot.growingStage3.SetActive(true);
+                    
                     plantableSpot.completionTime = serializedSpot.stateCompletionTime;
+                    plantableSpot.statusSymbolTimer.gameObject.SetActive(true);
                     break;
                 case GrowState.Complete:
-                    plantableSpot.statusSymbolTimer.gameObject.SetActive(false);
                     plantableSpot.growingStage4.SetActive(true);
                     plantableSpot.perimeter.SetActive(true);
+                    plantableSpot.statusSymbolFinished.SetActive(true);
                     
                     plantableSpot.completionTime = DateTime.MinValue;
                     break;
@@ -116,10 +123,8 @@ namespace Stateful.Managers
 
         private void HandlePlantSeed(int spotID, int seedID)
         {
-            Debug.Log($"Got notice that player planted a seed. The seed is {seedID} @ spot {spotID}.");
-            
             SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spotID];
-            updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddMinutes(5); //TODO get proper time
+            updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddSeconds(5); //TODO get proper time
             updatedSerializedSpot.state = GrowState.Seeded;
             updatedSerializedSpot.seedID = seedID;
 
@@ -138,19 +143,12 @@ namespace Stateful.Managers
         private void PlantWatered(int spotID)
         {
             SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spotID];
-            updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddMinutes(5); //TODO get proper time
+            updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddSeconds(5); //TODO get proper time
             updatedSerializedSpot.state += 1;
 
             _serializedSpots[spotID] = updatedSerializedSpot;
             
-            _inGameSpots[spotID].statusSymbolNeedsWater.SetActive(false);
             SetPlantableSpotData(_serializedSpots[spotID], _inGameSpots[spotID]);
-
-            if (_serializedSpots[spotID].state == GrowState.Complete)
-            {
-                //TODO harvesting
-                Debug.Log("Growth completed! Now harvest!");
-            }
         }
     }
 }

@@ -12,12 +12,14 @@ namespace Garden
         public int spotID;
         public int seedID;
         public bool needsWater;
+        public bool harvestable;
         public DateTime completionTime;
         public GrowState state;
         
         public GameObject perimeter;
         public GameObject statusSymbolAddPlant;
         public GameObject statusSymbolNeedsWater;
+        public GameObject statusSymbolFinished;
         public GameObject growingStage1;
         public GameObject growingStage2;
         public GameObject growingStage3;
@@ -45,6 +47,8 @@ namespace Garden
                     needsWater = true;
                 }
             }
+            else if (state == GrowState.Complete)
+                harvestable = true;
         }
 
         public void UserPoppedWaterPopup()

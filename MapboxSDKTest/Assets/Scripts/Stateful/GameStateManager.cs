@@ -60,9 +60,7 @@ namespace Stateful
             
             CurrentState.GardenSpots.Add(new SerializableGardenSpot
             {
-                state = GrowState.Vacant,
-                seedID = 0,
-                stateCompletionTime = DateTime.Now.AddHours(1)
+                state = GrowState.Vacant
             });
         }
 

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class WaterPopupBounce : MonoBehaviour
+public class PlantPopupBounceEffect : MonoBehaviour
 {
     private Vector3 _basePosition;
     public float speed = 1.0f;
@@ -14,6 +14,6 @@ public class WaterPopupBounce : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position = new Vector3(_basePosition.x, _basePosition.y + (float)Math.Sin(Time.time) * Time.deltaTime * speed, _basePosition.z);
+        transform.position = new Vector3(_basePosition.x, _basePosition.y - (float)Math.Sin(Time.time) * Time.deltaTime * speed, _basePosition.z);
     }
 }

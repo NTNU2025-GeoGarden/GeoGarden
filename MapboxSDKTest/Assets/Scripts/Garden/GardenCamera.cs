@@ -1,3 +1,4 @@
+using Structs;
 using UnityEngine;
 
 namespace Garden
@@ -70,7 +71,9 @@ namespace Garden
                                     {
                                         PlantableSpot spot = hit.transform.GetComponent<PlantableSpot>();
                                         lastSelectedGardenSpotID = spot.ID;
-                                        plantSeedCanvas.SetActive(true);
+                                        
+                                        if(spot.state == GrowState.Vacant)
+                                            plantSeedCanvas.SetActive(true);
                                     }
                                 }
                             

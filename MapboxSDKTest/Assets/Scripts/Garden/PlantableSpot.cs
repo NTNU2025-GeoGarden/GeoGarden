@@ -1,4 +1,5 @@
 using System;
+using Structs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,6 +12,7 @@ namespace Garden
         [FormerlySerializedAs("perimiter")] public GameObject perimeter;
 
         public DateTime completionTime;
+        public GrowState state;
         
         public GameObject statusSymbolAddPlant;
         public GameObject statusSymbolNeedsWaterStage1;

@@ -37,6 +37,7 @@ namespace Stateful.Managers
                 );
             
                 newSpot.ID = count;
+                newSpot.state = spot.state;
             
                 switch(spot.state)
                 {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Structs;
@@ -60,7 +61,8 @@ namespace Stateful
             CurrentState.GardenSpots.Add(new SerializableGardenSpot
             {
                 state = GrowState.Vacant,
-                seedID = 0
+                seedID = 0,
+                stateCompletionTime = DateTime.Now.AddHours(1)
             });
         }
 

@@ -70,7 +70,7 @@ namespace Garden
                                     if (hit.transform.CompareTag("PlantSpot"))
                                     {
                                         PlantableSpot spot = hit.transform.GetComponent<PlantableSpot>();
-                                        lastSelectedGardenSpotID = spot.ID;
+                                        lastSelectedGardenSpotID = spot.spotID;
                                         
                                         if(spot.state == GrowState.Vacant)
                                             plantSeedCanvas.SetActive(true);

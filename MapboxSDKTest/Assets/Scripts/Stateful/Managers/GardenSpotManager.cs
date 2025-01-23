@@ -12,6 +12,9 @@ namespace Stateful.Managers
     {
         public delegate void DelegatePlantSeed(int id, int seedId);
         public static DelegatePlantSeed OnPlantSeed;
+
+        public delegate void DelegateSeedTimerFinished(int id);
+        public static DelegateSeedTimerFinished OnSeedTimeout;
         
         public int gardenDepth = 4;
         [FormerlySerializedAs("gardenSpot")] public PlantableSpot plantableSpot;
@@ -21,6 +24,7 @@ namespace Stateful.Managers
         public void Start()
         {
             OnPlantSeed += HandlePlantSeed;
+            OnSeedTimeout += SeedTimeOut;
         }
 
         private void PlaceGardenSpots()
@@ -41,8 +45,8 @@ namespace Stateful.Managers
                     0.3f + 0.8f * (count - row * gardenDepth)
                 );
             
-                newSpot.ID = count;
-            
+                newSpot.spotID = count;
+                
                 SetPlantableSpotData(spot, newSpot);
 
                 count++;
@@ -53,71 +57,40 @@ namespace Stateful.Managers
         {
             plantableSpot.completionTime = serializedSpot.stateCompletionTime;;
             plantableSpot.state = serializedSpot.state;
+            plantableSpot.seedID = serializedSpot.seedID;
+            
+            plantableSpot.growingStage1.SetActive(false);
+            plantableSpot.growingStage2.SetActive(false);
+            plantableSpot.growingStage3.SetActive(false);
+            plantableSpot.growingStage4.SetActive(false);
+            plantableSpot.perimeter.SetActive(false);
+            plantableSpot.statusSymbolAddPlant.SetActive(false);
+            plantableSpot.statusSymbolTimer.gameObject.SetActive(false);
+            
+            plantableSpot.statusSymbolTimer.gameObject.SetActive(true);
             
             switch(serializedSpot.state)
             {
                 case GrowState.Vacant:
-                    plantableSpot.growingStage1.SetActive(false);
-                    plantableSpot.growingStage2.SetActive(false);
-                    plantableSpot.growingStage3.SetActive(false);
-                    plantableSpot.growingStage4.SetActive(false);
-                    
                     plantableSpot.perimeter.SetActive(true);
-                    
-                    plantableSpot.statusSymbolAddPlant.SetActive(true);
-                    plantableSpot.statusSymbolTimer.gameObject.SetActive(false);
-                    
                     plantableSpot.completionTime = DateTime.MinValue;
                     break;
                 case GrowState.Seeded:
                     plantableSpot.growingStage1.SetActive(true);
-                    plantableSpot.growingStage2.SetActive(false);
-                    plantableSpot.growingStage3.SetActive(false);
-                    plantableSpot.growingStage4.SetActive(false);
-                    
-                    plantableSpot.perimeter.SetActive(false);
-                    
-                    plantableSpot.statusSymbolAddPlant.SetActive(false);
-                    plantableSpot.statusSymbolTimer.gameObject.SetActive(true);
-                    
                     plantableSpot.completionTime = serializedSpot.stateCompletionTime;
                     break;
                 case GrowState.Stage2:
-                    plantableSpot.growingStage1.SetActive(false);
                     plantableSpot.growingStage2.SetActive(true);
-                    plantableSpot.growingStage3.SetActive(false);
-                    plantableSpot.growingStage4.SetActive(false);
-                    
-                    plantableSpot.perimeter.SetActive(false);
-                    
-                    plantableSpot.statusSymbolAddPlant.SetActive(false);
-                    plantableSpot.statusSymbolTimer.gameObject.SetActive(true);
-                    
                     plantableSpot.completionTime = serializedSpot.stateCompletionTime;
                     break;
                 case GrowState.Stage3:
-                    plantableSpot.growingStage1.SetActive(false);
-                    plantableSpot.growingStage2.SetActive(false);
                     plantableSpot.growingStage3.SetActive(true);
-                    plantableSpot.growingStage4.SetActive(false);
-                    
-                    plantableSpot.perimeter.SetActive(false);
-                    
-                    plantableSpot.statusSymbolAddPlant.SetActive(false);
-                    plantableSpot.statusSymbolTimer.gameObject.SetActive(true);
-                    
                     plantableSpot.completionTime = serializedSpot.stateCompletionTime;
                     break;
                 case GrowState.Complete:
-                    plantableSpot.growingStage1.SetActive(false);
-                    plantableSpot.growingStage2.SetActive(false);
-                    plantableSpot.growingStage3.SetActive(false);
-                    plantableSpot.growingStage4.SetActive(true);
-                    
-                    plantableSpot.perimeter.SetActive(true);
-                    
-                    plantableSpot.statusSymbolAddPlant.SetActive(false);
                     plantableSpot.statusSymbolTimer.gameObject.SetActive(false);
+                    plantableSpot.growingStage4.SetActive(true);
+                    plantableSpot.perimeter.SetActive(true);
                     
                     plantableSpot.completionTime = DateTime.MinValue;
                     break;
@@ -149,6 +122,13 @@ namespace Stateful.Managers
             _serializedSpots[spot] = updatedSerializedSpot;
             
             SetPlantableSpotData(updatedSerializedSpot, _inGameSpots[spot]);
+        }
+        
+        private void SeedTimeOut(int spot)
+        {
+            _inGameSpots[spot].perimeter.SetActive(true);
+            _inGameSpots[spot].statusSymbolNeedsWaterStage3.SetActive(true);
+            _inGameSpots[spot].statusSymbolTimer.gameObject.SetActive(false);
         }
     }
 }

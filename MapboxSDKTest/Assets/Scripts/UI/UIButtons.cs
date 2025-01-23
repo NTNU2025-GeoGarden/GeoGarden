@@ -8,6 +8,8 @@ namespace UI
     public class UIButtons : MonoBehaviour
     {
         public GameObject UICanvas;
+
+        public bool openCloseState;
     
         public void HandleMapButtonClick()
         {
@@ -27,6 +29,12 @@ namespace UI
         public void HandleUICanvasCloseButton()
         {
             UICanvas.SetActive(false);
+        }
+
+        public void HandleUICanvasOpenCloseButton()
+        {
+            openCloseState = !openCloseState;
+            UICanvas.SetActive(openCloseState);
         }
           
         public void HandleGatherResource()

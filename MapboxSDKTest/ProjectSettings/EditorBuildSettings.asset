@@ -5,12 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Samples/Mapbox Unity SDK/3.0.0/Location Based Game/LocationGame.unity
-    guid: 3d7560195bbf84ffb9dd8efe7762c963
+    path: Assets/Scenes/Home.unity
+    guid: 73636d4481510784d9244c0fc47618fc
+  - enabled: 1
+    path: Assets/Scenes/Map.unity
+    guid: ad0b4a6b8d65c47479ea254468b5cdd7
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 4de852928b2375d4cb373485dea31bd2, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 16b8bbf9fd2934fe9a5de5de5d9ec244, type: 2}

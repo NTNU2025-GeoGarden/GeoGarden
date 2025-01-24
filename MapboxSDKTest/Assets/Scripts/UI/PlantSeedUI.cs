@@ -66,12 +66,16 @@ namespace UI
 
         public void HandleCallbackFromItem(InventoryItem item)
         {
+            plantButton.interactable = false;
+            
             previewItem.gameObject.SetActive(true);
-            plantButton.interactable = true;
-        
             previewItem.DisplayedItem = item;
             previewItem.DisplayedItem.Amount = 1;
             previewItem.UpdateInformation();
+            
+            if(previewItem.DisplayedItem.Item.Type == ItemType.Seed)
+                plantButton.interactable = true;
+        
         }
 
         public void OnDisable()

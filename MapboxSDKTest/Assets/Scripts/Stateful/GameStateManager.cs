@@ -36,6 +36,8 @@ namespace Stateful
             Instance = this;
             DontDestroyOnLoad(this);
 
+            Application.targetFrameRate = 60;
+                
             SceneManager.sceneLoaded += (_, _) =>
             {
                 _dataHandler     = new FileDataHandler(Application.persistentDataPath, fileName);

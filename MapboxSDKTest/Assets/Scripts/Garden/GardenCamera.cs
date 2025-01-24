@@ -81,6 +81,12 @@ namespace Garden
                                             spot.UserPoppedWaterPopup();
                                             GardenSpotManager.OnPlantWater(lastSelectedGardenSpotID);
                                         }
+
+                                        if (spot.harvestable)
+                                        {
+                                            spot.UserHarvestedPlant();
+                                            GardenSpotManager.OnPlantHarvested(lastSelectedGardenSpotID);
+                                        }
                                     }
                                 }
                             

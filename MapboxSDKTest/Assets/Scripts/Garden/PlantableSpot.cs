@@ -53,11 +53,14 @@ namespace Garden
 
         public void UserPoppedWaterPopup()
         {
-            if (needsWater)
-            {
-                _audioSource.PlayOneShot(waterPopSoundEffect);
-                needsWater = false;
-            }
+            _audioSource.PlayOneShot(waterPopSoundEffect);
+            needsWater = false;
+        }
+        
+        public void UserHarvestedPlant()
+        {
+            _audioSource.PlayOneShot(waterPopSoundEffect);
+            harvestable = false;
         }
     }
 }

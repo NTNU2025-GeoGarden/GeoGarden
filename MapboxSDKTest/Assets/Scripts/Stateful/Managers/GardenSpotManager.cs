@@ -10,14 +10,13 @@ namespace Stateful.Managers
 {
     public class GardenSpotManager : MonoBehaviour, IUsingGameState
     {
-        public delegate void DelegatePlantSeed(int id, int seedId);
+        public delegate void DelegatePlantSeed(int id, int seedID);
         public static DelegatePlantSeed OnPlantSeed;
 
-        public delegate void DelegateSeedTimerFinished(int id);
-        public static DelegateSeedTimerFinished OnSeedTimeout;
-        
-        public delegate void DelegatePlantWatered(int id);
-        public static DelegatePlantWatered OnPlantWater;
+        public delegate void DelegatePlantInteraction(int spotID);
+        public static DelegatePlantInteraction OnSeedTimeout;
+        public static DelegatePlantInteraction OnPlantWater;
+        public static DelegatePlantInteraction OnPlantHarvested;
         
         public int gardenDepth = 4;
         [FormerlySerializedAs("gardenSpot")] public PlantableSpot plantableSpot;
@@ -26,9 +25,10 @@ namespace Stateful.Managers
 
         public void Start()
         {
-            OnPlantSeed += HandlePlantSeed;
-            OnSeedTimeout += SeedTimeOut;
-            OnPlantWater += PlantWatered;
+            OnPlantSeed      += HandlePlantSeed;
+            OnSeedTimeout    += SeedTimeOut;
+            OnPlantWater     += PlantWatered;
+            OnPlantHarvested += PlantHarvested;
         }
 
         private void PlaceGardenSpots()
@@ -146,6 +146,20 @@ namespace Stateful.Managers
             updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddSeconds(5); //TODO get proper time
             updatedSerializedSpot.state += 1;
 
+            _serializedSpots[spotID] = updatedSerializedSpot;
+            
+            SetPlantableSpotData(_serializedSpots[spotID], _inGameSpots[spotID]);
+        }
+
+        private void PlantHarvested(int spotID)
+        {
+            SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spotID];
+            updatedSerializedSpot.stateCompletionTime = DateTime.MinValue;
+            updatedSerializedSpot.state = 0;
+
+            GameStateManager.OnAddInventoryItem(Seeds.FromID(updatedSerializedSpot.seedID).ProductItemID);
+            
+            updatedSerializedSpot.seedID = 0;
             _serializedSpots[spotID] = updatedSerializedSpot;
             
             SetPlantableSpotData(_serializedSpots[spotID], _inGameSpots[spotID]);

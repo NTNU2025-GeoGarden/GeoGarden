@@ -50,7 +50,6 @@ namespace UI
 
         public void SaveData(ref GameState state)
         {
-            Debug.Log("inventory save");
         }
 
         public void HandleCallbackFromItem(InventoryItem item)

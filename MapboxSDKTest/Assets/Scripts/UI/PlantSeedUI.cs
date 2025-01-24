@@ -19,7 +19,7 @@ namespace UI
         public Button plantButton;
         public GardenCamera cam;
     
-        private List<GameObject> _inventoryUIitems;
+        private List<ItemIcon> _inventoryUIitems;
 
         public void Start()
         {
@@ -32,26 +32,28 @@ namespace UI
         {
             if (_inventoryUIitems != null)
             {
-                foreach (GameObject obj in _inventoryUIitems)
+                foreach (ItemIcon obj in _inventoryUIitems)
                 {
-                    Destroy(obj);
+                    Destroy(obj.gameObject);
                 }
         
                 _inventoryUIitems.Clear();
             }
             else
             {
-                _inventoryUIitems = new List<GameObject>();
+                _inventoryUIitems = new List<ItemIcon>();
             }
 
             int count = 0;
-            foreach ((int id, int amount) in state.Inventory)
+            foreach (SerializableInventoryEntry entry in state.Inventory)
             {
                 ItemIcon newItem = Instantiate(baseItem.gameObject, transform).GetComponent<ItemIcon>();
-                newItem.DisplayedItem = new InventoryItem(id, amount);
+                newItem.DisplayedItem = new InventoryItem(entry.Id, entry.Amount);
                 newItem.transform.localPosition = new Vector3((count - (float)Math.Floor(count / 4f)) * 225 + 25, -25 - (float)Math.Floor(count / 4f) * 225, 0);
                 newItem.ClickScreenWithItemIcons = this;
             
+                _inventoryUIitems.Add(newItem);
+                
                 count++;
             }
         
@@ -68,6 +70,7 @@ namespace UI
             plantButton.interactable = true;
         
             previewItem.DisplayedItem = item;
+            previewItem.DisplayedItem.Amount = 1;
             previewItem.UpdateInformation();
         }
 
@@ -84,11 +87,13 @@ namespace UI
         private void OnEnable()
         {
             cam.uiOpen = true;
+            LoadData(GameStateManager.CurrentState);
         }
 
         private void SeedPlanted()
         {
             GardenSpotManager.OnPlantSeed(cam.lastSelectedGardenSpotID, previewItem.DisplayedItem.Item.AppendID);
+            GameStateManager.OnRemoveInventoryItem(previewItem.DisplayedItem.Item.ID);
         }
     }
 }

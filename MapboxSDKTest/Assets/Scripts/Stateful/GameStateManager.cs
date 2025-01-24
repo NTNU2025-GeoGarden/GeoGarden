@@ -9,6 +9,10 @@ namespace Stateful
 {
     public class GameStateManager : MonoBehaviour
     {
+        public delegate void DelegateRemoveInventoryItem(int itemID);
+
+        public static DelegateRemoveInventoryItem OnRemoveInventoryItem;
+        
         [Header("Save data storage config")] [SerializeField]
         private string fileName;
         
@@ -36,6 +40,8 @@ namespace Stateful
                 _persistenceObjs = FindAllPersistenceObjs();
                 LoadGame();
             };
+
+            OnRemoveInventoryItem += RemoveInventoryItem;
         }
 
         public void Start()
@@ -53,10 +59,10 @@ namespace Stateful
         {
             CurrentState = new GameState();
 
-            CurrentState.Inventory.Add((0, 1));
-            CurrentState.Inventory.Add((1, 1));
-            CurrentState.Inventory.Add((2, 1));
-            CurrentState.Inventory.Add((3, 1));
+            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 0, Amount = 1});
+            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 1, Amount = 2});
+            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 2, Amount = 1});
+            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 3, Amount = 1});
             
             CurrentState.GardenSpots.Add(new SerializableGardenSpot
             {
@@ -64,7 +70,7 @@ namespace Stateful
             });
         }
 
-        public void LoadGame()
+        private void LoadGame()
         {
             // TODO
             // Load today's map configuration -> if it hasn't been generated, then generate.
@@ -88,7 +94,7 @@ namespace Stateful
             }
         }
 
-        public void SaveGame()
+        private void SaveGame()
         {
             // TODO - pass data to other scripts so they can update
             // TODO - save using the data handler
@@ -107,6 +113,23 @@ namespace Stateful
             IEnumerable<IUsingGameState> persistenceObjs = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IUsingGameState>();
             
             return new List<IUsingGameState>(persistenceObjs);
+        }
+
+        private void RemoveInventoryItem(int itemID)
+        {
+            int index = CurrentState.Inventory.FindIndex(x => x.Id == itemID);
+
+            SerializableInventoryEntry entry = CurrentState.Inventory[index];
+            entry.Amount--;
+            
+            if (entry.Amount <= 0)
+            {
+                CurrentState.Inventory.RemoveAt(index);
+            }
+            else
+            {
+                CurrentState.Inventory[index] = entry;
+            }
         }
     }
 }

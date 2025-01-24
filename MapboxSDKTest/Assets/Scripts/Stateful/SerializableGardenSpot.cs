@@ -1,11 +1,13 @@
-﻿using Structs;
+﻿using System;
+using Structs;
 
 namespace Stateful
 {
-    [System.Serializable]
+    [Serializable]
     public struct SerializableGardenSpot
     {
         public GrowState state;
         public int seedID;
+        public DateTime stateCompletionTime;
     }
 }

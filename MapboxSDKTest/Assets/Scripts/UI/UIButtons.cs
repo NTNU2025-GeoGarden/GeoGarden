@@ -1,4 +1,5 @@
 using Map;
+using Stateful.Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,8 @@ namespace UI
     public class UIButtons : MonoBehaviour
     {
         public GameObject UICanvas;
+
+        public bool openCloseState;
     
         public void HandleMapButtonClick()
         {
@@ -27,10 +30,22 @@ namespace UI
         {
             UICanvas.SetActive(false);
         }
+
+        public void HandleUICanvasOpenCloseButton()
+        {
+            openCloseState = !openCloseState;
+            UICanvas.SetActive(openCloseState);
+        }
           
         public void HandleGatherResource()
         {
             PlayerMovement.OnCollectResource();
+        }
+
+        public void HandlePlantSeed()
+        {
+            PlantSeedUI.OnPlayerPlantedSeed();
+            UICanvas.SetActive(false);
         }
     }
 }

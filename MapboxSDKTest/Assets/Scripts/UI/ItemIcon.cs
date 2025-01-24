@@ -15,6 +15,7 @@ namespace UI
         public Image icon;
         public Image itemBg;
         public Sprite seedIcon;
+        public Sprite itemIcon;
 
         public GameObject star1;
         public GameObject star2;
@@ -44,6 +45,7 @@ namespace UI
                 case ItemType.Fertilizer:
                     break;
                 case ItemType.Generic:
+                    icon.sprite = itemIcon;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

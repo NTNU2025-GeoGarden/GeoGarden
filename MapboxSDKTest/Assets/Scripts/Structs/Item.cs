@@ -36,16 +36,18 @@ namespace Structs
         public int ID             { get; private set; }
         public string Name        { get; private set; }
         public string Description { get; private set; }
-        public ItemType Type  { get; private set; }
-        public Rarity Rarity    { get; private set; }
+        public ItemType Type      { get; private set; }
+        public Rarity Rarity      { get; private set; }
+        public int AppendID       { get; private set; }
     
-        public Item(int id, string name, string description, ItemType type, Rarity rarity)
+        public Item(int id, string name, string description, ItemType type, Rarity rarity, int appendID)
         {
             ID = id;
             Name = name;
             Description = description;
             Type = type;
             Rarity = rarity;
+            AppendID = appendID;
         }
     }
 
@@ -54,11 +56,11 @@ namespace Structs
         private static List<Item> _itemList = new(
             new Collection<Item>
             {
-                new(0, "Debug Seed", "Variant of common",    ItemType.Seed, Rarity.Common),
-                new(1, "Debug Seed", "Variant of uncommon",  ItemType.Seed, Rarity.Uncommon),
-                new(2, "Debug Seed", "Variant of rare",      ItemType.Seed, Rarity.Rare),
-                new(3, "Debug Seed", "Variant of legendary", ItemType.Seed, Rarity.Legendary),
-                new(4, "Debug Item", "Some product?",        ItemType.Generic, Rarity.Common)
+                new(0, "Debug Seed", "Variant of common",    ItemType.Seed, Rarity.Common, 0),
+                new(1, "Debug Seed", "Variant of uncommon",  ItemType.Seed, Rarity.Uncommon, 0),
+                new(2, "Debug Seed", "Variant of rare",      ItemType.Seed, Rarity.Rare, 0),
+                new(3, "Debug Seed", "Variant of legendary", ItemType.Seed, Rarity.Legendary, 0),
+                new(4, "Debug Item", "Some product?",        ItemType.Generic, Rarity.Common, -1)
             });
 
         public static Item FromID(int id)

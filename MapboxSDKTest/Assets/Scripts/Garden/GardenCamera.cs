@@ -1,3 +1,5 @@
+using Stateful.Managers;
+using Structs;
 using UnityEngine;
 
 namespace Garden
@@ -7,6 +9,7 @@ namespace Garden
         public float speed = 1;
         public GameObject plantSeedCanvas;
         public bool uiOpen;
+        public int lastSelectedGardenSpotID = -1;
     
         private Vector2 _previousPosition;
         private double _previousPinchDistance;
@@ -68,8 +71,22 @@ namespace Garden
                                     if (hit.transform.CompareTag("PlantSpot"))
                                     {
                                         PlantableSpot spot = hit.transform.GetComponent<PlantableSpot>();
-                                        Debug.Log(spot.ID);
-                                        plantSeedCanvas.SetActive(true);
+                                        lastSelectedGardenSpotID = spot.spotID;
+                                        
+                                        if(spot.state == GrowState.Vacant)
+                                            plantSeedCanvas.SetActive(true);
+
+                                        if (spot.needsWater)
+                                        {
+                                            spot.UserPoppedWaterPopup();
+                                            GardenSpotManager.OnPlantWater(lastSelectedGardenSpotID);
+                                        }
+
+                                        if (spot.harvestable)
+                                        {
+                                            spot.UserHarvestedPlant();
+                                            GardenSpotManager.OnPlantHarvested(lastSelectedGardenSpotID);
+                                        }
                                     }
                                 }
                             

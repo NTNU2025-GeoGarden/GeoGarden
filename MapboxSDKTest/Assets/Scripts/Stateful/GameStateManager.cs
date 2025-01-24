@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Structs;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +10,11 @@ namespace Stateful
 {
     public class GameStateManager : MonoBehaviour
     {
+        public delegate void DelegateInventoryEvent(int itemID);
+
+        public static DelegateInventoryEvent OnRemoveInventoryItem;
+        public static DelegateInventoryEvent OnAddInventoryItem;
+        
         [Header("Save data storage config")] [SerializeField]
         private string fileName;
         
@@ -35,6 +42,9 @@ namespace Stateful
                 _persistenceObjs = FindAllPersistenceObjs();
                 LoadGame();
             };
+
+            OnRemoveInventoryItem += RemoveInventoryItem;
+            OnAddInventoryItem    += AddInventoryItem;
         }
 
         public void Start()
@@ -51,26 +61,26 @@ namespace Stateful
         private void NewGame()
         {
             CurrentState = new GameState();
+            
+            /*TODO debug data - give the player some starting configuration, maybe through tutorial?
+                Player is given some amount of starting money and seeds
+                The player is taught to use the shop to buy the first spot to plant seeds
+                The player is then taught how to plant the seed
+            */
 
-            CurrentState.Inventory.Add((0, 1));
-            CurrentState.Inventory.Add((1, 1));
-            CurrentState.Inventory.Add((2, 1));
-            CurrentState.Inventory.Add((3, 1));
+            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 0, Amount = 1});
+            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 1, Amount = 2});
+            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 2, Amount = 1});
+            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 3, Amount = 1});
             
             CurrentState.GardenSpots.Add(new SerializableGardenSpot
             {
-                state = GrowState.Vacant,
-                seedID = 0
+                state = GrowState.Vacant
             });
         }
 
-        public void LoadGame()
+        private void LoadGame()
         {
-            // TODO
-            // Load today's map configuration -> if it hasn't been generated, then generate.
-            // --> Contains what nodes the user might have already visited
-            // Load gamestate
-
             CurrentState = _dataHandler.Load();
 
 
@@ -88,11 +98,8 @@ namespace Stateful
             }
         }
 
-        public void SaveGame()
+        private void SaveGame()
         {
-            // TODO - pass data to other scripts so they can update
-            // TODO - save using the data handler
-
             GameState currentState = CurrentState;
             foreach (IUsingGameState persistenceObj in _persistenceObjs)
             {
@@ -107,6 +114,50 @@ namespace Stateful
             IEnumerable<IUsingGameState> persistenceObjs = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IUsingGameState>();
             
             return new List<IUsingGameState>(persistenceObjs);
+        }
+
+        private void RemoveInventoryItem(int itemID)
+        {
+            int index = CurrentState.Inventory.FindIndex(x => x.Id == itemID);
+
+            if (index == -1)
+            {
+                Debug.LogError("Tried to remove an item from the inventory which the player doesn't have. This should never happen!");
+                return;
+            }
+            
+            SerializableInventoryEntry entry = CurrentState.Inventory[index];
+            entry.Amount--;
+            
+            if (entry.Amount <= 0)
+            {
+                CurrentState.Inventory.RemoveAt(index);
+            }
+            else
+            {
+                CurrentState.Inventory[index] = entry;
+            }
+        }
+        
+        private void AddInventoryItem(int itemID)
+        {
+            int index = CurrentState.Inventory.FindIndex(x => x.Id == itemID);
+
+            if (index == -1)
+            {
+                CurrentState.Inventory.Add(new SerializableInventoryEntry
+                {
+                    Id = itemID,
+                    Amount = 1
+                });
+            }
+            else
+            {
+                SerializableInventoryEntry entry = CurrentState.Inventory[index];
+                entry.Amount++;
+                
+                CurrentState.Inventory[index] = entry;
+            }
         }
     }
 }

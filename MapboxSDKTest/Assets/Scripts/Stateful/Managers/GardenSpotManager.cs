@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using Garden;
 using Structs;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Stateful.Managers
         public delegate void DelegatePlantSeed(int id, int seedID);
         public static DelegatePlantSeed OnPlantSeed;
 
-        public delegate void DelegatePlantInteraction(int spotID);
+        public delegate void DelegatePlantInteraction(PlantableSpot spot);
         public static DelegatePlantInteraction OnSeedTimeout;
         public static DelegatePlantInteraction OnPlantWater;
         public static DelegatePlantInteraction OnPlantHarvested;
@@ -34,6 +35,11 @@ namespace Stateful.Managers
         private void PlaceGardenSpots()
         {
             int count = 0;
+            
+            if(_inGameSpots != null)
+                foreach(PlantableSpot obj in _inGameSpots)
+                    Destroy(obj.gameObject);
+            
             _inGameSpots = new List<PlantableSpot>();
             
             foreach (SerializableGardenSpot spot in _serializedSpots)
@@ -133,36 +139,36 @@ namespace Stateful.Managers
             SetPlantableSpotData(updatedSerializedSpot, _inGameSpots[spotID]);
         }
         
-        private void SeedTimeOut(int spotID)
+        private void SeedTimeOut(PlantableSpot spot)
         {
-            _inGameSpots[spotID].perimeter.SetActive(true);
-            _inGameSpots[spotID].statusSymbolNeedsWater.SetActive(true);
-            _inGameSpots[spotID].statusSymbolTimer.gameObject.SetActive(false);
+            spot.perimeter.SetActive(true);
+            spot.statusSymbolNeedsWater.SetActive(true);
+            spot.statusSymbolTimer.gameObject.SetActive(false);
         }
 
-        private void PlantWatered(int spotID)
+        private void PlantWatered(PlantableSpot spot)
         {
-            SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spotID];
+            SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spot.spotID];
             updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddSeconds(5); //TODO get proper time
             updatedSerializedSpot.state += 1;
 
-            _serializedSpots[spotID] = updatedSerializedSpot;
+            _serializedSpots[spot.spotID] = updatedSerializedSpot;
             
-            SetPlantableSpotData(_serializedSpots[spotID], _inGameSpots[spotID]);
+            SetPlantableSpotData(_serializedSpots[spot.spotID], spot);
         }
 
-        private void PlantHarvested(int spotID)
+        private void PlantHarvested(PlantableSpot spot)
         {
-            SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spotID];
+            SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spot.spotID];
             updatedSerializedSpot.stateCompletionTime = DateTime.MinValue;
             updatedSerializedSpot.state = 0;
 
             GameStateManager.OnAddInventoryItem(Seeds.FromID(updatedSerializedSpot.seedID).ProductItemID);
             
             updatedSerializedSpot.seedID = 0;
-            _serializedSpots[spotID] = updatedSerializedSpot;
+            _serializedSpots[spot.spotID] = updatedSerializedSpot;
             
-            SetPlantableSpotData(_serializedSpots[spotID], _inGameSpots[spotID]);
+            SetPlantableSpotData(_serializedSpots[spot.spotID], spot);
         }
     }
 }

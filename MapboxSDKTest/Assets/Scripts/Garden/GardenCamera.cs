@@ -79,13 +79,13 @@ namespace Garden
                                         if (spot.needsWater)
                                         {
                                             spot.UserPoppedWaterPopup();
-                                            GardenSpotManager.OnPlantWater(lastSelectedGardenSpotID);
+                                            GardenSpotManager.OnPlantWater(spot);
                                         }
 
                                         if (spot.harvestable)
                                         {
                                             spot.UserHarvestedPlant();
-                                            GardenSpotManager.OnPlantHarvested(lastSelectedGardenSpotID);
+                                            GardenSpotManager.OnPlantHarvested(spot);
                                         }
                                     }
                                 }

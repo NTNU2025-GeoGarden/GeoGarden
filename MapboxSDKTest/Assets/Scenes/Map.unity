@@ -2948,7 +2948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   errorMessage: {fileID: 798131375}
-  errorButton: {fileID: 0}
+  errorButton: {fileID: 908373664}
   MapBehaviourCore: {fileID: 1316629399}
 --- !u!225 &1478520712
 CanvasGroup:

@@ -1,4 +1,5 @@
 using Map;
+using Stateful;
 using Stateful.Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,11 +14,13 @@ namespace UI
     
         public void HandleMapButtonClick()
         {
+            GameStateManager.OnForceSaveGame();
             SceneManager.LoadSceneAsync("Map");
         }
 
         public void HandleHomeButtonClick()
         {
+            GameStateManager.OnForceSaveGame();
             SceneManager.LoadSceneAsync("Home");
         }
 

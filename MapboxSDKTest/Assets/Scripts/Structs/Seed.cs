@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Mono.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Structs
 {
@@ -17,7 +17,7 @@ namespace Structs
 
     public abstract class Seeds
     {
-        private static List<Seed> _seedList = new(new Collection<Seed>()
+        private static List<Seed> _seedList = new(new Collection<Seed>
         {
             new(0, 4)
         });

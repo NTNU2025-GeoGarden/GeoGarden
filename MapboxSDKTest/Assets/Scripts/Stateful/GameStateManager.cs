@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Structs;
 using Unity.VisualScripting;
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,10 @@ namespace Stateful
 {
     public class GameStateManager : MonoBehaviour
     {
+        public delegate void ForceSaveGame();
+
+        public static ForceSaveGame OnForceSaveGame;
+        
         public delegate void DelegateInventoryEvent(int itemID);
 
         public static DelegateInventoryEvent OnRemoveInventoryItem;
@@ -47,6 +52,7 @@ namespace Stateful
 
             OnRemoveInventoryItem += RemoveInventoryItem;
             OnAddInventoryItem    += AddInventoryItem;
+            OnForceSaveGame       += SaveGame;
         }
 
         public void Start()
@@ -161,5 +167,6 @@ namespace Stateful
                 CurrentState.Inventory[index] = entry;
             }
         }
+        
     }
 }

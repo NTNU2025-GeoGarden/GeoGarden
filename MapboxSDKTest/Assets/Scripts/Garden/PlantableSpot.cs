@@ -43,7 +43,7 @@ namespace Garden
 
                 if (timeLeft < TimeSpan.Zero)
                 {
-                    GardenSpotManager.OnSeedTimeout(spotID);
+                    GardenSpotManager.OnSeedTimeout(this);
                     needsWater = true;
                 }
             }

@@ -14,11 +14,13 @@ namespace UI
     
         public void HandleMapButtonClick()
         {
+            GameStateManager.OnForceSaveGame();
             SceneManager.LoadSceneAsync("Map");
         }
 
         public void HandleHomeButtonClick()
         {
+            GameStateManager.OnForceSaveGame();
             SceneManager.LoadSceneAsync("Home");
         }
 

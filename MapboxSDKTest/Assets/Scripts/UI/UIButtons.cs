@@ -50,5 +50,11 @@ namespace UI
             PlantSeedUI.OnPlayerPlantedSeed();
             UICanvas.SetActive(false);
         }
+
+        public void HandleTryRestartMap()
+        {
+            SceneManager.LoadScene("Home");
+            SceneManager.LoadScene("Map");
+        }
     }
 }

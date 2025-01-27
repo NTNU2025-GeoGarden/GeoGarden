@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using Garden;
 using Structs;
 using UnityEngine;
@@ -11,7 +9,7 @@ namespace Stateful.Managers
 {
     public class GardenSpotManager : MonoBehaviour, IUsingGameState
     {
-        public delegate void DelegatePlantSeed(int id, int seedID);
+        public delegate void DelegatePlantSeed(PlantableSpot spot, int seedID);
         public static DelegatePlantSeed OnPlantSeed;
 
         public delegate void DelegatePlantInteraction(PlantableSpot spot);
@@ -79,7 +77,7 @@ namespace Stateful.Managers
             plantableSpot.statusSymbolNeedsWater.SetActive(false);
             plantableSpot.statusSymbolTimer.gameObject.SetActive(false);
             
-            switch(serializedSpot.state)
+            switch(plantableSpot.state)
             {
                 case GrowState.Vacant:
                     plantableSpot.perimeter.SetActive(true);
@@ -127,16 +125,16 @@ namespace Stateful.Managers
             state.GardenSpots = _serializedSpots;
         }
 
-        private void HandlePlantSeed(int spotID, int seedID)
+        private void HandlePlantSeed(PlantableSpot spot, int seedID)
         {
-            SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spotID];
+            SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spot.spotID];
             updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddSeconds(5); //TODO get proper time
             updatedSerializedSpot.state = GrowState.Seeded;
             updatedSerializedSpot.seedID = seedID;
 
-            _serializedSpots[spotID] = updatedSerializedSpot;
+            _serializedSpots[spot.spotID] = updatedSerializedSpot;
             
-            SetPlantableSpotData(updatedSerializedSpot, _inGameSpots[spotID]);
+            SetPlantableSpotData(updatedSerializedSpot, spot);
         }
         
         private void SeedTimeOut(PlantableSpot spot)

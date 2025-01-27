@@ -1076,8 +1076,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ef1af4dd8436f4b9af64afbccd0278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spotID: 0
-  seedID: 0
+  spotID: -1
+  seedID: -2
   needsWater: 0
   harvestable: 0
   state: 0

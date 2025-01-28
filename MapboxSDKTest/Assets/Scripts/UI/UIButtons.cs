@@ -9,9 +9,9 @@ namespace UI
     public class UIButtons : MonoBehaviour
     {
         public GameObject UICanvas;
-
+        public GameObject SecondaryUICanvas;
         public bool openCloseState;
-    
+        
         public void HandleMapButtonClick()
         {
             GameStateManager.OnForceSaveGame();
@@ -55,6 +55,12 @@ namespace UI
         {
             SceneManager.LoadScene("Home");
             SceneManager.LoadScene("Map");
+        }
+
+        public void HandleEditMode()
+        {
+            UICanvas.SetActive(false);
+            SecondaryUICanvas.SetActive(true);
         }
     }
 }

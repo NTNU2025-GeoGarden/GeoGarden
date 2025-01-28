@@ -2003,6 +2003,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
@@ -2330,6 +2334,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264475343720986315, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
@@ -3134,6 +3142,7 @@ GameObject:
   - component: {fileID: 501411010}
   - component: {fileID: 501411009}
   - component: {fileID: 501411008}
+  - component: {fileID: 501411011}
   m_Layer: 5
   m_Name: Scroll section
   m_TagString: Untagged
@@ -3231,6 +3240,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 501411006}
   m_CullTransparentMesh: 1
+--- !u!114 &501411011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501411006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80ea390c6b0a1f47a484742a860e263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UICanvas: {fileID: 0}
+  SecondaryUICanvas: {fileID: 0}
+  openCloseState: 0
 --- !u!1 &525679561
 GameObject:
   m_ObjectHideFlags: 0
@@ -6757,6 +6781,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
@@ -7522,6 +7550,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
@@ -7705,6 +7737,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
@@ -7813,6 +7849,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264475343720986315, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
@@ -8024,6 +8064,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pile
       objectReference: {fileID: 0}
+    - target: {fileID: 788859296623049924, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 419.00003
+      objectReference: {fileID: 0}
+    - target: {fileID: 788859296623049924, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.00012207031
+      objectReference: {fileID: 0}
     - target: {fileID: 1264475343720986315, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -8102,6 +8150,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264475343720986315, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
@@ -10267,6 +10319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 13
   plantSeedCanvas: {fileID: 256131434}
+  editModeCanvas: {fileID: 13114443}
   uiOpen: 0
   lastSelectedGardenSpot: {fileID: 0}
 --- !u!1 &1962584931

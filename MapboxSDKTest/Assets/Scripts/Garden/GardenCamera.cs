@@ -1,6 +1,7 @@
 using System;
 using Stateful.Managers;
 using Structs;
+using UI;
 using UnityEngine;
 
 namespace Garden
@@ -9,6 +10,7 @@ namespace Garden
     {
         public float speed = 1;
         public GameObject plantSeedCanvas;
+        public GameObject editModeCanvas;
         public bool uiOpen;
         public PlantableSpot lastSelectedGardenSpot;
     
@@ -38,7 +40,10 @@ namespace Garden
                         case TouchPhase.Moved:
                             Vector2 currentPosition = touch.position;
                             Vector2 delta = currentPosition - _previousPosition;
-                    
+                            
+                            if (editModeCanvas.activeSelf && currentPosition.y < 660)
+                                break;
+                            
                             transform.Translate(new Vector3((delta.y + delta.x) * speed * SCALE_FACTOR, 0f, (delta.y - delta.x) * speed * SCALE_FACTOR));
 
                             switch (transform.position.x)

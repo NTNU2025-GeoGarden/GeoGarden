@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class PlaceItemUI : MonoBehaviour
+    public class PlaceObjectUI : MonoBehaviour
     {
         public GameObject treeHolder;
         public GameObject fenceHolder;

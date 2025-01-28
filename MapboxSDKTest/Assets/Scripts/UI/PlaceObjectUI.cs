@@ -1,5 +1,6 @@
 using System;
 using Garden;
+using Stateful.Managers;
 using Structs;
 using TMPro;
 using UnityEngine;
@@ -8,6 +9,9 @@ namespace UI
 {
     public class PlaceObjectUI : MonoBehaviour
     {
+        public GameObject editableObjectPrefab;
+        public ObjectManager manager;
+        
         public GameObject treeHolder;
         public GameObject fenceHolder;
         public GameObject spotHolder;
@@ -17,7 +21,7 @@ namespace UI
         public GameObject woodPileHolder;
         public TMP_Text amountText;
         
-        public PlaceableObjectType type;
+        public EditableObjectType type;
         
         public int available;
         public int used;
@@ -26,25 +30,25 @@ namespace UI
         {
             switch(type)
             {
-                case PlaceableObjectType.Tree:
+                case EditableObjectType.Tree:
                     treeHolder.SetActive(true);
                     break;
-                case PlaceableObjectType.Fence:
+                case EditableObjectType.Fence:
                     fenceHolder.SetActive(true);
                     break;
-                case PlaceableObjectType.Spot:
+                case EditableObjectType.Spot:
                     spotHolder.SetActive(true);
                     break;
-                case PlaceableObjectType.Lantern:
+                case EditableObjectType.Lantern:
                     lanternHolder.SetActive(true);
                     break;
-                case PlaceableObjectType.Banner:
+                case EditableObjectType.Banner:
                     bannerHolder.SetActive(true);
                     break;
-                case PlaceableObjectType.Cart:
+                case EditableObjectType.Cart:
                     cartHolder.SetActive(true);
                     break;
-                case PlaceableObjectType.WoodPile:
+                case EditableObjectType.WoodPile:
                     woodPileHolder.SetActive(true);
                     break;
                 default:
@@ -60,8 +64,13 @@ namespace UI
             
             used++;
             amountText.text = $"{used}/{available}";
-            
-            Debug.Log($"{type} spawned");
+
+            EditableObject obj = Instantiate(editableObjectPrefab, manager.transform)
+                .GetComponent<EditableObject>();
+            obj.type = type;
+            obj.editControls.SetActive(true);
+            obj.ObjectID = manager.GetObjectCount();
+            manager.AddObject(obj);
         }
     }
 }

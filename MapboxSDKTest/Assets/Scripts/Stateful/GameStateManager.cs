@@ -27,6 +27,8 @@ namespace Stateful
         private List<IUsingGameState> _persistenceObjs;
         private FileDataHandler _dataHandler;
 
+        public static int GAMEDATA_VERSION = 1;
+
         private void Awake()
         {
             if (Instance != null)
@@ -73,6 +75,8 @@ namespace Stateful
                 The player is then taught how to plant the seed
             */
 
+            CurrentState.Version = GAMEDATA_VERSION;
+            
             CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 0, Amount = 1});
             CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 1, Amount = 2});
             CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 2, Amount = 1});
@@ -82,16 +86,34 @@ namespace Stateful
             {
                 state = GrowState.Vacant
             });
+            
+            CurrentState.Objects.Add(new SerializableObject
+            {
+                   X        = 0,
+                   Y        = 0,
+                   Z        = 0,
+                RotX        = 0,
+                RotY        = 0,
+                RotZ        = 0,
+                RotW        = 1,
+                Type     = EditableObjectType.Tree
+            });
         }
 
         private void LoadGame()
         {
             CurrentState = _dataHandler.Load();
 
-
             if (CurrentState == null)
             {
                 Debug.Log("No data. Initializing game state to default values.");
+                NewGame();
+            }
+            
+            if(CurrentState!.Version < GAMEDATA_VERSION)
+            {
+                Debug.Log("Save is incompatible. Regenerating.");
+                CurrentState = null;
                 NewGame();
             }
             

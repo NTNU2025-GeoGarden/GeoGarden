@@ -1,6 +1,6 @@
 namespace Structs
 {
-    public enum PlaceableObjectType
+    public enum EditableObjectType
     {
         Tree,
         Fence,
@@ -8,6 +8,6 @@ namespace Structs
         Lantern,
         Banner,
         Cart,
-        WoodPile,
+        WoodPile
     }
 }

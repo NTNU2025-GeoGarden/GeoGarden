@@ -18,15 +18,23 @@ namespace Garden
         private bool _tapped;
         private EditableObject _tappedEditableObj;
 
+        public ObjectManager objectManager;
+        
         private const float SCALE_FACTOR = 0.0001f;
-    
+        private Camera _mainCamera;
+
+        public void Start()
+        {
+            _mainCamera = Camera.main;
+        }
+
         private void Update()
         {
             if (Input.touchCount > 0)
             {
                 if (Input.touchCount != 1 || plantSeedCanvas.activeSelf)
                 {
-                
+                    
                 }
                 else
                 {
@@ -36,6 +44,7 @@ namespace Garden
                     {
                         case TouchPhase.Began:
                             _previousPosition = touch.position;
+                            
                             break;
                         case TouchPhase.Moved:
                             Vector2 currentPosition = touch.position;
@@ -44,16 +53,25 @@ namespace Garden
                             if (editModeCanvas.activeSelf && currentPosition.y < 660)
                                 break;
                             
-                            Vector3 movement = new Vector3((delta.y + delta.x) * speed * SCALE_FACTOR, 0f,
+                            Vector3 movement = new((delta.y + delta.x) * speed * SCALE_FACTOR, 0f,
                                 (delta.y - delta.x) * speed * SCALE_FACTOR);
-
                             
-                            Ray rayMoved = Camera.main!.ScreenPointToRay(touch.position);
+                            Ray rayMoved = _mainCamera.ScreenPointToRay(touch.position);
                             if (Physics.Raycast(rayMoved, out RaycastHit hitMoved, 1000))
                             {
                                 if (hitMoved.transform.CompareTag("EditableObjectDrag"))
                                 {
-                                    Debug.Log("MovedObj");
+                                    Transform objectToMove = hitMoved.transform.parent.parent.parent;
+                                    Vector3 distanceToFinger = hitMoved.point - hitMoved.transform.position;
+
+                                    Quaternion originalRotation = objectToMove.rotation;
+                                    objectToMove.rotation = Quaternion.identity;
+                                    objectToMove.Translate(new Vector3(distanceToFinger.x - distanceToFinger.y, 0, -distanceToFinger.x - distanceToFinger.y));
+                                    objectToMove.rotation = originalRotation;
+                                    
+                                    EditableObject objectHit = objectToMove.gameObject.GetComponent<EditableObject>();
+                                    objectManager.ObjectChanged(objectHit);
+                                    
                                     break;
                                 }
                             }
@@ -85,11 +103,10 @@ namespace Garden
                         case TouchPhase.Stationary:
                             if (!_tapped)
                             {
-                                Ray ray = Camera.main!.ScreenPointToRay(touch.position);
+                                Ray ray = _mainCamera.ScreenPointToRay(touch.position);
                                 
                                 if (Physics.Raycast(ray, out RaycastHit hit, 1000))
                                 {
-                                    
                                     if (!editModeCanvas.activeSelf && hit.transform.CompareTag("PlantSpot"))
                                     {
                                         PlantableSpot spot = hit.transform.GetComponent<PlantableSpot>();
@@ -120,13 +137,22 @@ namespace Garden
                                     }
                                     else
                                     {
-                                        if (!(hit.transform.CompareTag("EditableObjectDrag") 
-                                            || hit.transform.CompareTag("EditableObjectRot")
-                                            || hit.transform.CompareTag("EditableObjectDel")) && _tappedEditableObj != null)
+                                        if (hit.transform.CompareTag("EditableObjectRot"))
+                                        {
+                                            EditableObject obj = hit.transform.parent.parent.parent.GetComponent<EditableObject>();
+                                            obj.transform.Rotate(Vector3.up, 90);
+                                            obj.editControls.transform.Rotate(Vector3.up, -90);
+                                            objectManager.ObjectChanged(obj);
+                                        }
+                                        else if (hit.transform.CompareTag("EditableObjectRot"))
+                                        {
+                                            EditableObject obj = hit.transform.parent.parent.parent.GetComponent<EditableObject>();
+                                            objectManager.DeleteObject(obj);
+                                        }
+                                        else if (!hit.transform.CompareTag("EditableObjectDrag") && _tappedEditableObj != null)
                                         {
                                             _tappedEditableObj.editControls.SetActive(false);
                                             _tappedEditableObj = null;
-                                            
                                         }
                                     }
                                 }

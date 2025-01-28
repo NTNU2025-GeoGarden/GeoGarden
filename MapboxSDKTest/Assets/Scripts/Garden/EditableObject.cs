@@ -37,8 +37,8 @@ namespace Garden
                     fenceHolder.SetActive(true);
                     break;
                 case EditableObjectType.Spot:
-                    _boxCollider.center = new Vector3(0, -0.6f, 0);
-                    _boxCollider.size   = new Vector3(1.1f, 0.7f, 0.34f);
+                    _boxCollider.center = new Vector3(0, 0.32f, 0);
+                    _boxCollider.size   = new Vector3(1.1f, 0.07f, 0.94f);
                     spotHolder.SetActive(true);
                     break;
                 case EditableObjectType.Lantern:

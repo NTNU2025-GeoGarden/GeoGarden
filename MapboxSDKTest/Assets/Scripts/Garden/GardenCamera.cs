@@ -144,9 +144,11 @@ namespace Garden
                                             obj.editControls.transform.Rotate(Vector3.up, -90);
                                             objectManager.ObjectChanged(obj);
                                         }
-                                        else if (hit.transform.CompareTag("EditableObjectRot"))
+                                        else if (hit.transform.CompareTag("EditableObjectDel"))
                                         {
                                             EditableObject obj = hit.transform.parent.parent.parent.GetComponent<EditableObject>();
+                                            
+                                            Destroy(obj.gameObject);
                                             objectManager.DeleteObject(obj);
                                         }
                                         else if (!hit.transform.CompareTag("EditableObjectDrag") && _tappedEditableObj != null)

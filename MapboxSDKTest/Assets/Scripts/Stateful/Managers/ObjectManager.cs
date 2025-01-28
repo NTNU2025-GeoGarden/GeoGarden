@@ -84,8 +84,6 @@ namespace Stateful.Managers
 
         public void DeleteObject(EditableObject obj)
         {
-            Destroy(obj.gameObject);
-            
             _serializedObjects.RemoveAt(obj.ObjectID);
         }
 

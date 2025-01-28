@@ -9,11 +9,14 @@ namespace Stateful
         public List<SerializableGardenSpot> GardenSpots;
         public Dictionary<int, List<SerializableSpawner>> MapResources;
 
+        public int Coins;
+
         public GameState()
         {
             MapResources = new Dictionary<int, List<SerializableSpawner>>();
             GardenSpots = new List<SerializableGardenSpot>();
             Inventory = new List<SerializableInventoryEntry>();
+            Coins = 100;
         }
     }
 }

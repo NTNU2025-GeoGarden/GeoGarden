@@ -50,5 +50,10 @@ namespace UI
             PlantSeedUI.OnPlayerPlantedSeed();
             UICanvas.SetActive(false);
         }
+        
+        public void HandleSell(){
+            ShopUI.OnPlayerSoldItem();
+            Debug.Log("Item sold, but shop UI remains open.");
+        }
     }
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4331191721282137032}
   - component: {fileID: 8174513765973491937}
   m_Layer: 5
-  m_Name: PlaceableIcon
+  m_Name: PlaceableObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,8 +112,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8174513765973491937}
-        m_TargetAssemblyTypeName: UI.PlaceItemUI, Assembly-CSharp
-        m_MethodName: SelectThis
+        m_TargetAssemblyTypeName: UI.PlaceObjectUI, Assembly-CSharp
+        m_MethodName: CheckSpawnObject
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -182,7 +182,10 @@ MonoBehaviour:
   bannerHolder: {fileID: 5147011582914331542}
   cartHolder: {fileID: 4397180191181635414}
   woodPileHolder: {fileID: 4139820262670739899}
+  amountText: {fileID: 783048380123723999}
   type: 0
+  available: 5
+  used: 0
 --- !u!1 &1742122710625139093
 GameObject:
   m_ObjectHideFlags: 0

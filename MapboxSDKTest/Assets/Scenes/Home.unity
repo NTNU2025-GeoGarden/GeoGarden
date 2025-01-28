@@ -2003,10 +2003,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
@@ -2334,10 +2330,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264475343720986315, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
@@ -6781,10 +6773,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
@@ -7550,10 +7538,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
@@ -7737,10 +7721,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
@@ -7849,10 +7829,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264475343720986315, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}
@@ -8150,10 +8126,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264475343720986315, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3510691286019088033, guid: 152399a7b8f864375be486362c930a52, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5848407208388812638, guid: 152399a7b8f864375be486362c930a52, type: 3}

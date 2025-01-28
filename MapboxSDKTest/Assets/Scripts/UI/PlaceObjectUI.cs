@@ -1,6 +1,7 @@
 using System;
 using Garden;
 using Structs;
+using TMPro;
 using UnityEngine;
 
 namespace UI
@@ -14,8 +15,12 @@ namespace UI
         public GameObject bannerHolder;
         public GameObject cartHolder;
         public GameObject woodPileHolder;
+        public TMP_Text amountText;
         
         public PlaceableObjectType type;
+        
+        public int available;
+        public int used;
 
         public void Start()
         {
@@ -45,6 +50,18 @@ namespace UI
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            amountText.text = $"{used}/{available}";
+        }
+
+        public void CheckSpawnObject()
+        {
+            if (used >= available) return;
+            
+            used++;
+            amountText.text = $"{used}/{available}";
+            
+            Debug.Log($"{type} spawned");
         }
     }
 }

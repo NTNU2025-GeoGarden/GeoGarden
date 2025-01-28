@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - PlantSpot
+  - EditableObject
+  - EditableObjectDrag
+  - EditableObjectRot
+  - EditableObjectDel
   layers:
   - Default
   - TransparentFX

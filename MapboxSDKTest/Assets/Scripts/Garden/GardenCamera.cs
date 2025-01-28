@@ -1,7 +1,6 @@
 using System;
 using Stateful.Managers;
 using Structs;
-using UI;
 using UnityEngine;
 
 namespace Garden
@@ -17,6 +16,7 @@ namespace Garden
         private Vector2 _previousPosition;
         private double _previousPinchDistance;
         private bool _tapped;
+        private EditableObject _tappedEditableObj;
 
         private const float SCALE_FACTOR = 0.0001f;
     
@@ -24,7 +24,7 @@ namespace Garden
         {
             if (Input.touchCount > 0)
             {
-                if (Input.touchCount != 1 || uiOpen)
+                if (Input.touchCount != 1 || plantSeedCanvas.activeSelf)
                 {
                 
                 }
@@ -44,7 +44,21 @@ namespace Garden
                             if (editModeCanvas.activeSelf && currentPosition.y < 660)
                                 break;
                             
-                            transform.Translate(new Vector3((delta.y + delta.x) * speed * SCALE_FACTOR, 0f, (delta.y - delta.x) * speed * SCALE_FACTOR));
+                            Vector3 movement = new Vector3((delta.y + delta.x) * speed * SCALE_FACTOR, 0f,
+                                (delta.y - delta.x) * speed * SCALE_FACTOR);
+
+                            
+                            Ray rayMoved = Camera.main!.ScreenPointToRay(touch.position);
+                            if (Physics.Raycast(rayMoved, out RaycastHit hitMoved, 1000))
+                            {
+                                if (hitMoved.transform.CompareTag("EditableObjectDrag"))
+                                {
+                                    Debug.Log("MovedObj");
+                                    break;
+                                }
+                            }
+
+                            transform.Translate(movement);
 
                             switch (transform.position.x)
                             {
@@ -72,9 +86,11 @@ namespace Garden
                             if (!_tapped)
                             {
                                 Ray ray = Camera.main!.ScreenPointToRay(touch.position);
-                                if (Physics.Raycast(ray, out RaycastHit hit, 100))
+                                
+                                if (Physics.Raycast(ray, out RaycastHit hit, 1000))
                                 {
-                                    if (hit.transform.CompareTag("PlantSpot"))
+                                    
+                                    if (!editModeCanvas.activeSelf && hit.transform.CompareTag("PlantSpot"))
                                     {
                                         PlantableSpot spot = hit.transform.GetComponent<PlantableSpot>();
                                         lastSelectedGardenSpot = spot;
@@ -94,8 +110,36 @@ namespace Garden
                                             GardenSpotManager.OnPlantHarvested(spot);
                                         }
                                     }
+                                    
+                                    if (editModeCanvas.activeSelf && hit.transform.CompareTag("EditableObject"))
+                                    {
+                                        EditableObject obj = hit.transform.GetComponent<EditableObject>();
+                                        obj.editControls.SetActive(true);
+                                        
+                                        _tappedEditableObj = obj;
+                                    }
+                                    else
+                                    {
+                                        if (!(hit.transform.CompareTag("EditableObjectDrag") 
+                                            || hit.transform.CompareTag("EditableObjectRot")
+                                            || hit.transform.CompareTag("EditableObjectDel")) && _tappedEditableObj != null)
+                                        {
+                                            _tappedEditableObj.editControls.SetActive(false);
+                                            _tappedEditableObj = null;
+                                            
+                                        }
+                                    }
                                 }
-                            
+                                else
+                                {
+                                    if (_tappedEditableObj != null)
+                                    {
+                                        _tappedEditableObj.editControls.SetActive(false);
+                                        _tappedEditableObj = null;
+                                            
+                                    }
+                                }
+
                                 _tapped = true;
                             }
                             break;

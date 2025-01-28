@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4331191721282137032}
   - component: {fileID: 8174513765973491937}
   m_Layer: 5
-  m_Name: PlaceableObject
+  m_Name: EditableObjectIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

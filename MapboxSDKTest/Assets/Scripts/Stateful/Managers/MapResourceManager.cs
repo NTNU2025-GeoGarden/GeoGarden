@@ -78,6 +78,7 @@ namespace Stateful.Managers
             if (_mapResources == null || !_mapResources.ContainsKey(_todaysSeed))
             {
                 Debug.LogError("Map resources tried to generate, but today's seed is not found. This should never happen!");
+                LoadingScreen.OnLoadingError();
                 return;
             }
         

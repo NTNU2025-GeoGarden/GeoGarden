@@ -50,11 +50,14 @@ namespace UI
             PlantSeedUI.OnPlayerPlantedSeed();
             UICanvas.SetActive(false);
         }
-
+       
+        
+        public void HandleSell(){
+            ShopUI.OnPlayerSoldItem();
+        }
         public void HandleTryRestartMap()
         {
             SceneManager.LoadScene("Home");
-            SceneManager.LoadScene("Map");
-        }
+            SceneManager.LoadScene("Map");}
     }
 }

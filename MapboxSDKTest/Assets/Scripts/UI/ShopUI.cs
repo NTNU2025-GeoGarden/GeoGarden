@@ -26,6 +26,7 @@ public TextMeshProUGUI coinText;
         public void Start()
         {
             LoadData(GameStateManager.CurrentState);
+            UpdateCoinText();
             sellButton.interactable = false;
 
             sellButton.onClick.AddListener(SellSelectedItem);
@@ -101,6 +102,7 @@ public TextMeshProUGUI coinText;
                 GameStateManager.CurrentState.Coins += sellValue;
                 GameStateManager.OnRemoveInventoryItem(_selectedItem.Item.ID);
                 UpdateCoinText();
+                _selectedItem = null;
                 Debug.Log($"Coins gathered: {GameStateManager.CurrentState.Coins}");
                 OnPlayerSoldItem?.Invoke();
             }
@@ -108,7 +110,7 @@ public TextMeshProUGUI coinText;
 
         private void UpdateCoinText()
         {
-            coinText.text = $"Coins: {GameStateManager.CurrentState.Coins}";
+            coinText.text = $"{GameStateManager.CurrentState.Coins}";
         }
 
         private void ItemSold()

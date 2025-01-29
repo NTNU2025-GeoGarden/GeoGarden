@@ -54,7 +54,6 @@ namespace UI
         
         public void HandleSell(){
             ShopUI.OnPlayerSoldItem();
-            Debug.Log("Item sold, but shop UI remains open.");
         }
         public void HandleTryRestartMap()
         {

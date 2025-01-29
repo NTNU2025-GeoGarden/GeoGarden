@@ -8,20 +8,20 @@ namespace Garden
     public class GardenCamera : MonoBehaviour
     {
         public float speed = 1;
+        public ObjectManager objectManager;
         public GameObject plantSeedCanvas;
         public GameObject editModeCanvas;
         public bool uiOpen;
         public PlantableSpot lastSelectedGardenSpot;
     
+        private Camera _mainCamera;
         private Vector2 _previousPosition;
         private double _previousPinchDistance;
         private bool _tapped;
+        private bool _draggingEditableObj;
         private EditableObject _tappedEditableObj;
-
-        public ObjectManager objectManager;
         
         private const float SCALE_FACTOR = 0.0001f;
-        private Camera _mainCamera;
 
         public void Start()
         {
@@ -61,6 +61,7 @@ namespace Garden
                             {
                                 if (hitMoved.transform.CompareTag("EditableObjectDrag"))
                                 {
+                                    _draggingEditableObj = true;
                                     Transform objectToMove = hitMoved.transform.parent.parent.parent;
                                     Vector3 distanceToFinger = hitMoved.point - hitMoved.transform.position;
 
@@ -76,6 +77,9 @@ namespace Garden
                                 }
                             }
 
+                            if (_draggingEditableObj)
+                                break;
+                            
                             transform.Translate(movement);
 
                             switch (transform.position.x)
@@ -173,6 +177,7 @@ namespace Garden
                             break;
                         case TouchPhase.Ended:
                             _tapped = false;
+                            _draggingEditableObj = false;
                             break;
                         default:
                         case TouchPhase.Canceled:

@@ -44,8 +44,8 @@ namespace Stateful
                 
             SceneManager.sceneLoaded += (_, _) =>
             {
-                _dataHandler     = new FileDataHandler(Application.persistentDataPath, fileName);
-                _persistenceObjs = FindAllPersistenceObjs();
+                _dataHandler       = new FileDataHandler(Application.persistentDataPath, fileName);
+                _persistenceObjs   = FindAllPersistenceObjs();
                 LoadGame();
             };
 

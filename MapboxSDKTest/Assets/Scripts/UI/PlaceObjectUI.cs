@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using Garden;
+using Stateful;
 using Stateful.Managers;
 using Structs;
 using TMPro;
@@ -26,6 +28,8 @@ namespace UI
         public int available;
         public int used;
 
+        private GameState _state;
+        
         public void Start()
         {
             switch(type)
@@ -55,6 +59,11 @@ namespace UI
                     throw new ArgumentOutOfRangeException();
             }
 
+            foreach (SerializableObject obj in GameStateManager.CurrentState.Objects.Where(obj => obj.Type == type))
+            {
+                used++;
+            }
+            
             amountText.text = $"{used}/{available}";
         }
 
@@ -68,7 +77,7 @@ namespace UI
             EditableObject obj = Instantiate(editableObjectPrefab, manager.transform)
                 .GetComponent<EditableObject>();
             obj.type = type;
-            obj.editControls.SetActive(true);
+            obj.editControls.SetActive(false);
             obj.ObjectID = manager.GetObjectCount();
             manager.AddObject(obj);
         }

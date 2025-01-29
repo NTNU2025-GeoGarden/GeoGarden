@@ -84,7 +84,13 @@ namespace Stateful.Managers
 
         public void DeleteObject(EditableObject obj)
         {
+            for (int i = obj.ObjectID + 1; i < _dynamicObjects.Count; i++)
+            {
+                _dynamicObjects[i].ObjectID--;
+            }
+            
             _serializedObjects.RemoveAt(obj.ObjectID);
+            _dynamicObjects.RemoveAt(obj.ObjectID);
         }
 
         public int GetObjectCount()

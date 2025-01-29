@@ -32,8 +32,8 @@ namespace Stateful.Managers
                 instantiatedObj.type = obj.Type;
                 instantiatedObj.transform.localPosition = new Vector3(obj.X, obj.Y, obj.Z);
                 instantiatedObj.transform.rotation = new Quaternion(obj.RotX, obj.RotY, obj.RotZ, obj.RotW);
-                
-                //TODO fix rotation of edit buttons
+
+                instantiatedObj.editControls.transform.rotation = Quaternion.identity;
                 
                 instantiatedObj.ObjectID = count;
                 

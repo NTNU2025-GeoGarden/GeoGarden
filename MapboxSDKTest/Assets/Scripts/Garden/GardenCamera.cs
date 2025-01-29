@@ -8,7 +8,7 @@ namespace Garden
     public class GardenCamera : MonoBehaviour
     {
         public float speed = 1;
-        public GardenSpotManager gardenManager;
+        public GardenManager gardenManager;
         public ObjectManager objectManager;
         public GameObject plantSeedCanvas;
         public GameObject editModeCanvas;
@@ -134,13 +134,13 @@ namespace Garden
                                         if (spot.needsWater)
                                         {
                                             spot.UserPoppedWaterPopup();
-                                            GardenSpotManager.OnPlantWater(spot);
+                                            GardenManager.OnPlantWater(spot);
                                         }
 
                                         if (spot.harvestable)
                                         {
                                             spot.UserHarvestedPlant();
-                                            GardenSpotManager.OnPlantHarvested(spot);
+                                            GardenManager.OnPlantHarvested(spot);
                                         }
                                     }
                                     

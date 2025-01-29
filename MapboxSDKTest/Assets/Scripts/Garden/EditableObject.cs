@@ -17,6 +17,7 @@ namespace Garden
         public GameObject pileHolder;
         
         public GameObject editControls;
+        public PlantableSpot spot;
         public EditableObjectType type;
 
         private BoxCollider _boxCollider;

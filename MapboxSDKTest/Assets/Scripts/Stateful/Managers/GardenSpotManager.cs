@@ -18,7 +18,8 @@ namespace Stateful.Managers
         public static DelegatePlantInteraction OnPlantHarvested;
         
         public int gardenDepth = 4;
-        [FormerlySerializedAs("gardenSpot")] public PlantableSpot plantableSpot;
+        public ObjectManager manager;
+        public EditableObject moveableObject;
         private List<SerializableGardenSpot> _serializedSpots;
         private List<PlantableSpot> _inGameSpots;
 
@@ -42,16 +43,21 @@ namespace Stateful.Managers
             
             foreach (SerializableGardenSpot spot in _serializedSpots)
             {
-                PlantableSpot newSpot = Instantiate(plantableSpot, transform);
+                EditableObject newObj = Instantiate(moveableObject, manager.transform);
+                newObj.type = EditableObjectType.Spot;
+                
+                PlantableSpot newSpot = newObj.spot;
                 _inGameSpots.Add(newSpot);
 
                 int row = (int)Math.Floor((float)count / gardenDepth);
-            
-                newSpot.transform.localPosition = new Vector3(
+                
+                
+                
+                /*newSpot.transform.localPosition = new Vector3(
                     0.3f + 0.8f * row, 
                     0, 
                     0.3f + 0.8f * (count - row * gardenDepth)
-                );
+                );*/
             
                 newSpot.spotID = count;
                 

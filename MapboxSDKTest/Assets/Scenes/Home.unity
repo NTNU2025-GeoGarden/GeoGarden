@@ -1621,7 +1621,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gardenDepth: 4
-  plantableSpot: {fileID: 2387319623136501101, guid: 292f07eb3ba449b46a26c0b3092cb3b3, type: 3}
+  manager: {fileID: 668983699}
+  moveableObject: {fileID: 7113347489546205447, guid: 496103af52bed9a48bafd59b86a9b55f, type: 3}
 --- !u!1 &251788754
 GameObject:
   m_ObjectHideFlags: 0
@@ -10423,11 +10424,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 13
+  objectManager: {fileID: 668983699}
   plantSeedCanvas: {fileID: 256131434}
   editModeCanvas: {fileID: 13114443}
   uiOpen: 0
   lastSelectedGardenSpot: {fileID: 0}
-  objectManager: {fileID: 668983699}
 --- !u!1 &1962584931
 GameObject:
   m_ObjectHideFlags: 0
@@ -11226,6 +11227,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1186701935}
   - {fileID: 1918738629}
   - {fileID: 798553359}
   - {fileID: 15836263}
@@ -11233,5 +11235,4 @@ SceneRoots:
   - {fileID: 1614431140}
   - {fileID: 1505575666}
   - {fileID: 251653661}
-  - {fileID: 1186701935}
   - {fileID: 668983698}

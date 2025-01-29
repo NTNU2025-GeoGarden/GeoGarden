@@ -56,8 +56,9 @@ namespace Stateful.Managers
                 EditableObject newObj = Instantiate(editableObjectPrefab, transform);
                 newObj.type = EditableObjectType.Spot;
                 newObj.transform.localPosition = new Vector3(spot.X, spot.Y, spot.Z);
-                _objects.Add(newObj);
+                newObj.editControls.transform.Translate(new Vector3(0, -1, 0));
                 
+                _objects.Add(newObj);
                 
                 PlantableSpot newSpot = newObj.spot;
                 _inGameSpots.Add(newSpot);

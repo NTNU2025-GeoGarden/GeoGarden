@@ -106,7 +106,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9999998, y: 1, z: 0.1}
+  m_Size: {x: 1, y: 1, z: 0.1}
   m_Center: {x: 0, y: -0.00000047683716, z: 0}
 --- !u!1 &1161885178512589876
 GameObject:
@@ -666,6 +666,8 @@ MonoBehaviour:
   bannerHolder: {fileID: 1726552014379109501}
   cartHolder: {fileID: 7993858644804857522}
   pileHolder: {fileID: 1303246635836513656}
+  deleteButton: {fileID: 8509173011954554733}
+  rotationButton: {fileID: 7942209335205237320}
   editControls: {fileID: 1161885178512589876}
   spot: {fileID: 8069071580580314305}
   type: 0

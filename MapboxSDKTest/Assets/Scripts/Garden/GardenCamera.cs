@@ -21,6 +21,7 @@ namespace Garden
         private bool _tapped;
         private bool _draggingEditableObj;
         private EditableObject _tappedEditableObj;
+        private BoxCollider _tappedButton;
         
         private const float SCALE_FACTOR = 0.0001f;
 
@@ -63,6 +64,8 @@ namespace Garden
                                 if (hitMoved.transform.CompareTag("EditableObjectDrag"))
                                 {
                                     _draggingEditableObj = true;
+                                    _tappedButton = hitMoved.transform.GetComponent<BoxCollider>();
+                                    _tappedButton.size = new Vector3(10, 10, 0.1f);
                                     Transform objectToMove = hitMoved.transform.parent.parent.parent;
                                     Vector3 distanceToFinger = hitMoved.point - hitMoved.transform.position;
 
@@ -77,7 +80,7 @@ namespace Garden
                                     {
                                         gardenManager.ObjectChanged(objectHit);
                                     }
-                                        else
+                                    else
                                     {
                                         objectManager.ObjectChanged(objectHit);
                                     }
@@ -143,6 +146,9 @@ namespace Garden
                                     
                                     if (editModeCanvas.activeSelf && hit.transform.CompareTag("EditableObject"))
                                     {
+                                        if(_tappedEditableObj != null)
+                                            _tappedEditableObj.editControls.SetActive(false);
+                                        
                                         EditableObject obj = hit.transform.GetComponent<EditableObject>();
                                         obj.editControls.SetActive(true);
                                         
@@ -164,20 +170,6 @@ namespace Garden
                                             Destroy(obj.gameObject);
                                             objectManager.DeleteObject(obj);
                                         }
-                                        else if (!hit.transform.CompareTag("EditableObjectDrag") && _tappedEditableObj != null)
-                                        {
-                                            _tappedEditableObj.editControls.SetActive(false);
-                                            _tappedEditableObj = null;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    if (_tappedEditableObj != null)
-                                    {
-                                        _tappedEditableObj.editControls.SetActive(false);
-                                        _tappedEditableObj = null;
-                                            
                                     }
                                 }
 
@@ -187,6 +179,9 @@ namespace Garden
                         case TouchPhase.Ended:
                             _tapped = false;
                             _draggingEditableObj = false;
+                            
+                            if(_tappedButton != null)
+                                _tappedButton.size = new Vector3(1, 1, 0.1f);
                             break;
                         default:
                         case TouchPhase.Canceled:

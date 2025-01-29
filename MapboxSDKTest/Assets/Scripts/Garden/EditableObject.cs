@@ -15,7 +15,9 @@ namespace Garden
         public GameObject bannerHolder;
         public GameObject cartHolder;
         public GameObject pileHolder;
-        
+
+        public GameObject deleteButton;
+        public GameObject rotationButton;
         public GameObject editControls;
         public PlantableSpot spot;
         public EditableObjectType type;
@@ -41,6 +43,8 @@ namespace Garden
                     _boxCollider.center = new Vector3(0, 0.32f, 0);
                     _boxCollider.size   = new Vector3(1.1f, 0.07f, 0.94f);
                     spotHolder.SetActive(true);
+                    deleteButton.SetActive(false);
+                    rotationButton.SetActive(false);
                     break;
                 case EditableObjectType.Lantern:
                     _boxCollider.center = new Vector3(0, 0.7f, 0);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Garden;
+using Structs;
 using UnityEditor;
 using UnityEngine;
 
@@ -88,6 +89,8 @@ namespace Stateful.Managers
             {
                 _dynamicObjects[i].ObjectID--;
             }
+            
+            Debug.Log($"Tried to remove {obj}");
             
             _serializedObjects.RemoveAt(obj.ObjectID);
             _dynamicObjects.RemoveAt(obj.ObjectID);

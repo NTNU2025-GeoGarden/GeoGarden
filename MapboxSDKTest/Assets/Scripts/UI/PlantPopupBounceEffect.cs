@@ -8,12 +8,12 @@ public class PlantPopupBounceEffect : MonoBehaviour
     
     void Start()
     {
-        _basePosition = transform.position;
+        _basePosition = transform.localPosition;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position = new Vector3(_basePosition.x, _basePosition.y - (float)Math.Sin(Time.time) * Time.deltaTime * speed, _basePosition.z);
+        transform.localPosition = new Vector3(_basePosition.x, _basePosition.y, _basePosition.z + (float)Math.Sin(Time.time) * Time.deltaTime * speed);
     }
 }

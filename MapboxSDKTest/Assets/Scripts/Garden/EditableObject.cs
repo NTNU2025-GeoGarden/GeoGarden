@@ -65,7 +65,6 @@ namespace Garden
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
         }
     }
 }

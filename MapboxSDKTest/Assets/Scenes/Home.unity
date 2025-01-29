@@ -1602,7 +1602,7 @@ Transform:
   m_GameObject: {fileID: 251653660}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.218, y: 0.566, z: -1.377}
+  m_LocalPosition: {x: -1.218, y: 0.3, z: -1.377}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1620,9 +1620,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4247a16985b4fcc438158fe88b9570db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gardenDepth: 4
-  manager: {fileID: 668983699}
-  moveableObject: {fileID: 7113347489546205447, guid: 496103af52bed9a48bafd59b86a9b55f, type: 3}
+  editUI: {fileID: 13114443}
+  editableObjectPrefab: {fileID: 7113347489546205447, guid: 496103af52bed9a48bafd59b86a9b55f, type: 3}
 --- !u!1 &251788754
 GameObject:
   m_ObjectHideFlags: 0
@@ -10424,6 +10423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 13
+  gardenManager: {fileID: 251653662}
   objectManager: {fileID: 668983699}
   plantSeedCanvas: {fileID: 256131434}
   editModeCanvas: {fileID: 13114443}

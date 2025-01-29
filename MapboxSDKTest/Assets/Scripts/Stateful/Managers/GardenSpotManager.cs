@@ -16,10 +16,14 @@ namespace Stateful.Managers
         public static DelegatePlantInteraction OnSeedTimeout;
         public static DelegatePlantInteraction OnPlantWater;
         public static DelegatePlantInteraction OnPlantHarvested;
-        
-        public int gardenDepth = 4;
-        public ObjectManager manager;
-        public EditableObject moveableObject;
+
+        public delegate void DelegateEditUIChanged();
+
+        public static DelegateEditUIChanged OnEditUIChange;
+
+        public GameObject editUI;
+        public EditableObject editableObjectPrefab;
+        private List<EditableObject> _objects;
         private List<SerializableGardenSpot> _serializedSpots;
         private List<PlantableSpot> _inGameSpots;
 
@@ -29,6 +33,7 @@ namespace Stateful.Managers
             OnSeedTimeout    += SeedTimeOut;
             OnPlantWater     += PlantWatered;
             OnPlantHarvested += PlantHarvested;
+            OnEditUIChange += EditUIChanged;
         }
 
         private void PlaceGardenSpots()
@@ -41,32 +46,50 @@ namespace Stateful.Managers
             
             _inGameSpots = new List<PlantableSpot>();
             
+            if(_objects != null)
+                _objects.Clear();
+            else
+                _objects = new List<EditableObject>();
+            
             foreach (SerializableGardenSpot spot in _serializedSpots)
             {
-                EditableObject newObj = Instantiate(moveableObject, manager.transform);
+                EditableObject newObj = Instantiate(editableObjectPrefab, transform);
                 newObj.type = EditableObjectType.Spot;
+                newObj.transform.localPosition = new Vector3(spot.X, spot.Y, spot.Z);
+                _objects.Add(newObj);
+                
                 
                 PlantableSpot newSpot = newObj.spot;
                 _inGameSpots.Add(newSpot);
-
-                int row = (int)Math.Floor((float)count / gardenDepth);
                 
-                
-                
-                /*newSpot.transform.localPosition = new Vector3(
-                    0.3f + 0.8f * row, 
-                    0, 
-                    0.3f + 0.8f * (count - row * gardenDepth)
-                );*/
-            
                 newSpot.spotID = count;
-                
                 SetPlantableSpotData(spot, newSpot);
 
+                newObj.GetComponent<BoxCollider>().enabled = false;
+                
                 count++;
             }
         }
 
+        public void ObjectChanged(EditableObject obj)
+        {
+            SerializableGardenSpot updatedSerializedObj = _serializedSpots[obj.spot.spotID];
+            updatedSerializedObj.X = obj.transform.localPosition.x;
+            updatedSerializedObj.Y = obj.transform.localPosition.y;
+            updatedSerializedObj.Z = obj.transform.localPosition.z;
+
+            _serializedSpots[obj.spot.spotID] = updatedSerializedObj;
+            
+        }
+
+        private void EditUIChanged()
+        {
+            foreach (EditableObject obj in _objects)
+            {
+                obj.GetComponent<BoxCollider>().enabled = editUI.activeSelf;
+            }
+        }
+        
         private static void SetPlantableSpotData(SerializableGardenSpot serializedSpot, PlantableSpot plantableSpot)
         {
             plantableSpot.completionTime = serializedSpot.stateCompletionTime;;

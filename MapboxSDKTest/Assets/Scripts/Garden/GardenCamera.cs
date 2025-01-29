@@ -8,6 +8,7 @@ namespace Garden
     public class GardenCamera : MonoBehaviour
     {
         public float speed = 1;
+        public GardenSpotManager gardenManager;
         public ObjectManager objectManager;
         public GameObject plantSeedCanvas;
         public GameObject editModeCanvas;
@@ -71,7 +72,15 @@ namespace Garden
                                     objectToMove.rotation = originalRotation;
                                     
                                     EditableObject objectHit = objectToMove.gameObject.GetComponent<EditableObject>();
-                                    objectManager.ObjectChanged(objectHit);
+                                    
+                                    if (objectHit.type == EditableObjectType.Spot)
+                                    {
+                                        gardenManager.ObjectChanged(objectHit);
+                                    }
+                                        else
+                                    {
+                                        objectManager.ObjectChanged(objectHit);
+                                    }
                                     
                                     break;
                                 }

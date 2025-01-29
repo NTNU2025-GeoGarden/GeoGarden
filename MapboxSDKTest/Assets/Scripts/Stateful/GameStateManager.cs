@@ -27,7 +27,7 @@ namespace Stateful
         private List<IUsingGameState> _persistenceObjs;
         private FileDataHandler _dataHandler;
 
-        public static int GAMEDATA_VERSION = 1;
+        public static int GAMEDATA_VERSION = 2;
 
         private void Awake()
         {
@@ -84,7 +84,10 @@ namespace Stateful
             
             CurrentState.GardenSpots.Add(new SerializableGardenSpot
             {
-                state = GrowState.Vacant
+                state = GrowState.Vacant,
+                X = 0.3f,
+                Y = 0,
+                Z = 0.3f
             });
             
             CurrentState.Objects.Add(new SerializableObject

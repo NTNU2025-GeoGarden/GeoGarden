@@ -5,7 +5,7 @@ using Stateful.Managers;
 using Structs;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; 
+using TMPro;
 
 namespace UI
 {
@@ -15,10 +15,9 @@ namespace UI
         public static PlayerSoldItem OnPlayerSoldItem;
 
         public ItemIcon baseItem;
-        public Button sellButton;   
-        
-public TextMeshProUGUI coinText;
-
+        public ItemIcon previewItem;
+        public Button sellButton;
+        public TextMeshProUGUI coinText;
 
         private List<ItemIcon> _inventoryUIitems;
         private InventoryItem _selectedItem;
@@ -28,10 +27,11 @@ public TextMeshProUGUI coinText;
             LoadData(GameStateManager.CurrentState);
             UpdateCoinText();
             sellButton.interactable = false;
-
+            
             sellButton.onClick.AddListener(SellSelectedItem);
-
             OnPlayerSoldItem += ItemSold;
+
+            previewItem.gameObject.SetActive(false);
         }
 
         public void LoadData(GameState state)
@@ -43,7 +43,6 @@ public TextMeshProUGUI coinText;
                 {
                     Destroy(obj.gameObject);
                 }
-
                 _inventoryUIitems.Clear();
             }
             else
@@ -65,9 +64,8 @@ public TextMeshProUGUI coinText;
             }
         }
 
-        public void SaveData(ref GameState state)
-        {
-        }
+        public void SaveData(ref GameState state) { }
+
         public void HandleCallbackFromItem(InventoryItem item)
         {
             // Check if item is valid
@@ -76,6 +74,7 @@ public TextMeshProUGUI coinText;
                 Debug.LogError("InventoryItem or its Item property is null.");
                 sellButton.interactable = false; // Disable sell button
                 _selectedItem = null;
+                previewItem.gameObject.SetActive(false);
                 return;
             }
 
@@ -86,23 +85,26 @@ public TextMeshProUGUI coinText;
                 return;
             }
 
-            // Enable sell button if the item is valid
+            // Enable sell button and update preview item
             sellButton.interactable = true;
             _selectedItem = item;
-
-            Debug.Log($"Selected item for sale: {item.Item.Name}, Value: {item.Item.Value} coins.");
+            previewItem.gameObject.SetActive(true);
+            previewItem.DisplayedItem = item;
+            previewItem.DisplayedItem.Amount = 1;
+            previewItem.UpdateInformation();
         }
 
         private void SellSelectedItem()
         {   
-          
             if (_selectedItem != null)
             {
-                int sellValue = _selectedItem.Item.Value; // Assuming `Value` represents the value of one seed
+                int sellValue = _selectedItem.Item.Value;
                 GameStateManager.CurrentState.Coins += sellValue;
                 GameStateManager.OnRemoveInventoryItem(_selectedItem.Item.ID);
                 UpdateCoinText();
                 _selectedItem = null;
+                previewItem.gameObject.SetActive(false);
+                sellButton.interactable = false;
                 Debug.Log($"Coins gathered: {GameStateManager.CurrentState.Coins}");
                 OnPlayerSoldItem?.Invoke();
             }
@@ -117,6 +119,12 @@ public TextMeshProUGUI coinText;
         {
             LoadData(GameStateManager.CurrentState);
         }
+
+        private void OnDisable()
+        {
+            previewItem.gameObject.SetActive(false);
+            sellButton.interactable = false;
+            _selectedItem = null;
+        }
     }
 }
-

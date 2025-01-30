@@ -27,17 +27,17 @@ namespace Stateful
         private List<IUsingGameState> _persistenceObjs;
         private FileDataHandler _dataHandler;
 
-        public static int GAMEDATA_VERSION = 2;
+        private static int GAMEDATA_VERSION = 2;
 
         private void Awake()
         {
             if (Instance != null)
             {
-                Debug.Log($"<color=orange>[GameStateManager] Already present in scene. Removing duplicate instance</color>");
+                Debug.Log("<color=lime>[GameStateManager] Already present in scene. Removing duplicate instance</color>");
                 Destroy(gameObject);
                 return;
             }
-
+            
             Instance = this;
             DontDestroyOnLoad(this);
 
@@ -45,7 +45,7 @@ namespace Stateful
                 
             SceneManager.activeSceneChanged += (_, _) =>
             {
-                Debug.Log($"<color=orange>[GameStateManager] Scene load triggering game load</color>");
+                Debug.Log("<color=lime>[GameStateManager] Scene load triggering game load</color>");
                 _dataHandler       = new FileDataHandler(Application.persistentDataPath, fileName);
                 _persistenceObjs   = FindAllPersistenceObjs();
                 LoadGame();
@@ -55,7 +55,7 @@ namespace Stateful
             OnAddInventoryItem    += AddInventoryItem;
             OnForceSaveGame       += () =>
             {
-                Debug.Log($"<color=orange>[GameStateManager] Force saving!</color>");
+                Debug.Log("<color=lime>[GameStateManager] Forcefully saving data</color>");
                 SaveGame();
             };
         }
@@ -68,11 +68,13 @@ namespace Stateful
 
         public void OnApplicationQuit()
         {
+            Debug.Log("<color=lime>[GameStateManager] Saving due to application exit</color>");
             SaveGame();
         }
 
         private void NewGame()
         {
+            Debug.Log("<color=lime>[GameStateManager] Generating new game data</color>");
             CurrentState = new GameState();
             
             /*TODO debug data - give the player some starting configuration, maybe through tutorial?
@@ -111,7 +113,7 @@ namespace Stateful
 
         private void LoadGame()
         {
-            Debug.Log("<color=cyan>[GameStateManager] Loading game data</color>");
+            Debug.Log("<color=cyan>[GameStateManager] Loading data</color>");
             
             CurrentState = _dataHandler.Load();
 
@@ -138,7 +140,7 @@ namespace Stateful
 
         private void SaveGame()
         {
-            Debug.Log("<color=cyan>[GameStateManager] Saving game data</color>");
+            Debug.Log("<color=cyan>[GameStateManager] Saving data</color>");
             GameState currentState = CurrentState;
             foreach (IUsingGameState persistenceObj in _persistenceObjs)
             {
@@ -157,7 +159,7 @@ namespace Stateful
 
         private void RemoveInventoryItem(int itemID)
         {
-            Debug.Log($"<color=cyan>[GameStateManager] Removing itemID {itemID} from inventory</color>");
+            Debug.Log($"<color=lime>[GameStateManager] Removing item (ID {itemID}) from inventory</color>");
             int index = CurrentState.Inventory.FindIndex(x => x.Id == itemID);
 
             if (index == -1)
@@ -181,7 +183,7 @@ namespace Stateful
         
         private void AddInventoryItem(int itemID)
         {
-            Debug.Log($"<color=cyan>[GameStateManager] Adding itemID {itemID} to inventory</color>");
+            Debug.Log($"<color=lime>[GameStateManager] Adding item (ID {itemID}) to inventory</color>");
             int index = CurrentState.Inventory.FindIndex(x => x.Id == itemID);
 
             if (index == -1)

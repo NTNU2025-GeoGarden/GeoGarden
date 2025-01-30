@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Stateful
 {
@@ -38,7 +39,8 @@ namespace Stateful
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Load failed. Check {fullPath} and error message: {e}");
+                    Debug.Log("<color=red>[FileDataHandler] Error when loading from file.</color>");
+                    Debug.LogError(e);
                     throw;
                 }
             }
@@ -49,7 +51,6 @@ namespace Stateful
         public void Save(GameState state)
         {
             string fullPath = Path.Combine(saveDataDirPath, saveDataFileName);
-
             try
             {
                 // Create dir if it doesnt exist
@@ -70,7 +71,8 @@ namespace Stateful
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Save failed. Check {fullPath} and error message: {e}");
+                Debug.Log("<color=red>[FileDataHandler] Error when saving data to file.</color>");
+                Debug.LogError(e);
                 throw;
             }
         }

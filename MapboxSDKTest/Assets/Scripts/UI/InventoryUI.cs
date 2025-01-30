@@ -54,7 +54,6 @@ namespace UI
 
         public void HandleCallbackFromItem(InventoryItem item)
         {
-            Debug.Log("Got called");
         }
 
         private void OnEnable()

@@ -20,7 +20,7 @@ namespace Stateful.Managers
         
         private void GenerateInGameObjects()
         {
-            Debug.Log("<color=cyan>[ObjectManager] Generating in-game objects</color>");
+            Debug.Log("<color=lime>[ObjectManager] Generating editable objects</color>");
             
             if (_dynamicObjects == null)
                 _dynamicObjects = new List<EditableObject>();
@@ -53,6 +53,7 @@ namespace Stateful.Managers
         
         public void LoadData(GameState state)
         {
+            Debug.Log("<color=cyan>[ObjectManager] Loading data</color>");
             _serializedObjects = state.Objects;
             
             GenerateInGameObjects();
@@ -60,11 +61,13 @@ namespace Stateful.Managers
 
         public void SaveData(ref GameState state)
         {
+            Debug.Log("<color=cyan>[ObjectManager] Saving data</color>");
             state.Objects = _serializedObjects;
         }
 
         public void AddObject(EditableObject editableObject)
         {
+            Debug.Log("<color=lime>[ObjectManager] Adding object</color>");
             _serializedObjects.Add(new SerializableObject
             {
                 Type = editableObject.type,
@@ -100,6 +103,7 @@ namespace Stateful.Managers
 
         public void DeleteObject(EditableObject obj)
         {
+            Debug.Log("<color=lime>[ObjectManager] Deleting object</color>");
             for (int i = obj.ObjectID + 1; i < _dynamicObjects.Count; i++)
             {
                 _dynamicObjects[i].ObjectID--;

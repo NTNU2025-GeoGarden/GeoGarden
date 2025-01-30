@@ -44,6 +44,7 @@ namespace Stateful.Managers
 
         private void PlaceGardenSpots()
         {
+            Debug.Log("<color=lime>[GardenManager] Generating growing spots</color>");
             int count = 0;
             
             if(_inGameSpots != null)
@@ -88,17 +89,11 @@ namespace Stateful.Managers
 
             _serializedSpots[obj.spot.spotID] = updatedSerializedObj;
         }
-
-        private void EditUIChanged()
-        {
-            foreach (EditableObject obj in _objects)
-            {
-                obj.GetComponent<BoxCollider>().enabled = editUI.activeSelf;
-            }
-        }
         
         private static void SetPlantableSpotData(SerializableGardenSpot serializedSpot, PlantableSpot plantableSpot)
         {
+            Debug.Log($"<color=lime>[GardenManager] Updating spot data (ID {plantableSpot.spotID})</color>");
+            
             plantableSpot.completionTime = serializedSpot.stateCompletionTime;
             plantableSpot.state = serializedSpot.state;
             plantableSpot.seedID = serializedSpot.seedID;
@@ -158,17 +153,20 @@ namespace Stateful.Managers
 
         public void LoadData(GameState state)
         {
+            Debug.Log("<color=cyan>[GardenManager] Loading data</color>");
             _serializedSpots = state.GardenSpots;
             PlaceGardenSpots();
         }
 
         public void SaveData(ref GameState state)
         {
+            Debug.Log("<color=cyan>[GardenManager] Saving data</color>");
             state.GardenSpots = _serializedSpots;
         }
 
         private void HandlePlantSeed(PlantableSpot spot, int seedID)
         {
+            Debug.Log($"<color=lime>[GardenManager] Planting a seed (ID {seedID}) in spot (ID {spot.spotID})</color>");
             SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spot.spotID];
             updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddSeconds(5); //TODO get proper time
             updatedSerializedSpot.state = GrowState.Seeded;
@@ -188,6 +186,7 @@ namespace Stateful.Managers
 
         private void PlantWatered(PlantableSpot spot)
         {
+            Debug.Log($"<color=lime>[GardenManager] Watered spot (ID {spot.spotID})</color>");
             SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spot.spotID];
             updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddSeconds(5); //TODO get proper time
             updatedSerializedSpot.state += 1;
@@ -199,6 +198,8 @@ namespace Stateful.Managers
 
         private void PlantHarvested(PlantableSpot spot)
         {
+            Debug.Log($"<color=lime>[GardenManager] Harvested spot (ID {spot.spotID})</color>");
+            
             SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spot.spotID];
             updatedSerializedSpot.stateCompletionTime = DateTime.MinValue;
             updatedSerializedSpot.state = 0;

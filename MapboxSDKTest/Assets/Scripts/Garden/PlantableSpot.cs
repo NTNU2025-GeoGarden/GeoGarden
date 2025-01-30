@@ -62,7 +62,11 @@ namespace Garden
         public void UserHarvestedPlant()
         {
             _audioSource.PlayOneShot(waterPopSoundEffect);
+
             harvestable = false;
         }
+
+
+
     }
 }

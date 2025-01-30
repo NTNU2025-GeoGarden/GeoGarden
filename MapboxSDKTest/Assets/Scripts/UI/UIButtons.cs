@@ -1,4 +1,3 @@
-using Garden;
 using Map;
 using Stateful;
 using Stateful.Managers;
@@ -51,7 +50,11 @@ namespace UI
             PlantSeedUI.OnPlayerPlantedSeed();
             UICanvas.SetActive(false);
         }
-
+        
+        public void HandleSell(){
+            ShopUI.OnPlayerSoldItem();
+        }
+        
         public void HandleTryRestartMap()
         {
             SceneManager.LoadScene("Home");

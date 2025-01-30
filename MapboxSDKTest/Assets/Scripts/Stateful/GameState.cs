@@ -11,6 +11,8 @@ namespace Stateful
         public List<SerializableObject> Objects;
         public Dictionary<int, List<SerializableSpawner>> MapResources;
 
+        public int Coins;
+
         public GameState()
         {
             Version      = 0;
@@ -18,6 +20,7 @@ namespace Stateful
             GardenSpots  = new List<SerializableGardenSpot>();
             Objects      = new List<SerializableObject>();
             Inventory    = new List<SerializableInventoryEntry>();
+            Coins = 100;
         }
     }
 }

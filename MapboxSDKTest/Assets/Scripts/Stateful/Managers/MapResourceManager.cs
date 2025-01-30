@@ -45,7 +45,6 @@ namespace Stateful.Managers
         
             if (_mapResources.ContainsKey(_todaysSeed))
             {
-                
                 Debug.Log("<color=cyan>----> Spawner data found, skipping generation.</color>");
                 return;
             }

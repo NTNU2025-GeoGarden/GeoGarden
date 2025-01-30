@@ -1620,6 +1620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4247a16985b4fcc438158fe88b9570db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gardenCamera: {fileID: 1918738630}
   editUI: {fileID: 13114443}
   editableObjectPrefab: {fileID: 7113347489546205447, guid: 496103af52bed9a48bafd59b86a9b55f, type: 3}
 --- !u!1 &251788754
@@ -2012,6 +2013,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 668983699}
     - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: gardenCamera
+      value: 
+      objectReference: {fileID: 1918738630}
+    - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: objectManager
       value: 
       objectReference: {fileID: 668983697}
@@ -2356,6 +2361,10 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 668983699}
+    - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: gardenCamera
+      value: 
+      objectReference: {fileID: 1918738630}
     - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: objectManager
       value: 
@@ -4008,6 +4017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c8bcb2f69ac3448a41ef14fcb3d69d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gardenCamera: {fileID: 1918738630}
   objPrefab: {fileID: 7113347489546205447, guid: 496103af52bed9a48bafd59b86a9b55f, type: 3}
 --- !u!1 &693973340
 GameObject:
@@ -6859,6 +6869,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 668983699}
     - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: gardenCamera
+      value: 
+      objectReference: {fileID: 1918738630}
+    - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: objectManager
       value: 
       objectReference: {fileID: 668983697}
@@ -7636,6 +7650,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 668983699}
     - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: gardenCamera
+      value: 
+      objectReference: {fileID: 1918738630}
+    - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: objectManager
       value: 
       objectReference: {fileID: 668983697}
@@ -7831,6 +7849,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 668983699}
     - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: gardenCamera
+      value: 
+      objectReference: {fileID: 1918738630}
+    - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: objectManager
       value: 
       objectReference: {fileID: 668983697}
@@ -7952,6 +7974,10 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 668983699}
+    - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: gardenCamera
+      value: 
+      objectReference: {fileID: 1918738630}
     - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: objectManager
       value: 
@@ -8265,6 +8291,10 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 668983699}
+    - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
+      propertyPath: gardenCamera
+      value: 
+      objectReference: {fileID: 1918738630}
     - target: {fileID: 8174513765973491937, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: objectManager
       value: 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Garden;
 using Structs;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Stateful.Managers
 {
@@ -16,9 +17,7 @@ namespace Stateful.Managers
         public static DelegatePlantInteraction OnPlantWater;
         public static DelegatePlantInteraction OnPlantHarvested;
 
-        public delegate void DelegateEditUIChanged();
-        public static DelegateEditUIChanged OnEditUIChange;
-
+        public GardenCamera gardenCamera;
         public GameObject editUI;
         public EditableObject editableObjectPrefab;
         private List<EditableObject> _objects;
@@ -27,11 +26,20 @@ namespace Stateful.Managers
 
         public void Start()
         {
-            OnPlantSeed      += HandlePlantSeed;
-            OnSeedTimeout    += SeedTimeOut;
-            OnPlantWater     += PlantWatered;
-            OnPlantHarvested += PlantHarvested;
-            OnEditUIChange += EditUIChanged;
+            SetDelegates();
+            
+            SceneManager.sceneLoaded += (_, _) =>
+            {
+                SetDelegates();
+            };
+        }
+
+        private void SetDelegates()
+        {
+            OnPlantSeed      = HandlePlantSeed;
+            OnSeedTimeout    = SeedTimeOut;
+            OnPlantWater     = PlantWatered;
+            OnPlantHarvested = PlantHarvested;
         }
 
         private void PlaceGardenSpots()
@@ -55,6 +63,7 @@ namespace Stateful.Managers
                 newObj.type = EditableObjectType.Spot;
                 newObj.transform.localPosition = new Vector3(spot.X, spot.Y, spot.Z);
                 newObj.editControls.transform.Translate(new Vector3(0, -1, 0));
+                newObj.gardenCamera = gardenCamera;
                 
                 _objects.Add(newObj);
                 
@@ -78,14 +87,12 @@ namespace Stateful.Managers
             updatedSerializedObj.Z = obj.transform.localPosition.z;
 
             _serializedSpots[obj.spot.spotID] = updatedSerializedObj;
-            
         }
 
         private void EditUIChanged()
         {
             foreach (EditableObject obj in _objects)
             {
-                Debug.Log("BRruuh");
                 obj.GetComponent<BoxCollider>().enabled = editUI.activeSelf;
             }
         }
@@ -106,14 +113,14 @@ namespace Stateful.Managers
             plantableSpot.statusSymbolNeedsWater.SetActive(false);
             plantableSpot.statusSymbolTimer.gameObject.SetActive(false);
 
-            plantableSpot.collider.center = new Vector3(0, 0, -0.61f);
-            plantableSpot.collider.size   = new Vector3(0.59f, 0.58f, 1.13f);
+            plantableSpot.boxCollider.center = new Vector3(0, 0, -0.61f);
+            plantableSpot.boxCollider.size   = new Vector3(0.59f, 0.58f, 1.13f);
             
             switch(plantableSpot.state)
             {
                 case GrowState.Vacant:
-                    plantableSpot.collider.center = new Vector3(0, 0, -0.1f);
-                    plantableSpot.collider.size   = new Vector3(1, 1, 0.1f);
+                    plantableSpot.boxCollider.center = new Vector3(0, 0, -0.1f);
+                    plantableSpot.boxCollider.size   = new Vector3(1, 1, 0.1f);
                     
                     plantableSpot.perimeter.SetActive(true);
                     plantableSpot.statusSymbolAddPlant.SetActive(true);

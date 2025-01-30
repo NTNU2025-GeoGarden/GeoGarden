@@ -96,6 +96,7 @@ namespace UI
 
         private void SeedPlanted()
         {
+            Debug.Log($"Seeding plant, spot: {cam.lastSelectedGardenSpot}, item: {previewItem.DisplayedItem.Item.AppendID}");
             GardenManager.OnPlantSeed(cam.lastSelectedGardenSpot, previewItem.DisplayedItem.Item.AppendID);
             GameStateManager.OnRemoveInventoryItem(previewItem.DisplayedItem.Item.ID);
         }

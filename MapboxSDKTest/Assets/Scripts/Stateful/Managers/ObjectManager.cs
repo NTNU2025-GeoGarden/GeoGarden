@@ -1,36 +1,34 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Garden;
 using Structs;
+using UI;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Stateful.Managers
 {
     public class ObjectManager : MonoBehaviour, IUsingGameState
     {
-        public delegate void DelegateEditUIChange();
-
-        public static DelegateEditUIChange OnEditUIChange;
-        
+        public GardenCamera gardenCamera;
         public EditableObject objPrefab;
+        
         private List<SerializableObject> _serializedObjects;
         private List<EditableObject> _dynamicObjects;
-
-        public void Start()
-        {
-            OnEditUIChange += EditUIChange;
-        }
-
+        
         private void GenerateInGameObjects()
         {
+            Debug.Log("<color=cyan>[ObjectManager] Generating in-game objects</color>");
+            
             if (_dynamicObjects == null)
                 _dynamicObjects = new List<EditableObject>();
             else
             {
                 foreach (EditableObject obj in _dynamicObjects)
                 {
-                    Destroy(obj.gameObject);
+                    Destroy(obj);
                 }
                 
                 _dynamicObjects.Clear();
@@ -45,6 +43,7 @@ namespace Stateful.Managers
                 instantiatedObj.transform.rotation = new Quaternion(obj.RotX, obj.RotY, obj.RotZ, obj.RotW);
                 instantiatedObj.editControls.transform.rotation = Quaternion.identity;
                 instantiatedObj.ObjectID = count;
+                instantiatedObj.gardenCamera = gardenCamera;
                 
                 _dynamicObjects.Add(instantiatedObj);
 
@@ -79,6 +78,8 @@ namespace Stateful.Managers
             });
             
             _dynamicObjects.Add(editableObject);
+            
+            PlaceObjectUI.OnUpdatePlaceObjectUICount();
         }
 
         public void ObjectChanged(EditableObject obj)
@@ -104,12 +105,10 @@ namespace Stateful.Managers
                 _dynamicObjects[i].ObjectID--;
             }
             
-            Debug.Log($"Tried to remove {obj}");
-            
             _serializedObjects.RemoveAt(obj.ObjectID);
             _dynamicObjects.RemoveAt(obj.ObjectID);
 
-            GameStateManager.OnForceSaveGame();
+            PlaceObjectUI.OnUpdatePlaceObjectUICount();
         }
 
         public int GetObjectCount()
@@ -117,12 +116,9 @@ namespace Stateful.Managers
             return _serializedObjects.Count;
         }
 
-        private void EditUIChange()
+        public int GetAmountUsed(EditableObjectType type)
         {
-            foreach (EditableObject obj in _dynamicObjects)
-            {
-                obj.editControls.SetActive(false);
-            }
+            return _dynamicObjects.Count(x => x.type == type);
         }
     }
 }

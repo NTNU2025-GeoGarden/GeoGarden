@@ -33,8 +33,9 @@ namespace Stateful
         {
             if (Instance != null)
             {
-                Debug.Log("Already loaded. Destroying.");
+                Debug.Log($"<color=orange>[GameStateManager] Already present in scene. Removing duplicate instance</color>");
                 Destroy(gameObject);
+                return;
             }
 
             Instance = this;
@@ -42,8 +43,9 @@ namespace Stateful
 
             Application.targetFrameRate = 60;
                 
-            SceneManager.sceneLoaded += (_, _) =>
+            SceneManager.activeSceneChanged += (_, _) =>
             {
+                Debug.Log($"<color=orange>[GameStateManager] Scene load triggering game load</color>");
                 _dataHandler       = new FileDataHandler(Application.persistentDataPath, fileName);
                 _persistenceObjs   = FindAllPersistenceObjs();
                 LoadGame();
@@ -51,7 +53,11 @@ namespace Stateful
 
             OnRemoveInventoryItem += RemoveInventoryItem;
             OnAddInventoryItem    += AddInventoryItem;
-            OnForceSaveGame       += SaveGame;
+            OnForceSaveGame       += () =>
+            {
+                Debug.Log($"<color=orange>[GameStateManager] Force saving!</color>");
+                SaveGame();
+            };
         }
 
         public void Start()
@@ -105,17 +111,19 @@ namespace Stateful
 
         private void LoadGame()
         {
+            Debug.Log("<color=cyan>[GameStateManager] Loading game data</color>");
+            
             CurrentState = _dataHandler.Load();
 
             if (CurrentState == null)
             {
-                Debug.Log("No data. Initializing game state to default values.");
+                Debug.Log("<color=cyan>----> No data found, initializing to default values</color>");
                 NewGame();
             }
             
             if(CurrentState!.Version < GAMEDATA_VERSION)
             {
-                Debug.Log("Save is incompatible. Regenerating.");
+                Debug.Log("<color=cyan>----> Data found, but version is outdated. Initializing to default values</color>");
                 CurrentState = null;
                 NewGame();
             }
@@ -130,6 +138,7 @@ namespace Stateful
 
         private void SaveGame()
         {
+            Debug.Log("<color=cyan>[GameStateManager] Saving game data</color>");
             GameState currentState = CurrentState;
             foreach (IUsingGameState persistenceObj in _persistenceObjs)
             {
@@ -148,11 +157,12 @@ namespace Stateful
 
         private void RemoveInventoryItem(int itemID)
         {
+            Debug.Log($"<color=cyan>[GameStateManager] Removing itemID {itemID} from inventory</color>");
             int index = CurrentState.Inventory.FindIndex(x => x.Id == itemID);
 
             if (index == -1)
             {
-                Debug.LogError("Tried to remove an item from the inventory which the player doesn't have. This should never happen!");
+                Debug.LogError("----> The inventory did not contain the item requested to be removed.");
                 return;
             }
             
@@ -171,6 +181,7 @@ namespace Stateful
         
         private void AddInventoryItem(int itemID)
         {
+            Debug.Log($"<color=cyan>[GameStateManager] Adding itemID {itemID} to inventory</color>");
             int index = CurrentState.Inventory.FindIndex(x => x.Id == itemID);
 
             if (index == -1)

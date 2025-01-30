@@ -38,14 +38,19 @@ namespace Stateful.Managers
 
         public void LoadData(GameState state)
         {
+            Debug.Log("<color=cyan>[ResourceManager] Loading spawner data</color>");
+            
             _todaysSeed = DateTime.Now.Year * 1000 + DateTime.Now.DayOfYear;
             _mapResources = state.MapResources;
         
             if (_mapResources.ContainsKey(_todaysSeed))
             {
-                print("Resource spawner already has loaded data..");
+                
+                Debug.Log("<color=cyan>----> Spawner data found, skipping generation.</color>");
                 return;
             }
+            
+            Debug.Log("<color=cyan>----> Not generated, proceeding with generation. </color>");
         
             _mapResources.Add(_todaysSeed, new List<SerializableSpawner>());
         
@@ -77,7 +82,7 @@ namespace Stateful.Managers
         {
             if (_mapResources == null || !_mapResources.ContainsKey(_todaysSeed))
             {
-                Debug.LogError("Map resources tried to generate, but today's seed is not found. This should never happen!");
+                Debug.LogError("[MapResourceManager] Map resources tried to generate, but today's seed is not found. This should never happen!");
                 LoadingScreen.OnLoadingError();
                 return;
             }
@@ -99,8 +104,6 @@ namespace Stateful.Managers
 
         public void TryRegisterCollectResource(LatitudeLongitude latLng)
         {
-            print($"Tried to collect resource @ {latLng}");
-
             SerializableSpawner resource = _mapResources[_todaysSeed].Find(p => p.latLng.Equals(latLng));
             resource.collected = true;
             _mapResources[_todaysSeed].Remove(_mapResources[_todaysSeed].Find(p => p.latLng.Equals(latLng)));

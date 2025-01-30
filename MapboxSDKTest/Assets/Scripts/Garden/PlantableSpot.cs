@@ -4,6 +4,7 @@ using Stateful.Managers;
 using Structs;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Garden
 {
@@ -24,7 +25,7 @@ namespace Garden
         public GameObject growingStage2;
         public GameObject growingStage3;
         public GameObject growingStage4;
-        public BoxCollider collider;
+        [FormerlySerializedAs("collider")] public BoxCollider boxCollider;
 
         public TMP_Text statusSymbolTimer;
         public AudioClip waterPopSoundEffect;

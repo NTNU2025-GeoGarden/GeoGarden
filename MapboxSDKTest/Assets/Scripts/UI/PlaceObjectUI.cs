@@ -11,6 +11,11 @@ namespace UI
 {
     public class PlaceObjectUI : MonoBehaviour
     {
+        public delegate void DelegateUpdatePlaceObjectUICount();
+
+        public static DelegateUpdatePlaceObjectUICount OnUpdatePlaceObjectUICount;
+
+        public GardenCamera gardenCamera;
         public GameObject editableObjectPrefab;
         public ObjectManager manager;
         
@@ -26,12 +31,14 @@ namespace UI
         public EditableObjectType type;
         
         public int available;
-        public int used;
+        private int _used;
 
         private GameState _state;
         
         public void Start()
         {
+            OnUpdatePlaceObjectUICount += UpdateAmount;
+            
             switch(type)
             {
                 case EditableObjectType.Tree:
@@ -59,26 +66,31 @@ namespace UI
                     throw new ArgumentOutOfRangeException();
             }
 
-            foreach (SerializableObject obj in GameStateManager.CurrentState.Objects.Where(obj => obj.Type == type))
-            {
-                used++;
-            }
+            _used = manager.GetAmountUsed(type);
             
-            amountText.text = $"{used}/{available}";
+            amountText.text = $"{_used}/{available}";
+        }
+
+        private void UpdateAmount()
+        {
+            _used = manager.GetAmountUsed(type);
+            Debug.Log($"New amount for {type}: {_used}");
+            
+            amountText.text = $"{_used}/{available}";
         }
 
         public void CheckSpawnObject()
         {
-            if (used >= available) return;
+            if (_used >= available) return;
             
-            used++;
-            amountText.text = $"{used}/{available}";
+            amountText.text = $"{_used}/{available}";
 
             EditableObject obj = Instantiate(editableObjectPrefab, manager.transform)
                 .GetComponent<EditableObject>();
             obj.type = type;
             obj.editControls.SetActive(false);
             obj.ObjectID = manager.GetObjectCount();
+            obj.gardenCamera = gardenCamera;
             manager.AddObject(obj);
 
             GameStateManager.OnForceSaveGame();

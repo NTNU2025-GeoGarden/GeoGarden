@@ -927,6 +927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UICanvas: {fileID: 0}
+  SecondaryUICanvas: {fileID: 0}
   openCloseState: 0
 --- !u!1 &587138066
 GameObject:
@@ -1593,6 +1594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UICanvas: {fileID: 0}
+  SecondaryUICanvas: {fileID: 0}
   openCloseState: 0
 --- !u!114 &908373667
 MonoBehaviour:
@@ -1869,6 +1871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UICanvas: {fileID: 0}
+  SecondaryUICanvas: {fileID: 0}
   openCloseState: 0
 --- !u!114 &1003298507
 MonoBehaviour:
@@ -3228,6 +3231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UICanvas: {fileID: 0}
+  SecondaryUICanvas: {fileID: 0}
   openCloseState: 0
 --- !u!114 &1761179247
 MonoBehaviour:
@@ -4886,7 +4890,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300000, guid: 81ee35ea546054287b1221b166d93eca, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 1b7664e76dbb7f04583a62c7c176c542, type: 3}
   m_Bones:
   - {fileID: 4913573244584826}
   - {fileID: 4167423652384232}

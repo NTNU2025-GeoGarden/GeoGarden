@@ -641,7 +641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4770159566187107771
 Transform:
   m_ObjectHideFlags: 0
@@ -765,7 +765,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2329263020495396623
 Transform:
   m_ObjectHideFlags: 0
@@ -1089,6 +1089,7 @@ MonoBehaviour:
   growingStage2: {fileID: 1640733331049844036}
   growingStage3: {fileID: 5258806841265413487}
   growingStage4: {fileID: 3990665730144379734}
+  collider: {fileID: 24107329004808914}
   statusSymbolTimer: {fileID: 9017480925250607659}
   waterPopSoundEffect: {fileID: 8300000, guid: 7a859ac889a4ce64b9f07fbd800bcee8, type: 3}
 --- !u!82 &1161704815449326887
@@ -1207,8 +1208,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.04}
-  m_Center: {x: 0, y: 0, z: -0.02}
+  m_Size: {x: 1, y: 1, z: 0.11}
+  m_Center: {x: 0, y: 0, z: -0.1}
 --- !u!1 &9121219317390090858
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,7 +1860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3888481672020999207, guid: 2e9d4a54735a26640b59a5437c13219a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8742538545776668643, guid: 2e9d4a54735a26640b59a5437c13219a, type: 3}
       propertyPath: m_LocalScale.x
@@ -1962,7 +1963,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3888481672020999207, guid: 2e9d4a54735a26640b59a5437c13219a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8742538545776668643, guid: 2e9d4a54735a26640b59a5437c13219a, type: 3}
       propertyPath: m_LocalScale.x

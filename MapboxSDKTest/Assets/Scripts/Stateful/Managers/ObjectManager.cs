@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Garden;
 using Structs;
@@ -8,9 +9,18 @@ namespace Stateful.Managers
 {
     public class ObjectManager : MonoBehaviour, IUsingGameState
     {
+        public delegate void DelegateEditUIChange();
+
+        public static DelegateEditUIChange OnEditUIChange;
+        
         public EditableObject objPrefab;
         private List<SerializableObject> _serializedObjects;
         private List<EditableObject> _dynamicObjects;
+
+        public void Start()
+        {
+            OnEditUIChange += EditUIChange;
+        }
 
         private void GenerateInGameObjects()
         {
@@ -33,9 +43,7 @@ namespace Stateful.Managers
                 instantiatedObj.type = obj.Type;
                 instantiatedObj.transform.localPosition = new Vector3(obj.X, obj.Y, obj.Z);
                 instantiatedObj.transform.rotation = new Quaternion(obj.RotX, obj.RotY, obj.RotZ, obj.RotW);
-
                 instantiatedObj.editControls.transform.rotation = Quaternion.identity;
-                
                 instantiatedObj.ObjectID = count;
                 
                 _dynamicObjects.Add(instantiatedObj);
@@ -60,11 +68,17 @@ namespace Stateful.Managers
         {
             _serializedObjects.Add(new SerializableObject
             {
-                X    = editableObject.transform.position.x,
-                Y    = editableObject.transform.position.y,
-                Z    = editableObject.transform.position.z,
-                Type = editableObject.type
+                Type = editableObject.type,
+                   X = editableObject.transform.position.x,
+                   Y = editableObject.transform.position.y,
+                   Z = editableObject.transform.position.z,
+                RotX = 0.0f,
+                RotY = 0.0f,
+                RotZ = 0.0f,
+                RotW = 1.0f
             });
+            
+            _dynamicObjects.Add(editableObject);
         }
 
         public void ObjectChanged(EditableObject obj)
@@ -94,11 +108,21 @@ namespace Stateful.Managers
             
             _serializedObjects.RemoveAt(obj.ObjectID);
             _dynamicObjects.RemoveAt(obj.ObjectID);
+
+            GameStateManager.OnForceSaveGame();
         }
 
         public int GetObjectCount()
         {
             return _serializedObjects.Count;
+        }
+
+        private void EditUIChange()
+        {
+            foreach (EditableObject obj in _dynamicObjects)
+            {
+                obj.editControls.SetActive(false);
+            }
         }
     }
 }

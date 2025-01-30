@@ -85,6 +85,7 @@ namespace Stateful.Managers
         {
             foreach (EditableObject obj in _objects)
             {
+                Debug.Log("BRruuh");
                 obj.GetComponent<BoxCollider>().enabled = editUI.activeSelf;
             }
         }
@@ -104,10 +105,16 @@ namespace Stateful.Managers
             plantableSpot.statusSymbolFinished.SetActive(false);
             plantableSpot.statusSymbolNeedsWater.SetActive(false);
             plantableSpot.statusSymbolTimer.gameObject.SetActive(false);
+
+            plantableSpot.collider.center = new Vector3(0, 0, -0.61f);
+            plantableSpot.collider.size   = new Vector3(0.59f, 0.58f, 1.13f);
             
             switch(plantableSpot.state)
             {
                 case GrowState.Vacant:
+                    plantableSpot.collider.center = new Vector3(0, 0, -0.1f);
+                    plantableSpot.collider.size   = new Vector3(1, 1, 0.1f);
+                    
                     plantableSpot.perimeter.SetActive(true);
                     plantableSpot.statusSymbolAddPlant.SetActive(true);
                     plantableSpot.completionTime = DateTime.MinValue;

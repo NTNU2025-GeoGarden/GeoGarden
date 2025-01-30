@@ -80,6 +80,8 @@ namespace UI
             obj.editControls.SetActive(false);
             obj.ObjectID = manager.GetObjectCount();
             manager.AddObject(obj);
+
+            GameStateManager.OnForceSaveGame();
         }
     }
 }

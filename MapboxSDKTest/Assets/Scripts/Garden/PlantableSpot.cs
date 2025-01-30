@@ -24,6 +24,7 @@ namespace Garden
         public GameObject growingStage2;
         public GameObject growingStage3;
         public GameObject growingStage4;
+        public BoxCollider collider;
 
         public TMP_Text statusSymbolTimer;
         public AudioClip waterPopSoundEffect;

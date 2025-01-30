@@ -64,6 +64,7 @@ namespace UI
             SecondaryUICanvas.SetActive(true);
 
             GardenManager.OnEditUIChange();
+            ObjectManager.OnEditUIChange();
         }
     }
 }

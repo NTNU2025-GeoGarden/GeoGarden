@@ -41,7 +41,7 @@ namespace Garden
                     break;
                 case EditableObjectType.Spot:
                     _boxCollider.center = new Vector3(0, 0.32f, 0);
-                    _boxCollider.size   = new Vector3(1.1f, 0.07f, 0.94f);
+                    _boxCollider.size   = new Vector3(0.9f, 0.3f, 0.9f);
                     spotHolder.SetActive(true);
                     deleteButton.SetActive(false);
                     rotationButton.SetActive(false);

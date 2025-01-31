@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.mapbox.unity-sdk": {
-      "version": "file:C:/Users/kjeks/Documents/Programmering/mapbox-unity-sdk-sdk3/mapbox-unity-sdk-sdk3",
+      "version": "file:/Users/kjeks/Documents/Programmering/Master/mapbox-unity-sdk-sdk3",
       "depth": 0,
       "source": "local",
       "dependencies": {

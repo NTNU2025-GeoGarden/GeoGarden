@@ -9,5 +9,8 @@ namespace Stateful
         public GrowState state;
         public int seedID;
         public DateTime stateCompletionTime;
+        public float X;
+        public float Y;
+        public float Z;
     }
 }

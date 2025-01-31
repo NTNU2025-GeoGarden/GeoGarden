@@ -9,9 +9,9 @@ namespace UI
     public class UIButtons : MonoBehaviour
     {
         public GameObject UICanvas;
-
+        public GameObject SecondaryUICanvas;
         public bool openCloseState;
-    
+        
         public void HandleMapButtonClick()
         {
             GameStateManager.OnForceSaveGame();
@@ -50,14 +50,21 @@ namespace UI
             PlantSeedUI.OnPlayerPlantedSeed();
             UICanvas.SetActive(false);
         }
-       
         
         public void HandleSell(){
             ShopUI.OnPlayerSoldItem();
         }
+        
         public void HandleTryRestartMap()
         {
             SceneManager.LoadScene("Home");
-            SceneManager.LoadScene("Map");}
+            SceneManager.LoadScene("Map");
+        }
+
+        public void HandleEditMode()
+        {
+            UICanvas.SetActive(false);
+            SecondaryUICanvas.SetActive(true);
+        }
     }
 }

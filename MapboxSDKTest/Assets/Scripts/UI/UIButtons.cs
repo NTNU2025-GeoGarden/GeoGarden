@@ -66,5 +66,10 @@ namespace UI
             UICanvas.SetActive(false);
             SecondaryUICanvas.SetActive(true);
         }
+
+        public void HandleStartGame()
+        {
+            SceneManager.LoadSceneAsync("Home");
+        }
     }
 }

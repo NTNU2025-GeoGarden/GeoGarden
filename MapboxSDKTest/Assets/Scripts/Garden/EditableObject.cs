@@ -16,6 +16,7 @@ namespace Garden
         public GameObject bannerHolder;
         public GameObject cartHolder;
         public GameObject pileHolder;
+        public GameObject dirtHolder;
 
         public GameObject deleteButton;
         public GameObject rotationButton;
@@ -71,6 +72,12 @@ namespace Garden
                     editControls.transform.localPosition = new Vector3(0, -1, 0);
                     pileHolder.SetActive(true);
                     break;
+                case EditableObjectType.DirtPatch:
+                    _boxCollider.center = new Vector3(0, -0.35f, 0);
+                    _boxCollider.size   = new Vector3(0.93f, -0.11f, 1.38f);
+                    editControls.transform.localPosition = new Vector3(0, -1, 0);
+                    dirtHolder.SetActive(true);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -80,6 +87,8 @@ namespace Garden
         {
             if(!gardenCamera.editModeCanvas.activeSelf)
                 editControls.SetActive(false);
+
+            _boxCollider.enabled = gardenCamera.editModeCanvas.activeSelf;
         }
     }
 }

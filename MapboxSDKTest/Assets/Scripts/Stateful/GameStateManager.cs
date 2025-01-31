@@ -100,14 +100,14 @@ namespace Stateful
             
             CurrentState.Objects.Add(new SerializableObject
             {
-                   X        = 0,
+                   X        = -0.8f,
                    Y        = 0,
-                   Z        = 0,
+                   Z        = -1,
                 RotX        = 0,
                 RotY        = 0,
                 RotZ        = 0,
                 RotW        = 1,
-                Type     = EditableObjectType.Tree
+                Type     = EditableObjectType.DirtPatch
             });
         }
 

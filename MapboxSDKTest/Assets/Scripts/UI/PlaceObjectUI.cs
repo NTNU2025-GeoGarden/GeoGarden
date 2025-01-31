@@ -21,11 +21,12 @@ namespace UI
         
         public GameObject treeHolder;
         public GameObject fenceHolder;
-        public GameObject spotHolder;
+        public GameObject spotHolder; 
         public GameObject lanternHolder;
         public GameObject bannerHolder;
         public GameObject cartHolder;
         public GameObject woodPileHolder;
+        public GameObject dirtHolder;
         public TMP_Text amountText;
         
         public EditableObjectType type;
@@ -62,6 +63,9 @@ namespace UI
                 case EditableObjectType.WoodPile:
                     woodPileHolder.SetActive(true);
                     break;
+                case EditableObjectType.DirtPatch:
+                    dirtHolder.SetActive(true);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -91,6 +95,7 @@ namespace UI
             obj.editControls.SetActive(false);
             obj.ObjectID = manager.GetObjectCount();
             obj.gardenCamera = gardenCamera;
+            obj.transform.position = Vector3.zero;
             manager.AddObject(obj);
 
             GameStateManager.OnForceSaveGame();

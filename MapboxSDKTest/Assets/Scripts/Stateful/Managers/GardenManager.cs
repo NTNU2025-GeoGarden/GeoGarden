@@ -18,7 +18,6 @@ namespace Stateful.Managers
         public static DelegatePlantInteraction OnPlantHarvested;
 
         public GardenCamera gardenCamera;
-        public GameObject editUI;
         public EditableObject editableObjectPrefab;
         private List<EditableObject> _objects;
         private List<SerializableGardenSpot> _serializedSpots;
@@ -72,6 +71,7 @@ namespace Stateful.Managers
                 _inGameSpots.Add(newSpot);
                 
                 newSpot.spotID = count;
+                newSpot.gardenCamera = gardenCamera;
                 SetPlantableSpotData(spot, newSpot);
 
                 newObj.GetComponent<BoxCollider>().enabled = false;

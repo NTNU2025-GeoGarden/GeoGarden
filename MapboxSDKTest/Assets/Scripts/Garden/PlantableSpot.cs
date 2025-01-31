@@ -16,7 +16,8 @@ namespace Garden
         public bool harvestable;
         public DateTime completionTime;
         public GrowState state;
-        
+
+        public GardenCamera gardenCamera;
         public GameObject perimeter;
         public GameObject statusSymbolAddPlant;
         public GameObject statusSymbolNeedsWater;
@@ -25,7 +26,7 @@ namespace Garden
         public GameObject growingStage2;
         public GameObject growingStage3;
         public GameObject growingStage4;
-        [FormerlySerializedAs("collider")] public BoxCollider boxCollider;
+        public BoxCollider boxCollider;
 
         public TMP_Text statusSymbolTimer;
         public AudioClip waterPopSoundEffect;
@@ -51,6 +52,8 @@ namespace Garden
             }
             else if (state == GrowState.Complete)
                 harvestable = true;
+
+            boxCollider.enabled = !gardenCamera.editModeCanvas.activeSelf;
         }
 
         public void UserPoppedWaterPopup()

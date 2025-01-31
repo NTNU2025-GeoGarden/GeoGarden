@@ -5,6 +5,7 @@ namespace Structs
         Tree,
         Fence,
         Spot,
+        DirtPatch,
         Lantern,
         Banner,
         Cart,

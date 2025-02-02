@@ -116,7 +116,7 @@ private IEnumerator FlyAndCollect()
     {
         // Accelerate over time (quadratic growth)
         float speed = Mathf.Pow(elapsedTime + 1, acceleration); // Starts slow, speeds up
-        transform.position += direction * speed * Time.deltaTime;
+        transform.position += speed * Time.deltaTime * direction;
 
         elapsedTime += Time.deltaTime;
         yield return null;

@@ -7,7 +7,7 @@ namespace Map
 	public class PlayerMovement : MonoBehaviour
 	{
 		public delegate void HandleResourceCollected();
-
+		
 		public static HandleResourceCollected OnCollectResource;
 		
 		public GameObject resourcesUI;
@@ -25,6 +25,10 @@ namespace Map
 		
 		public bool SnapToTerrain = false;
 
+
+
+
+	
 		private void Start()
 		{
 			OnCollectResource += CollectResource;
@@ -45,14 +49,46 @@ namespace Map
 			};
 		}
 
+		
+
+    private void DetectObjectClick()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // ✅ Cast ray from mouse/touch position
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            SpawnerOnMap resource = hit.collider.GetComponent<SpawnerOnMap>();
+
+            if (resource != null && !resource.collected) // ✅ Only collect if it hasn't been collected
+            {
+                Debug.Log($"🖱️/📱 Player clicked on {resource.gameObject.name}");
+                resource.CollectThisResource();
+            }
+        }
+    }
+
+
 		private void OnTriggerEnter(Collider other)
 		{
-			_ref = other.GetComponent<SpawnerOnMap>();
-			if (_ref.collected)
+			Debug.Log($"🚀 Player entered trigger of: {other.gameObject.name}");
+
+			
+			if (!other.TryGetComponent<SpawnerOnMap>(out var resource))
 			{
-				_ref = null;
+				Debug.LogError($"❌ ERROR: SpawnerOnMap component is missing on {other.gameObject.name}!");
 				return;
 			}
+
+			if (resource.collected)
+			{
+				Debug.Log("⚠️ Resource is already collected.");
+				return;
+			}
+
+			_ref = resource; // ✅ Assigning _ref
+
+			Debug.Log($"✅ Successfully assigned _ref: {_ref.gameObject.name}");
 
 			_resourceColorRef = other.GetComponent<Renderer>().material.color;
 			other.GetComponent<Renderer>().material.color = Color.green;
@@ -61,18 +97,40 @@ namespace Map
 
 		private void OnTriggerExit(Collider other)
 		{
-			if(_ref != null && !_ref.collected)
+			if (_ref != null && !_ref.collected)
+			{
 				other.GetComponent<Renderer>().material.color = _resourceColorRef;
-			
+			}
+
+			// ✅ Only clear _ref if it hasn’t been collected yet
+			if (_ref != null && !_ref.collected)
+			{
+				Debug.Log("⚠️ Player exited trigger, clearing _ref!");
+				_ref = null;
+			}
+
 			resourcesUI.SetActive(false);
-			_ref = null;
 		}
+
 
 		private void CollectResource()
 		{
-			_ref.OnCollectResource();
+			  Debug.Log($"📢 CollectResource() was called from: {new System.Diagnostics.StackTrace()}");
+			Debug.Log($"📌 BEFORE collecting: _ref = {_ref}");
+
+			if (_ref == null)
+			{
+				Debug.LogError("❌ ERROR: _ref is NULL in CollectResource()! It may have been reset.");
+				return;
+			}
+
+			Debug.Log($"✅ Collecting resource: {_ref.gameObject.name}");
+
+			_ref.CollectThisResource();
 			resourcesUI.SetActive(false);
 			_ref = null;
+
+			Debug.Log($"📌 AFTER collecting: _ref = {_ref}"); // Should be NULL after collection
 		}
 
 		void Update()

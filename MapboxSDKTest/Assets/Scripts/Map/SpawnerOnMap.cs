@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Mapbox.BaseModule.Data.Vector2d;
 using Stateful.Managers;
@@ -46,10 +47,17 @@ namespace Map
         public TMP_Text textQuantity;
 
         public bool collected;
-    
+
+         public void CollectThisResource()
+    {
+        if (collected) return; // Prevent duplicate collection
+        
+        StartCoroutine(FlyAndCollect());
+    }
+
         public void Start()
         {
-            OnCollectResource += TryCollectThisResource;
+            //OnCollectResource += TryCollectThisResource;
 
             if (collected)
             {
@@ -89,15 +97,45 @@ namespace Map
             text.transform.LookAt(player);
         }
 
+    /*
         private void TryCollectThisResource()
         {
-            GetComponent<Renderer>().material.color = Color.gray;
-            textQuality.text = "Collected!";
-            textQuantity.text = "Good work!";
-            collected = true;
-
-            MapResourceManager.OnRegisterCollectResource(latLng);
+          StartCoroutine(SpinAndCollect());
             // TODO Award resources to player
-        }
+        } */
+
+private IEnumerator FlyAndCollect()
+{
+    float duration = 5f; // Total flight time
+    float acceleration = 7f; // Speed multiplier for acceleration
+    float elapsedTime = 0f;
+    
+    Vector3 direction = Vector3.up; // Fly straight up
+
+    while (elapsedTime < duration)
+    {
+        // Accelerate over time (quadratic growth)
+        float speed = Mathf.Pow(elapsedTime + 1, acceleration); // Starts slow, speeds up
+        transform.position += direction * speed * Time.deltaTime;
+
+        elapsedTime += Time.deltaTime;
+        yield return null;
+    }
+    // Mark as collected immediately
+    collected = true;
+    GetComponent<Renderer>().material.color = Color.gray;
+    Debug.Log("Collected, Good work");
+    
+    // Register collection with the resource manager
+    MapResourceManager.OnRegisterCollectResource(latLng);
+
+    
+    Debug.Log("Resource has been collected and flown away!");
+    // Destroy or hide the object after flight
+    //Destroy(gameObject); // Remove after flying to "space"
+    
+    
+}
+
     }
 }

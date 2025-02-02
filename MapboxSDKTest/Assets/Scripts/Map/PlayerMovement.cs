@@ -25,7 +25,7 @@ namespace Map
 		
 		public bool SnapToTerrain = false;
 
-
+		private bool playerCloseEnough = false;
 
 
 	
@@ -50,23 +50,36 @@ namespace Map
 		}
 
 		
+		private void DetectObjectClick()
+		{
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-    private void DetectObjectClick()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // ✅ Cast ray from mouse/touch position
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            SpawnerOnMap resource = hit.collider.GetComponent<SpawnerOnMap>();
-
-            if (resource != null && !resource.collected) // ✅ Only collect if it hasn't been collected
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                Debug.Log($"🖱️/📱 Player clicked on {resource.gameObject.name}");
-                resource.CollectThisResource();
+
+                if (!hit.collider.TryGetComponent<SpawnerOnMap>(out var clickedResource))
+                    return; // ✅ Ignore clicks on non-resource objects
+
+                if (_ref == null)
+                {
+                    Debug.LogError("❌ ERROR: Player is not close enough to collect this resource!");
+                    return;
+                }
+
+                if (clickedResource != _ref)
+                {
+                    Debug.LogError($"❌ ERROR: Clicked object ({clickedResource.gameObject.name}) is not the currently collided resource!");
+                    return;
+                }
+
+                if (!_ref.collected) // ✅ Only collect if it's not already collected
+                {
+                    Debug.Log($"🖱️/📱 Player clicked on {clickedResource.gameObject.name} while inside collision area.");
+                    _ref.CollectThisResource();
+                }
             }
         }
-    }
+
 
 
 		private void OnTriggerEnter(Collider other)

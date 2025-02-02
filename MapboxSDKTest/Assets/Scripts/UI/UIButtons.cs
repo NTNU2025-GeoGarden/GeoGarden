@@ -40,18 +40,9 @@ namespace UI
             UICanvas.SetActive(openCloseState);
         }
           
-        public void HandleGatherResource()
-        {
-            if (PlayerMovement.OnCollectResource != null)
-    {
-        PlayerMovement.OnCollectResource();
-    }
-    else
-    {
-        Debug.LogError("OnCollectResource is NULL! Make sure it is assigned.");
-    }
+          
            
-        }
+        
 
         public void HandlePlantSeed()
         {

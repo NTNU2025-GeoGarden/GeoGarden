@@ -62,7 +62,8 @@ namespace Garden
                     //If the edit screen is open, don't move the camera if the user touched low on their screen (this UI has a scroller)
                     if (editModeCanvas.activeSelf && currentPosition.y < 660)
                         break;
-                            
+
+                    _tapped = true;
                     
                     //Do a raycast
                     Ray rayMoved = _mainCamera.ScreenPointToRay(touch.position);

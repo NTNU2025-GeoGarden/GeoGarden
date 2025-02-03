@@ -7,12 +7,13 @@ namespace Garden
     public class GardenCamera : MonoBehaviour
     {
         public float speed = 1;
+        
         public GardenManager gardenManager;
         public ObjectManager objectManager;
+        
         public GameObject plantSeedCanvas;
         public GameObject shopCanvas;
         public GameObject editModeCanvas;
-        public PlantableSpot lastSelectedGardenSpot;
     
         private Camera _mainCamera;
         private Vector2 _previousPosition;
@@ -178,7 +179,7 @@ namespace Garden
         private void RaycastHitPlantSpot(RaycastHit hit)
         {
             PlantableSpot spot = hit.transform.GetComponent<PlantableSpot>();
-            lastSelectedGardenSpot = spot;
+            gardenManager.SetSelectedSpot(spot);
                                         
             if(spot.state == GrowState.Vacant)
                 plantSeedCanvas.SetActive(true);

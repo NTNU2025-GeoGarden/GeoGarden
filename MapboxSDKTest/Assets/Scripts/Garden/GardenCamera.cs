@@ -14,6 +14,7 @@ namespace Garden
         public GameObject plantSeedCanvas;
         public GameObject shopCanvas;
         public GameObject editModeCanvas;
+        public GameObject houseCanvas;
     
         private Camera _mainCamera;
         private Vector2 _previousPosition;

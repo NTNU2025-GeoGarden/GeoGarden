@@ -1,4 +1,3 @@
-using System;
 using Stateful.Managers;
 using Structs;
 using UnityEngine;
@@ -11,8 +10,8 @@ namespace Garden
         public GardenManager gardenManager;
         public ObjectManager objectManager;
         public GameObject plantSeedCanvas;
+        public GameObject shopCanvas;
         public GameObject editModeCanvas;
-        public bool uiOpen;
         public PlantableSpot lastSelectedGardenSpot;
     
         private Camera _mainCamera;
@@ -32,65 +31,91 @@ namespace Garden
 
         private void Update()
         {
+            // If there are no fingers touching the screen, skip update
             if (Input.touchCount <= 0) return;
-            if (Input.touchCount != 1 || plantSeedCanvas.activeSelf) return;
             
+            //If there are multiple fingers touching the screen, skip update
+            //Also, if the plant seed screen is open, or the shop screen is open, skip update
+            if (Input.touchCount != 1 
+                || plantSeedCanvas.activeSelf
+                || shopCanvas.activeSelf) return;
+            
+            //Get the touch input data
             Touch touch = Input.GetTouch(0);
             
+            //For each phase the touch is in
             switch (touch.phase)
             {
+                //The touch event just started
                 case TouchPhase.Began:
                     _previousPosition = touch.position;
-                            
                     break;
+                
+                //The user moved their finger
                 case TouchPhase.Moved:
                     Vector2 currentPosition = touch.position;
                     Vector2 delta = currentPosition - _previousPosition;
-                            
+                    
+                    //If the edit screen is open, don't move the camera if the user touched low on their screen (this UI has a scroller)
                     if (editModeCanvas.activeSelf && currentPosition.y < 660)
                         break;
                             
+                    
+                    //Do a raycast
                     Ray rayMoved = _mainCamera.ScreenPointToRay(touch.position);
                     if (Physics.Raycast(rayMoved, out RaycastHit hitMoved, 1000))
                     {
+                        //If the user tapped on an object with the tag below
                         if (hitMoved.transform.CompareTag("EditableObjectDrag"))
                         {
-                            RaycastHitEditableObject(hitMoved);
+                            //Drag the editable object on the screen, and don't move the camera (break)
+                            RaycastHitDragEditableObject(hitMoved);
                             break;
                         }
                     }
-                            
-                    if (MoveCamera(delta)) break;
+                    
+                    MoveCamera(delta);
 
                     _previousPosition = currentPosition;
                     break;
+                
+                //The user hasn't moved their finger (rarely happens, as it is difficult to keep a finger on the exact same XY-coordinate for multiple frames)
                 case TouchPhase.Stationary:
+                    
+                    //Are we in the same tap? The user will leave their finger on the screen for multiple frames. This makes sure that the code
+                    //only runs once.
                     if (!_tapped)
                     {
+                        //Do a raycast
                         Ray ray = _mainCamera.ScreenPointToRay(touch.position);
-                                
                         if (Physics.Raycast(ray, out RaycastHit hit, 1000))
                         {
-                            if (!editModeCanvas.activeSelf && hit.transform.CompareTag("PlantSpot"))
+                            //If the edit ui is open
+                            if (editModeCanvas.activeSelf)
                             {
-                                RaycastHitPlantSpot(hit);
-                            }
-                            else if (editModeCanvas.activeSelf && hit.transform.CompareTag("EditableObject"))
-                            {
-                                RaycastHitEditableObjectStationary(hit);
+                                if (hit.transform.CompareTag("EditableObject"))
+                                    RaycastHitEnableEditControlsOnObj(hit);
+                                else
+                                    RaycastHitEditableObjectControls(hit);
                             }
                             else
                             {
-                                RaycastHitEditableObjectControls(hit);
+                                if(hit.transform.CompareTag("PlantSpot"))
+                                    RaycastHitPlantSpot(hit);
+                                else if (hit.transform.CompareTag("House"))
+                                    RaycastHitHouse(hit);
                             }
                         }
 
                         _tapped = true;
                     }
                     break;
+                
+                //The touch event is over, somehow ended or was interrupted in some way
                 default:
                 case TouchPhase.Canceled:
                 case TouchPhase.Ended:
+                    //Reset all the state variables, so we are ready for a new touch
                     _tapped = false;
                     _draggingEditableObj = false;
                             
@@ -100,6 +125,19 @@ namespace Garden
             }
         }
 
+        /// <summary>
+        /// Opens the house UI.
+        /// </summary>
+        /// <param name="hitInfo">The raycast hit information.</param>
+        private void RaycastHitHouse(RaycastHit hitInfo)
+        {
+            Debug.Log("HitHOuse");
+        }
+
+        /// <summary>
+        /// Performs the actions of the editable object controls.
+        /// </summary>
+        /// <param name="hit">The raycast hit information.</param>
         private void RaycastHitEditableObjectControls(RaycastHit hit)
         {
             if (hit.transform.CompareTag("EditableObjectRot"))
@@ -118,7 +156,11 @@ namespace Garden
             }
         }
 
-        private void RaycastHitEditableObjectStationary(RaycastHit hit)
+        /// <summary>
+        /// Opens the UI containing the buttons to edit the object when it is tapped.
+        /// </summary>
+        /// <param name="hit">The raycast hit information.</param>
+        private void RaycastHitEnableEditControlsOnObj(RaycastHit hit)
         {
             if(_tappedEditableObj != null)
                 _tappedEditableObj.editControls.SetActive(false);
@@ -129,6 +171,10 @@ namespace Garden
             _tappedEditableObj = obj;
         }
 
+        /// <summary>
+        /// Performs updates on plant spots when they are tapped.
+        /// </summary>
+        /// <param name="hit">The raycast hit information.</param>
         private void RaycastHitPlantSpot(RaycastHit hit)
         {
             PlantableSpot spot = hit.transform.GetComponent<PlantableSpot>();
@@ -150,13 +196,17 @@ namespace Garden
             }
         }
 
-        private bool MoveCamera(Vector2 delta)
+        /// <summary>
+        /// Moves the GardenCamera according to the delta.
+        /// </summary>
+        /// <param name="delta">Interframe delta of the tap location on screen.</param>
+        private void MoveCamera(Vector2 delta)
         {
             Vector3 movement = new((delta.y + delta.x) * speed * SCALE_FACTOR, 0f,
                 (delta.y - delta.x) * speed * SCALE_FACTOR);
 
             if (_draggingEditableObj)
-                return true;
+                return;
                             
             transform.Translate(movement);
 
@@ -179,11 +229,13 @@ namespace Garden
                     transform.Translate(new Vector3(0f, 0f, -0.6f - transform.position.z));
                     break;
             }
-
-            return false;
         }
 
-        private void RaycastHitEditableObject(RaycastHit hitMoved)
+        /// <summary>
+        /// Performs updates on editable objects when their drag button was tapped.
+        /// </summary>
+        /// <param name="hitMoved">The raycast hit information.</param>
+        private void RaycastHitDragEditableObject(RaycastHit hitMoved)
         {
             _draggingEditableObj = true;
             _tappedButton = hitMoved.transform.GetComponent<BoxCollider>();

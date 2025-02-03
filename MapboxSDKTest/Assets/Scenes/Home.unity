@@ -1180,7 +1180,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 31.45, y: -414.8}
+  m_AnchoredPosition: {x: 31.450012, y: -414.8}
   m_SizeDelta: {x: -56.5, y: -440.7}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &106414628
@@ -3188,9 +3188,9 @@ RectTransform:
   - {fileID: 359024229}
   - {fileID: 1279245722}
   - {fileID: 1110973402}
-  - {fileID: 571391786}
   - {fileID: 603067822}
   - {fileID: 2014585497}
+  - {fileID: 571391786}
   - {fileID: 728647096}
   m_Father: {fileID: 847172626}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4046,9 +4046,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8431566529681678231, guid: 15de3159cd3084f65a7cda857f34f03a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8587644117524539689, guid: 15de3159cd3084f65a7cda857f34f03a, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8587644117524539689, guid: 15de3159cd3084f65a7cda857f34f03a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8668609979695143662, guid: 15de3159cd3084f65a7cda857f34f03a, type: 3}
       propertyPath: m_Layer
@@ -8448,7 +8456,7 @@ GameObject:
   - component: {fileID: 847172628}
   - component: {fileID: 847172627}
   m_Layer: 5
-  m_Name: HouseTiers
+  m_Name: HouseLevelUpgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17988,7 +17996,7 @@ MonoBehaviour:
   plantSeedCanvas: {fileID: 256131434}
   shopCanvas: {fileID: 939679093}
   editModeCanvas: {fileID: 13114443}
-  houseCanvas: {fileID: 0}
+  houseCanvas: {fileID: 847172625}
 --- !u!1 &1946876962
 GameObject:
   m_ObjectHideFlags: 0

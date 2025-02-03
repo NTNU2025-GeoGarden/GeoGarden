@@ -40,7 +40,8 @@ namespace Garden
             //Also, if the plant seed screen is open, or the shop screen is open, skip update
             if (Input.touchCount != 1 
                 || plantSeedCanvas.activeSelf
-                || shopCanvas.activeSelf) return;
+                || shopCanvas.activeSelf
+                || houseCanvas.activeSelf) return;
             
             //Get the touch input data
             Touch touch = Input.GetTouch(0);
@@ -133,7 +134,7 @@ namespace Garden
         /// <param name="hitInfo">The raycast hit information.</param>
         private void RaycastHitHouse(RaycastHit hitInfo)
         {
-            Debug.Log("HitHOuse");
+            houseCanvas.SetActive(true);
         }
 
         /// <summary>

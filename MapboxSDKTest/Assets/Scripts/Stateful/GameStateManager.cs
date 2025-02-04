@@ -27,7 +27,7 @@ namespace Stateful
         private List<IUsingGameState> _persistenceObjs;
         private FileDataHandler _dataHandler;
 
-        private static int GAMEDATA_VERSION = 2;
+        private static int GAMEDATA_VERSION = 3;
 
         private void Awake()
         {
@@ -84,6 +84,13 @@ namespace Stateful
             */
 
             CurrentState.Version = GAMEDATA_VERSION;
+            CurrentState.HouseLevel = 1;
+            CurrentState.CoinCap    = 100;
+            CurrentState.Coins      = 20;
+            CurrentState.EnergyCap  = 30;
+            CurrentState.Energy     = 20;
+            CurrentState.WaterCap   = 50;
+            CurrentState.Water      = 20;
             
             CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 0, Amount = 1});
             CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 1, Amount = 2});

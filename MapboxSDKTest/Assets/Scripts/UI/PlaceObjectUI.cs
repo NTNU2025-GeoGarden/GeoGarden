@@ -15,6 +15,8 @@ namespace UI
 
         public static DelegateUpdatePlaceObjectUICount OnUpdatePlaceObjectUICount;
 
+        public bool onlyForDisplay;
+        
         public GardenCamera gardenCamera;
         public GameObject editableObjectPrefab;
         public ObjectManager manager;
@@ -70,6 +72,8 @@ namespace UI
                     throw new ArgumentOutOfRangeException();
             }
 
+            if (onlyForDisplay) return;
+            
             _used = manager.GetAmountUsed(type);
             
             amountText.text = $"{_used}/{available}";
@@ -77,6 +81,8 @@ namespace UI
 
         private void UpdateAmount()
         {
+            if (onlyForDisplay) return;
+            
             _used = manager.GetAmountUsed(type);
             Debug.Log($"New amount for {type}: {_used}");
             
@@ -85,6 +91,7 @@ namespace UI
 
         public void CheckSpawnObject()
         {
+            if (onlyForDisplay) return;
             if (_used >= available) return;
             
             amountText.text = $"{_used}/{available}";

@@ -9,10 +9,12 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class HouseUpgradeUI : MonoBehaviour, IUsingGameState
+    public class HouseLevelUpUI : MonoBehaviour, IUsingGameState
     {
         public delegate void DelegateHouseLevelUp();
         public static DelegateHouseLevelUp OnHouseLevelUp;
+
+        public GameObject levelUpCompleteUI;
         
         public TMP_Text titleText;
         public TMP_Text coinCapText;
@@ -56,7 +58,7 @@ namespace UI
         {
             rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, GetRectWidth(progress));
         }
-        
+
         private void SetUIData()
         {
             titleText.text = $"Upgrade to level {_state.HouseLevel + 1}?";
@@ -116,7 +118,11 @@ namespace UI
 
         private void StartHouseLevelUp()
         {
-            Debug.Log("House ");
+            GameStateManager.CurrentState.Coins -= HouseUpgrades.UpgradeCost[_state.HouseLevel];
+            GameStateManager.CurrentState.LevelUpTime =
+                DateTime.Now.Add(HouseUpgrades.UpgradeTimePerLevel[_state.HouseLevel]);
+            
+            LoadData(GameStateManager.CurrentState);
         }
     }
 }

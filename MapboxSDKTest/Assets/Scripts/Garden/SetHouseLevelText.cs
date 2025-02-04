@@ -1,3 +1,5 @@
+using System;
+using System.Globalization;
 using Stateful;
 using TMPro;
 using UnityEngine;
@@ -9,9 +11,12 @@ namespace Garden
         public TMP_Text text;
     
         // Update is called once per frame
-        void Update()
+        public void Update()
         {
-            text.text = $"Level {GameStateManager.CurrentState.HouseLevel}";
+            text.text = 
+                GameStateManager.CurrentState.LevelUpTime == DateTime.MinValue ? 
+                    $"Level {GameStateManager.CurrentState.HouseLevel}" 
+                : (GameStateManager.CurrentState.LevelUpTime - DateTime.Now).ToString(@"d\d\ hh\:mm\:ss", CultureInfo.InvariantCulture);
         }
     }
 }

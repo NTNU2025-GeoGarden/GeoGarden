@@ -75,7 +75,7 @@ namespace UI
         public void HandleUpgradeHouse()
         {
             UICanvas.SetActive(false);
-            HouseUpgradeUI.OnHouseLevelUp();
+            HouseLevelUpUI.OnHouseLevelUp();
         }
     }
 }

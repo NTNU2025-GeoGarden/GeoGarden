@@ -1,3 +1,5 @@
+using System;
+using Stateful;
 using Stateful.Managers;
 using Structs;
 using UnityEngine;
@@ -135,7 +137,8 @@ namespace Garden
         /// <param name="hitInfo">The raycast hit information.</param>
         private void RaycastHitHouse(RaycastHit hitInfo)
         {
-            houseCanvas.SetActive(true);
+            if(GameStateManager.CurrentState.LevelUpTime == DateTime.MinValue)
+                houseCanvas.SetActive(true);
         }
 
         /// <summary>

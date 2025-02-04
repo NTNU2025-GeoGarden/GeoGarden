@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Stateful
@@ -8,6 +9,7 @@ namespace Stateful
         public int Version;
 
         public int HouseLevel;
+        public DateTime LevelUpTime;
         
         public int CoinCap;
         public int Coins;
@@ -29,6 +31,7 @@ namespace Stateful
         public GameState()
         {
             Version    = 0;
+            LevelUpTime = DateTime.MinValue;
             
             HouseLevel = 0;
             CoinCap    = 0;

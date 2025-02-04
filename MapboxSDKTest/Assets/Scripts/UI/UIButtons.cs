@@ -71,5 +71,11 @@ namespace UI
         {
             SceneManager.LoadSceneAsync("Home");
         }
+
+        public void HandleUpgradeHouse()
+        {
+            UICanvas.SetActive(false);
+            HouseUpgradeUI.OnHouseLevelUp();
+        }
     }
 }

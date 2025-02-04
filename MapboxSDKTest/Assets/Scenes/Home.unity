@@ -6039,6 +6039,10 @@ PrefabInstance:
       propertyPath: leftMostPosition.z
       value: 0.003
       objectReference: {fileID: 0}
+    - target: {fileID: 3722106213038182468, guid: 15de3159cd3084f65a7cda857f34f03a, type: 3}
+      propertyPath: m_text
+      value: Level x
+      objectReference: {fileID: 0}
     - target: {fileID: 3984690444346564998, guid: 15de3159cd3084f65a7cda857f34f03a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.737
@@ -6125,6 +6129,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4296125399198795568, guid: 15de3159cd3084f65a7cda857f34f03a, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1401357728}
+    - targetCorrespondingSourceObject: {fileID: 4296125399198795568, guid: 15de3159cd3084f65a7cda857f34f03a, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 15de3159cd3084f65a7cda857f34f03a, type: 3}
 --- !u!4 &610968578 stripped
@@ -6183,7 +6190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -7754,7 +7761,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 728647097}
         m_TargetAssemblyTypeName: UI.UIButtons, Assembly-CSharp
-        m_MethodName: HandlePlantSeed
+        m_MethodName: HandleUpgradeHouse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8462,7 +8469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &847172626
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8563,6 +8570,7 @@ MonoBehaviour:
   coinCapText: {fileID: 1050819929}
   energyCapText: {fileID: 932057790}
   waterCapText: {fileID: 883255833}
+  upgradeTimeText: {fileID: 1848538319}
   progressBarHolder: {fileID: 376974810}
   coinCapBaseProgressBar: {fileID: 516557498}
   coinCapExtensionProgressBar: {fileID: 1297065295}
@@ -8570,6 +8578,13 @@ MonoBehaviour:
   energyCapExtensionProgressBar: {fileID: 910038935}
   waterCapBaseProgressBar: {fileID: 2003514553}
   waterCapExtensionProgressBar: {fileID: 1441206995}
+  upgradeText: {fileID: 2106093283}
+  plantsRequirementText: {fileID: 701520426}
+  plantsRequirementImage: {fileID: 1651660895}
+  walkingRequirementText: {fileID: 1656925072}
+  walkingRequirementImage: {fileID: 376933616}
+  upgradeButton: {fileID: 728647098}
+  upgradeCost: {fileID: 1758202339}
 --- !u!1 &848585181
 GameObject:
   m_ObjectHideFlags: 0
@@ -13187,6 +13202,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399851581}
   m_CullTransparentMesh: 1
+--- !u!1 &1401357724 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4296125399198795568, guid: 15de3159cd3084f65a7cda857f34f03a, type: 3}
+  m_PrefabInstance: {fileID: 610968577}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1401357726 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3722106213038182468, guid: 15de3159cd3084f65a7cda857f34f03a, type: 3}
+  m_PrefabInstance: {fileID: 610968577}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401357724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1401357728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401357724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf31ae9fece44d319ebd2ca7337c0ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1401357726}
 --- !u!1 &1412728241
 GameObject:
   m_ObjectHideFlags: 0
@@ -16637,7 +16681,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1d
+  m_text: time
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0d21645e23f1fc6468404ca32d563e6e, type: 2}
   m_sharedMaterial: {fileID: 3057482856749465163, guid: 0d21645e23f1fc6468404ca32d563e6e, type: 2}
@@ -16716,63 +16760,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1848538317}
   m_CullTransparentMesh: 1
---- !u!1001 &1851872701
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: b0545faf6c3864b4a8718b05b95320ff, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.163
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b0545faf6c3864b4a8718b05b95320ff, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.492
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b0545faf6c3864b4a8718b05b95320ff, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.931
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b0545faf6c3864b4a8718b05b95320ff, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.51464087
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b0545faf6c3864b4a8718b05b95320ff, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b0545faf6c3864b4a8718b05b95320ff, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.8574059
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b0545faf6c3864b4a8718b05b95320ff, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b0545faf6c3864b4a8718b05b95320ff, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b0545faf6c3864b4a8718b05b95320ff, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 118.053
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b0545faf6c3864b4a8718b05b95320ff, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: b0545faf6c3864b4a8718b05b95320ff, type: 3}
-      propertyPath: m_Name
-      value: rock-flat-grass (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b0545faf6c3864b4a8718b05b95320ff, type: 3}
 --- !u!1 &1856850549
 GameObject:
   m_ObjectHideFlags: 0
@@ -19374,14 +19361,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '+ 2 new planting zones
+  m_text: 'A short list of upgrades
 
-    + 10% faster grow speeds
+    or rewards that the player gets
 
-    + 1x random
-    <color=#ffba19>Legendary</color> seed
-
-'
+    when
+    completed'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0d21645e23f1fc6468404ca32d563e6e, type: 2}
   m_sharedMaterial: {fileID: 3057482856749465163, guid: 0d21645e23f1fc6468404ca32d563e6e, type: 2}
@@ -19634,4 +19619,3 @@ SceneRoots:
   - {fileID: 1505575666}
   - {fileID: 251653661}
   - {fileID: 668983698}
-  - {fileID: 1851872701}

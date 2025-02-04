@@ -17,6 +17,9 @@ namespace Stateful
 
         public int WaterCap;
         public int Water;
+
+        public int PlantsHarvested;
+        public float DistanceWalked;
         
         public List<SerializableInventoryEntry> Inventory;
         public List<SerializableGardenSpot> GardenSpots;
@@ -34,6 +37,8 @@ namespace Stateful
             Energy     = 0;
             WaterCap   = 0;
             Water      = 0;
+            PlantsHarvested = 0;
+            DistanceWalked  = 0;
             
             MapResources = new Dictionary<int, List<SerializableSpawner>>();
             GardenSpots  = new List<SerializableGardenSpot>();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Structs
@@ -15,8 +16,10 @@ namespace Structs
         public static List<string> UpgradeTextPerLevel = new() {"", "+ 2 new planting zones\n+ 10% faster grow speed\n+ 1x random <color=#ffba19>Legendary</color> seed", "", "", ""};
         
         public static List<int> PlantRequirementPerLevel    = new(){-1, 10, 30, 50, 100};
-        public static List<int> KmWalkedRequirementPerLevel = new(){-1,  3, 10, 21,  42};
+        public static List<int> WalkingRequirementPerLevel  = new(){-1,  3, 10, 21,  42};
         
         public static List<int> UpgradeCost = new(){-1, 75, 150, 275, 400};
+        
+        public static List<TimeSpan> UpgradeTimePerLevel = new(){TimeSpan.Zero, TimeSpan.FromDays(1)};
     }
 }

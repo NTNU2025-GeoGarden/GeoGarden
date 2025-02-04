@@ -68,6 +68,7 @@ namespace Stateful.Managers
                     collected = false
                 };
             
+            
                 _mapResources[_todaysSeed].Add(newResource);
             }
         }
@@ -78,29 +79,32 @@ namespace Stateful.Managers
             state.MapResources = _mapResources;
         }
 
-        private void AddInGameSpawners()
+       private void AddInGameSpawners()
+       {
+        if (_mapResources == null || !_mapResources.ContainsKey(_todaysSeed))
         {
-            if (_mapResources == null || !_mapResources.ContainsKey(_todaysSeed))
-            {
-                Debug.Log("<color=red>[MapResourceManager] Tried to generate spawners, but the data was not ready. Was LoadData() called?</color>");
-                LoadingScreen.OnLoadingError();
-                return;
-            }
-        
-            foreach (SerializableSpawner resource in _mapResources[_todaysSeed])
-            {
-                GameObject newObj = Instantiate(resourcePrefab, _map.MapInformation.ConvertLatLngToPosition(resource.latLng),
-                    Quaternion.identity);
-                
-                newObj.GetComponent<SnapObjectToMap>().latLng    = resource.latLng;
-                newObj.GetComponent<SnapObjectToMap>().mapObject = mapObject;
-
-                newObj.GetComponent<SpawnerOnMap>().player    = player;
-                newObj.GetComponent<SpawnerOnMap>().spawner   = resource.spawner;
-                newObj.GetComponent<SpawnerOnMap>().latLng    = resource.latLng;
-                newObj.GetComponent<SpawnerOnMap>().collected = resource.collected;
-            }
+            Debug.Log("<color=red>[MapResourceManager] Tried to generate spawners, but the data was not ready. Was LoadData() called?</color>");
+            LoadingScreen.OnLoadingError();
+            return;
         }
+
+        foreach (SerializableSpawner resource in _mapResources[_todaysSeed])
+        {
+            Vector3 spawnPosition = _map.MapInformation.ConvertLatLngToPosition(resource.latLng);
+            spawnPosition.y = 45f; // ✅ Set a fixed Y-value for all spawners
+
+            GameObject newObj = Instantiate(resourcePrefab, spawnPosition, Quaternion.identity);
+            
+            newObj.GetComponent<SnapObjectToMap>().latLng    = resource.latLng;
+            newObj.GetComponent<SnapObjectToMap>().mapObject = mapObject;
+
+            newObj.GetComponent<SpawnerOnMap>().player    = player;
+            newObj.GetComponent<SpawnerOnMap>().spawner   = resource.spawner;
+            newObj.GetComponent<SpawnerOnMap>().latLng    = resource.latLng;
+            newObj.GetComponent<SpawnerOnMap>().collected = resource.collected;
+        }
+       }
+
 
         public void TryRegisterCollectResource(LatitudeLongitude latLng)
         {

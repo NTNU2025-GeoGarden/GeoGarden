@@ -178,7 +178,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onlyForDisplay: 0
   type: 0
-  cost: 0
   gardenCamera: {fileID: 0}
   editableObjectPrefab: {fileID: 7682178405852266579, guid: 496103af52bed9a48bafd59b86a9b55f, type: 3}
   manager: {fileID: 0}
@@ -324,7 +323,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 2.7123413, y: -29.371582, z: -29.804352, w: -19.312744}
+  m_margin: {x: 2.7123413, y: -29.371582, z: -29.804352, w: -2.1794434}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -784,8 +783,8 @@ RectTransform:
   m_GameObject: {fileID: 6181750779355725469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.77, y: 0.77, z: 0.77}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3321125533495445064}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -822,7 +821,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b99f1ea6c175f664b82596ff4ed85c01, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5151d71fbb65142f2af00fc2a38de641, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

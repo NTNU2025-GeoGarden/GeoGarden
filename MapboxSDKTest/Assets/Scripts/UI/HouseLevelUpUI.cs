@@ -15,13 +15,10 @@ namespace UI
         public delegate void DelegateHouseLevelUp();
         public static DelegateHouseLevelUp OnHouseLevelUp;
         
-        public GameObject levelUpCompleteUI;
-        
         public TMP_Text titleText;
         public TMP_Text coinCapText;
         public TMP_Text energyCapText;
         public TMP_Text waterCapText;
-
         public TMP_Text upgradeTimeText; 
 
         public RectTransform progressBarHolder;
@@ -41,9 +38,12 @@ namespace UI
 
         public Button upgradeButton;
         public TMP_Text upgradeCost;
+
+        public GameObject houseReadytoUpgradeIcon;
         
         private GameState _state;
         private bool _requirementsMet;
+        private bool _canUpgrade;
 
         public void Start()
         {
@@ -82,12 +82,13 @@ namespace UI
             plantsRequirementImage.color = _state.PlantsHarvested >= HouseUpgrades.PlantRequirementPerLevel[_state.HouseLevel] ? new Color(0.690f, 0.972f, 0.741f) : new Color(0.971f, 0.694f, 0.692f);
             walkingRequirementImage.color = _state.DistanceWalked >= HouseUpgrades.WalkingRequirementPerLevel[_state.HouseLevel] ? new Color(0.690f, 0.972f, 0.741f) : new Color(0.971f, 0.694f, 0.692f);
 
-            _requirementsMet = _state.PlantsHarvested >= HouseUpgrades.PlantRequirementPerLevel[_state.HouseLevel] 
-                            && _state.DistanceWalked  >= HouseUpgrades.WalkingRequirementPerLevel[_state.HouseLevel]
-                            && _state.Coins           >= HouseUpgrades.UpgradeCost[_state.HouseLevel];
+            _requirementsMet = _state.PlantsHarvested >= HouseUpgrades.PlantRequirementPerLevel[_state.HouseLevel]
+                            && _state.DistanceWalked  >= HouseUpgrades.WalkingRequirementPerLevel[_state.HouseLevel];
+            
+            _canUpgrade = _requirementsMet && _state.Coins >= HouseUpgrades.UpgradeCost[_state.HouseLevel];
 
-            upgradeButton.interactable = _requirementsMet;
-            upgradeCost.color = _requirementsMet ? new Color(0.690f, 0.972f, 0.741f) : new Color(0.971f, 0.694f, 0.692f);
+            upgradeButton.interactable = _canUpgrade;
+            upgradeCost.color = _canUpgrade ? new Color(0.690f, 0.972f, 0.741f) : new Color(0.971f, 0.694f, 0.692f);
             
             SetProgressBar(coinCapBaseProgressBar, (float)_state.CoinCap / HouseUpgrades.MaxCoinCap);
             SetProgressBar(coinCapExtensionProgressBar, (float)HouseUpgrades.CoinCapPerLevel[_state.HouseLevel + 1] / HouseUpgrades.MaxCoinCap);
@@ -99,14 +100,11 @@ namespace UI
             SetProgressBar(waterCapExtensionProgressBar, (float)HouseUpgrades.WaterCapPerLevel[_state.HouseLevel + 1] / HouseUpgrades.MaxWaterCap);
         }
 
-        public void OnEnable()
+        public void Update()
         {
-            if(_state != null)
-                SetUIData();
-            
-            LoadData(GameStateManager.CurrentState);
+            houseReadytoUpgradeIcon.SetActive(_requirementsMet);
         }
-
+        
         public void LoadData(GameState state)
         {
             _state = state;

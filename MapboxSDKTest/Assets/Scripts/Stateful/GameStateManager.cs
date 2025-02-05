@@ -200,6 +200,14 @@ namespace Stateful
                 entry.Amount++;
                 
                 CurrentState.Inventory[index] = entry;
+                
+                if (CurrentState.Inventory != null)
+                {
+                    foreach (var item in CurrentState.Inventory)
+                    {
+                        Debug.Log($"Inventory Item: {item.Id} - {item.Amount}");
+                    }
+                }
             }
         }
         

@@ -158,7 +158,6 @@ private IEnumerator FlyAndCollect()
     // Register collection with the resource manager
     MapResourceManager.OnRegisterCollectResource(latLng);
 
-    
     Debug.Log("Resource has been collected and flown away!");
     // Destroy or hide the object after flight
     //Destroy(gameObject); // Remove after flying to "space"

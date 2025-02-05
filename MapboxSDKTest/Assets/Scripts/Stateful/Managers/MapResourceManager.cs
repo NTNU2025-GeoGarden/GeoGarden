@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Map;
 using Mapbox.BaseModule.Data.Vector2d;
 using Mapbox.BaseModule.Map;
@@ -34,6 +36,8 @@ namespace Stateful.Managers
             {
                 AddInGameSpawners();
             };
+
+        
         }
 
         public void LoadData(GameState state)
@@ -105,6 +109,7 @@ namespace Stateful.Managers
         }
        }
 
+        /*
 
         public void TryRegisterCollectResource(LatitudeLongitude latLng)
         {
@@ -115,6 +120,48 @@ namespace Stateful.Managers
             _mapResources[_todaysSeed].Add(resource);
         
             print(_mapResources[_todaysSeed].Find(p => p.latLng.Equals(latLng)).collected);
+        } */
+
+     
+       public async void TryRegisterCollectResource(LatitudeLongitude latLng)
+    {
+        Debug.Log("<color=lime>[MapResourceManager] Trying to register that the player collected a resource</color>");
+
+            // ✅ Check if _mapResources is null
+        if (_mapResources == null)
+        {
+            Debug.Log("⏳ Waiting for _mapResources to be initialized...");
+            await Task.Delay(500); // ✅ Wait for 100 milliseconds before checking again
         }
+
+        // ✅ Check if _todaysSeed exists
+        if (!_mapResources.ContainsKey(_todaysSeed))
+        {
+            Debug.LogError($"❌ ERROR: _mapResources does NOT contain the key '{_todaysSeed}'!");
+            return;
+        }
+
+        // ✅ Check if the list is null
+        if (_mapResources[_todaysSeed] == null)
+        {
+            Debug.LogError($"❌ ERROR: _mapResources[{_todaysSeed}] is NULL!");
+            return;
+        }
+
+        // ✅ Find the index
+        int index = _mapResources[_todaysSeed].FindIndex(p => p.latLng.Equals(latLng));
+
+        if (index == -1)
+        {
+            Debug.LogError($"❌ ERROR: No resource found at latLng {latLng} in _mapResources[{_todaysSeed}]!");
+            return;
+        }
+
+        // ✅ Mark the resource as collected
+        _mapResources[_todaysSeed][index].collected = true;
+        Debug.Log($"✅ Resource at {latLng} marked as collected.");
+        return;
+    }
+
     }
 }

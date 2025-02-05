@@ -105,7 +105,7 @@ namespace Stateful
                 Z = 0.3f
             });
             
-            CurrentState.Objects.Add(new SerializableObject
+            /*CurrentState.Objects.Add(new SerializableObject
             {
                    X        = -0.8f,
                    Y        = 0,
@@ -115,7 +115,7 @@ namespace Stateful
                 RotZ        = 0,
                 RotW        = 1,
                 Type     = EditableObjectType.DirtPatch
-            });
+            });*/
         }
 
         private void LoadGame()

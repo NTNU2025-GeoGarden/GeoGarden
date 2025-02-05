@@ -8,6 +8,7 @@ namespace Structs
         public static List<int> CoinCapPerLevel   = new(){-1, 100, 175, 300, 500};
         public static List<int> EnergyCapPerLevel = new(){-1,  25,  50,  75, 150};
         public static List<int> WaterCapPerLevel  = new(){-1,  50, 100, 200, 400};
+        public static List<int> NewSpotsPerLevel  = new(){-1,   1,   2,   3,   4};
 
         public static int MaxCoinCap   = CoinCapPerLevel[^1];
         public static int MaxEnergyCap = EnergyCapPerLevel[^1];
@@ -16,8 +17,8 @@ namespace Structs
         public static List<string> UpgradeTextPerLevel = new()
         {
             "", 
-            "+ 1 more planting zone\n+ 10% faster growing\n+ Unlock garden customization", 
-            "+ 2 more planting zones\n+ Unlock 3 new garden items\n+ Map locations drop more", 
+            "+ 1 more planting zone\n+ 10% faster growing\n+ Unlock garden layout", 
+            "+ 2 more planting zones\n+ Unlock 3 new garden layout objects\n+ Map locations give more loot", 
             "+ 3 more planting zones\n+ 15% faster growing\n+ 1x random <color=#fc4e03>Epic</color> seed",
             "+ 4 more planting zones\n+ 1x random <color=#ffba19>Legendary</color> seed"
         };

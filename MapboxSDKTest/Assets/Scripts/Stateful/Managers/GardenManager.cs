@@ -55,9 +55,10 @@ namespace Stateful.Managers
             _inGameSpots = new List<PlantableSpot>();
             
             if(_objects != null)
-                _objects.Clear();
-            else
-                _objects = new List<EditableObject>();
+                foreach(EditableObject obj in _objects)
+                    Destroy(obj.gameObject);
+            
+            _objects = new List<EditableObject>();
             
             foreach (SerializableGardenSpot spot in _serializedSpots)
             {

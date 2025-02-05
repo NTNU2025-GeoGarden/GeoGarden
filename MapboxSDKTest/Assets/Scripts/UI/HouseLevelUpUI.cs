@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using Garden;
 using Stateful;
+using Stateful.Managers;
 using Structs;
 using TMPro;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace UI
     {
         public delegate void DelegateHouseLevelUp();
         public static DelegateHouseLevelUp OnHouseLevelUp;
-
+        
         public GameObject levelUpCompleteUI;
         
         public TMP_Text titleText;

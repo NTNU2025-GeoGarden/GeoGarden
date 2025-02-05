@@ -59,7 +59,7 @@ namespace Map
 
         public void Start()
         {
-            //OnCollectResource += TryCollectThisResource;
+            //OnCollectResource += CollectThisResource;
 
             if (collected)
             {
@@ -99,43 +99,11 @@ namespace Map
             text.transform.LookAt(player);
         }
 
-    /*
-        private void TryCollectThisResource()
-        {
-          StartCoroutine(SpinAndCollect());
-            // TODO Award resources to player
-        } */
-
-
-    /*
-        private IEnumerator SwapToOpenBox()
-        {
-            yield return new WaitForSeconds(2.0f); // ✅ Optional short delay before swapping
-
-            // ✅ Instantiate the open box at the same position and rotation
-            GameObject openBox = Instantiate(openBoxPrefab, transform.position, transform.rotation);
-
-            Debug.Log("✅ Box has been swapped to open!");
-
-            // ✅ Register collection with the resource manager
-            MapResourceManager.OnRegisterCollectResource(latLng);
-
-            collected = true;
-            GetComponent<Renderer>().material.color = Color.gray;
-            Debug.Log("Collected, Good work");
-            
-            // Register collection with the resource manager
-            MapResourceManager.OnRegisterCollectResource(latLng);
-
-            
-            Debug.Log("Resource has been collected and flown away!");
-            // ✅ Destroy the closed box
-            //Destroy(gameObject);
-        } */
+  
 
 private IEnumerator FlyAndCollect()
 {
-    float duration = 5f; // Total flight time
+    float duration = 3f; // Total flight time
     float acceleration = 7f; // Speed multiplier for acceleration
     float elapsedTime = 0f;
     

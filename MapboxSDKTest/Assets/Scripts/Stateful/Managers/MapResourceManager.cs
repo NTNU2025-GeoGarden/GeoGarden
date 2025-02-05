@@ -122,46 +122,61 @@ namespace Stateful.Managers
             print(_mapResources[_todaysSeed].Find(p => p.latLng.Equals(latLng)).collected);
         } */
 
-     
-       public async void TryRegisterCollectResource(LatitudeLongitude latLng)
-    {
-        Debug.Log("<color=lime>[MapResourceManager] Trying to register that the player collected a resource</color>");
+
+        public void TryRegisterCollectResource(LatitudeLongitude latLng)
+        {
+            Debug.Log("<color=lime>[MapResourceManager] Trying to register that the player collected a resource</color>");
 
             // ✅ Check if _mapResources is null
-        if (_mapResources == null)
-        {
-            Debug.Log("⏳ Waiting for _mapResources to be initialized...");
-            await Task.Delay(500); // ✅ Wait for 100 milliseconds before checking again
-        }
+            if (_mapResources == null)
+            {
+                LoadData(GameStateManager.CurrentState);
+            }
 
-        // ✅ Check if _todaysSeed exists
-        if (!_mapResources.ContainsKey(_todaysSeed))
-        {
-            Debug.LogError($"❌ ERROR: _mapResources does NOT contain the key '{_todaysSeed}'!");
+            // ✅ Check if _todaysSeed exists
+            if (!_mapResources.ContainsKey(_todaysSeed))
+            {
+                Debug.LogError($"❌ ERROR: _mapResources does NOT contain the key '{_todaysSeed}'!");
+                return;
+            }
+
+            // ✅ Check if the list is null
+            if (_mapResources[_todaysSeed] == null)
+            {
+                Debug.LogError($"❌ ERROR: _mapResources[{_todaysSeed}] is NULL!");
+                return;
+            }
+
+            // ✅ Find the index
+            int index = _mapResources[_todaysSeed].FindIndex(p => p.latLng.Equals(latLng));
+
+            if (index == -1)
+            {
+                Debug.LogError($"❌ ERROR: No resource found at latLng {latLng} in _mapResources[{_todaysSeed}]!");
+                return;
+            }
+
+            // ✅ Mark the resource as collected
+            _mapResources[_todaysSeed][index].collected = true;
+            Debug.Log($"✅ Resource at {latLng} marked as collected.");
+
+            //herfra må vi fikse, så itemet gir mening
+            SerializableSpawner collectedSpawner = _mapResources[_todaysSeed][index];
+            SpawnerItemDrop itemDrop = collectedSpawner.spawner.drops[0]; // Assuming first drop
+
+
+            // ✅ Add item to the inventory using GameStateManager
+            if (GameStateManager.OnAddInventoryItem != null)
+            {
+                GameStateManager.OnAddInventoryItem.Invoke((int)itemDrop.drop);
+                Debug.Log($"👜 Added {itemDrop.minAmount}x {itemDrop.drop} (ID {(int)itemDrop.drop}) to inventory.");
+            }
+            else
+            {
+                Debug.LogError("❌ ERROR: OnAddInventoryItem is NULL! Ensure GameStateManager is initialized.");
+            }
             return;
         }
-
-        // ✅ Check if the list is null
-        if (_mapResources[_todaysSeed] == null)
-        {
-            Debug.LogError($"❌ ERROR: _mapResources[{_todaysSeed}] is NULL!");
-            return;
-        }
-
-        // ✅ Find the index
-        int index = _mapResources[_todaysSeed].FindIndex(p => p.latLng.Equals(latLng));
-
-        if (index == -1)
-        {
-            Debug.LogError($"❌ ERROR: No resource found at latLng {latLng} in _mapResources[{_todaysSeed}]!");
-            return;
-        }
-
-        // ✅ Mark the resource as collected
-        _mapResources[_todaysSeed][index].collected = true;
-        Debug.Log($"✅ Resource at {latLng} marked as collected.");
-        return;
-    }
 
     }
 }

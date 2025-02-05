@@ -157,7 +157,8 @@ namespace Garden
             else if (hit.transform.CompareTag("EditableObjectDel"))
             {
                 EditableObject obj = hit.transform.parent.parent.parent.GetComponent<EditableObject>();
-                                            
+
+                GameStateManager.CurrentState.Coins += EditableObjectCost.GetCostByType(obj.type);
                 Destroy(obj.gameObject);
                 objectManager.DeleteObject(obj);
             }

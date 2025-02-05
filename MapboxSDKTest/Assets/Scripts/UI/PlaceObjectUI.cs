@@ -15,12 +15,18 @@ namespace UI
 
         public static DelegateUpdatePlaceObjectUICount OnUpdatePlaceObjectUICount;
 
+        [Header("Object information")]
         public bool onlyForDisplay;
+        public EditableObjectType type;
+        [Space(10)]
         
+        [Header("Links to other objects")]
         public GardenCamera gardenCamera;
         public GameObject editableObjectPrefab;
         public ObjectManager manager;
+        [Space(10)]
         
+        [Header("Internal references")]
         public GameObject treeHolder;
         public GameObject fenceHolder;
         public GameObject spotHolder; 
@@ -29,18 +35,21 @@ namespace UI
         public GameObject cartHolder;
         public GameObject woodPileHolder;
         public GameObject dirtHolder;
+        public GameObject feeTextHolder;
         public TMP_Text amountText;
-        
-        public EditableObjectType type;
+        public TMP_Text feeText;
         
         public int available;
         private int _used;
+        private int _cost;
 
         private GameState _state;
         
         public void Start()
         {
             OnUpdatePlaceObjectUICount += UpdateAmount;
+
+            _cost = EditableObjectCost.GetCostByType(type);
             
             switch(type)
             {
@@ -77,6 +86,12 @@ namespace UI
             _used = manager.GetAmountUsed(type);
             
             amountText.text = $"{_used}/{available}";
+            feeText.text = _cost.ToString();
+        }
+
+        public void Update()
+        {
+            feeText.color = GameStateManager.CurrentState.Coins >= _cost ? new Color(0.690f, 0.972f, 0.741f) : new Color(0.971f, 0.694f, 0.692f);
         }
 
         private void UpdateAmount()
@@ -93,6 +108,7 @@ namespace UI
         {
             if (onlyForDisplay) return;
             if (_used >= available) return;
+            if (GameStateManager.CurrentState.Coins < _cost) return;
             
             amountText.text = $"{_used}/{available}";
 
@@ -104,7 +120,8 @@ namespace UI
             obj.gardenCamera = gardenCamera;
             obj.transform.position = Vector3.zero;
             manager.AddObject(obj);
-
+            
+            GameStateManager.CurrentState.Coins -= _cost;
             GameStateManager.OnForceSaveGame();
         }
     }

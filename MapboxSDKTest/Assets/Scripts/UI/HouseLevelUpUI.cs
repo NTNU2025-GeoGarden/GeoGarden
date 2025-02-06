@@ -82,12 +82,7 @@ namespace UI
             
             plantsRequirementImage.color = _state.PlantsHarvested >= HouseUpgrades.PlantRequirementPerLevel[_state.HouseLevel] ? new Color(0.690f, 0.972f, 0.741f) : new Color(0.971f, 0.694f, 0.692f);
             walkingRequirementImage.color = _state.DistanceWalked >= HouseUpgrades.WalkingRequirementPerLevel[_state.HouseLevel] ? new Color(0.690f, 0.972f, 0.741f) : new Color(0.971f, 0.694f, 0.692f);
-
-            _requirementsMet = _state.PlantsHarvested >= HouseUpgrades.PlantRequirementPerLevel[_state.HouseLevel]
-                            && _state.DistanceWalked  >= HouseUpgrades.WalkingRequirementPerLevel[_state.HouseLevel];
             
-            _canUpgrade = _requirementsMet && _state.Coins >= HouseUpgrades.UpgradeCost[_state.HouseLevel];
-
             upgradeButton.interactable = _canUpgrade;
             upgradeCost.color = _canUpgrade ? new Color(0.690f, 0.972f, 0.741f) : new Color(0.971f, 0.694f, 0.692f);
             
@@ -103,9 +98,14 @@ namespace UI
 
         public void Update()
         {
-            houseReadytoUpgradeIcon.SetActive(_requirementsMet);
-            if(houseUI.activeSelf)
-                LoadData(GameStateManager.CurrentState);
+            LoadData(GameStateManager.CurrentState);
+            
+            _requirementsMet = _state.PlantsHarvested >= HouseUpgrades.PlantRequirementPerLevel[_state.HouseLevel]
+                               && _state.DistanceWalked  >= HouseUpgrades.WalkingRequirementPerLevel[_state.HouseLevel];
+            
+            _canUpgrade = _requirementsMet && _state.Coins >= HouseUpgrades.UpgradeCost[_state.HouseLevel];
+            
+            houseReadytoUpgradeIcon.SetActive(_requirementsMet && _state.LevelUpTime == DateTime.MinValue);
         }
         
         public void LoadData(GameState state)

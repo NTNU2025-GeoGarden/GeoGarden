@@ -16,8 +16,8 @@ namespace UI
         
         void Update()
         {
-            levelAText.text = (GameStateManager.CurrentState.HouseLevel - 1).ToString();
-            levelBText.text = GameStateManager.CurrentState.HouseLevel.ToString();
+            levelAText.text = $"Level {GameStateManager.CurrentState.HouseLevel - 1}";
+            levelBText.text = $"Level {GameStateManager.CurrentState.HouseLevel}";
 
             switch (GameStateManager.CurrentState.HouseLevel)
             {

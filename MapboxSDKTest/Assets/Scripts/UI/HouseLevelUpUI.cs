@@ -65,9 +65,9 @@ namespace UI
         {
             titleText.text = $"Upgrade to level {_state.HouseLevel + 1}?";
 
-            coinCapText.text   = $"Capacity {_state.CoinCap}+{HouseUpgrades.CoinCapPerLevel[_state.HouseLevel + 1]}";
-            energyCapText.text = $"Capacity {_state.EnergyCap}+{HouseUpgrades.EnergyCapPerLevel[_state.HouseLevel + 1]}";
-            waterCapText.text  = $"Capacity {_state.WaterCap}+{HouseUpgrades.WaterCapPerLevel[_state.HouseLevel + 1]}";
+            coinCapText.text   = $"Capacity {_state.CoinCap}+{HouseUpgrades.CoinCapPerLevel[_state.HouseLevel + 1] - _state.CoinCap}";
+            energyCapText.text = $"Capacity {_state.EnergyCap}+{HouseUpgrades.EnergyCapPerLevel[_state.HouseLevel + 1] - _state.EnergyCap}";
+            waterCapText.text  = $"Capacity {_state.WaterCap}+{HouseUpgrades.WaterCapPerLevel[_state.HouseLevel + 1] - _state.WaterCap}";
 
             upgradeText.text = HouseUpgrades.UpgradeTextPerLevel[_state.HouseLevel];
 

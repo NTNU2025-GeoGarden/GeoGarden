@@ -208,6 +208,7 @@ namespace Stateful.Managers
             updatedSerializedSpot.state = 0;
 
             GameStateManager.OnAddInventoryItem(Seeds.FromID(updatedSerializedSpot.seedID).ProductItemID);
+            GameStateManager.CurrentState.PlantsHarvested++;
             
             updatedSerializedSpot.seedID = 0;
             _serializedSpots[spot.spotID] = updatedSerializedSpot;

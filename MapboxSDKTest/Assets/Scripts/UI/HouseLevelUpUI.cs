@@ -40,6 +40,7 @@ namespace UI
         public TMP_Text upgradeCost;
 
         public GameObject houseReadytoUpgradeIcon;
+        public GameObject houseUI;
         
         private GameState _state;
         private bool _requirementsMet;
@@ -103,6 +104,8 @@ namespace UI
         public void Update()
         {
             houseReadytoUpgradeIcon.SetActive(_requirementsMet);
+            if(houseUI.activeSelf)
+                LoadData(GameStateManager.CurrentState);
         }
         
         public void LoadData(GameState state)

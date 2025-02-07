@@ -108,20 +108,6 @@ namespace Stateful.Managers
             newObj.GetComponent<SpawnerOnMap>().collected = resource.collected;
         }
        }
-
-        /*
-
-        public void TryRegisterCollectResource(LatitudeLongitude latLng)
-        {
-            Debug.Log("<color=lime>[MapResourceManager] Trying to register that the player collected a resource</color>");
-            SerializableSpawner resource = _mapResources[_todaysSeed].Find(p => p.latLng.Equals(latLng));
-            resource.collected = true;
-            _mapResources[_todaysSeed].Remove(_mapResources[_todaysSeed].Find(p => p.latLng.Equals(latLng)));
-            _mapResources[_todaysSeed].Add(resource);
-        
-            print(_mapResources[_todaysSeed].Find(p => p.latLng.Equals(latLng)).collected);
-        } */
-
      
        public async void TryRegisterCollectResource(LatitudeLongitude latLng)
     {

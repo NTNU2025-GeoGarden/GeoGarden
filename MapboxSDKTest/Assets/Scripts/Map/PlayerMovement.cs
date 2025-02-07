@@ -25,7 +25,6 @@ namespace Map
 		
 		public bool SnapToTerrain = false;
 
-		private bool playerCloseEnough = false;
 
 
 	

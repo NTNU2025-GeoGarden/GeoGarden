@@ -12,7 +12,6 @@ namespace UI
         public GameObject level2Rewards;
         public GameObject level3Rewards;
         public GameObject level4Rewards;
-        public GameObject level5Rewards;
         
         void Update()
         {
@@ -29,9 +28,6 @@ namespace UI
                     break;
                 case 4:
                     level4Rewards.SetActive(true);
-                    break;
-                case 5:
-                    level5Rewards.SetActive(true);
                     break;
             }
         }

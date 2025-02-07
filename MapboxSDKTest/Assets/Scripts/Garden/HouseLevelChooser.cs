@@ -9,7 +9,6 @@ namespace Garden
         public GameObject level2;
         public GameObject level3;
         public GameObject level4;
-        public GameObject level5;
         private int _lastHouseLevel;
 
         public void Update()
@@ -20,7 +19,6 @@ namespace Garden
                 level2.SetActive(false);
                 level3.SetActive(false);
                 level4.SetActive(false);
-                level5.SetActive(false);
                 
                 switch (GameStateManager.CurrentState.HouseLevel)
                 {
@@ -35,9 +33,6 @@ namespace Garden
                         break;
                     case 4:
                         level4.SetActive(true);
-                        break;
-                    case 5:
-                        level5.SetActive(true);
                         break;
                 }  
             }

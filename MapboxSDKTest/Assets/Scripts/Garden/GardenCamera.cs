@@ -137,7 +137,7 @@ namespace Garden
         /// <param name="hitInfo">The raycast hit information.</param>
         private void RaycastHitHouse(RaycastHit hitInfo)
         {
-            if(GameStateManager.CurrentState.LevelUpTime == DateTime.MinValue)
+            if(GameStateManager.CurrentState.LevelUpTime == DateTime.MinValue && GameStateManager.CurrentState.HouseLevel != HouseUpgrades.MaxLevel)
                 houseCanvas.SetActive(true);
         }
 

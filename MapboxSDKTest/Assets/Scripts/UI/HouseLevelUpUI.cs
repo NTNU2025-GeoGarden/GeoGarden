@@ -111,7 +111,8 @@ namespace UI
         public void LoadData(GameState state)
         {
             _state = state;
-            SetUIData();
+            if(_state.HouseLevel != HouseUpgrades.MaxLevel)
+                SetUIData();
         }
 
         public void SaveData(ref GameState state)

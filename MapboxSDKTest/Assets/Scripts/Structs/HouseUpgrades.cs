@@ -5,6 +5,7 @@ namespace Structs
 {
     public static class HouseUpgrades
     {
+        public static readonly int MaxLevel = 4;
         public static readonly List<int> CoinCapPerLevel   = new(){-1, 100, 175, 300, 500};
         public static readonly List<int> EnergyCapPerLevel = new(){-1,  25,  50,  75, 150};
         public static readonly List<int> WaterCapPerLevel  = new(){-1,  50, 100, 200, 400};

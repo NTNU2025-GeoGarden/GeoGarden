@@ -100,7 +100,7 @@ namespace UI
             {
                 int sellValue = _selectedItem.Item.Value;
                 GameStateManager.CurrentState.Coins += sellValue;
-                GameStateManager.OnRemoveInventoryItem(_selectedItem.Item.ID);
+                GameStateManager.RemoveInventoryItem(_selectedItem.Item.ID);
                 UpdateCoinText();
                 _selectedItem = null;
                 previewItem.gameObject.SetActive(false);

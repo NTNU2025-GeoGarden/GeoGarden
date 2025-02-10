@@ -204,7 +204,11 @@ namespace Stateful.Managers
             updatedSerializedSpot.stateCompletionTime = DateTime.MinValue;
             updatedSerializedSpot.state = 0;
 
-            GameStateManager.OnAddInventoryItem(Seeds.FromID(updatedSerializedSpot.seedID).ProductItemID);
+            GameStateManager.AddInventoryItem(new SerializableInventoryEntry()
+            {
+                Id = Seeds.FromID(updatedSerializedSpot.seedID).ProductItemID,
+                Amount = 1
+            });
             
             updatedSerializedSpot.seedID = 0;
             _serializedSpots[spot.spotID] = updatedSerializedSpot;

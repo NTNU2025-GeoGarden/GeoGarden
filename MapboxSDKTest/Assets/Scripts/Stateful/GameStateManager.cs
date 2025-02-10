@@ -21,10 +21,6 @@ namespace Stateful
         private string fileName;
         private List<IUsingGameState> _persistenceObjs;
         private FileDataHandler _dataHandler;
-        [Space(10)] 
-        
-        [Header("Firebase UI")] 
-        public GameObject newUserUI;
         
         private static int GAMEDATA_VERSION = 4;
 
@@ -134,15 +130,7 @@ namespace Stateful
                 CurrentState = null;
                 NewGame();
             }
-            
-            // Firestore
-            
-            if (CurrentState!.UID == "")
-            {
-                Debug.Log("User not initialized");
-                newUserUI.SetActive(true);
-            }
-            
+             
             // Push loaded data to other scripts
 
             foreach (IUsingGameState persistenceObj in _persistenceObjs)

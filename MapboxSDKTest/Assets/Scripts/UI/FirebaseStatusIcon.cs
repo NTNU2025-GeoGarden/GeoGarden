@@ -1,4 +1,5 @@
 using Stateful;
+using TMPro;
 using UnityEngine;
 
 namespace UI
@@ -8,10 +9,28 @@ namespace UI
         public GameObject cross;
         public GameObject check;
 
+        public TMP_Text uid;
+
+        public GameObject userSettingsScreen;
+
         public void Update()
         {
-            cross.SetActive(!FirebaseManager.FirebaseAvailable);
-            check.SetActive(FirebaseManager.FirebaseAvailable);
+            if (FirebaseManager.FirebaseAvailable)
+            {
+                check.SetActive(true);
+                cross.SetActive(false);
+                uid.gameObject.SetActive(true);
+                
+                uid.text = $"UID: {GameStateManager.CurrentState.UID}";
+            }
+            else
+            {
+                cross.SetActive(true);
+                check.SetActive(false);
+                uid.gameObject.SetActive(false);
+            }
+            
+            userSettingsScreen.SetActive(GameStateManager.CurrentState.UID == "");
         }
     }
 }

@@ -58,11 +58,7 @@ namespace Map
 
         public void Start()
         {
-<<<<<<< HEAD
             //OnCollectResource += CollectThisResource;
-=======
-            OnCollectResource += CollectThisResource;
->>>>>>> 31561d91982ac14a0f6b4238bb97d0fac057c2d4
 
             if (collected)
             {
@@ -102,10 +98,7 @@ namespace Map
             text.transform.LookAt(player);
         }
 
-<<<<<<< HEAD
   
-=======
->>>>>>> 31561d91982ac14a0f6b4238bb97d0fac057c2d4
 
 private IEnumerator FlyAndCollect()
 {

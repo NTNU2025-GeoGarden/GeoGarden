@@ -2972,7 +2972,6 @@ MonoBehaviour:
   level2Rewards: {fileID: 1648654225}
   level3Rewards: {fileID: 1780509191}
   level4Rewards: {fileID: 911263918}
-  level5Rewards: {fileID: 2055178734}
 --- !u!1 &240199492
 GameObject:
   m_ObjectHideFlags: 0
@@ -17543,6 +17542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1505575666}
   - component: {fileID: 1505575667}
+  - component: {fileID: 1505575668}
   m_Layer: 0
   m_Name: PersistenceManager
   m_TagString: Untagged
@@ -17578,6 +17578,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: gamedata.geogarden
+  newUserUI: {fileID: 0}
+--- !u!114 &1505575668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505575665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50b33bf939544efa91ef9721f2a3604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1508810297
 GameObject:
   m_ObjectHideFlags: 0

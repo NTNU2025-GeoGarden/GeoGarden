@@ -7,6 +7,7 @@ namespace Stateful
     public class GameState
     {
         public int Version;
+        public string UID;
 
         public int HouseLevel;
         public DateTime LevelUpTime;
@@ -30,7 +31,8 @@ namespace Stateful
         
         public GameState()
         {
-            Version    = 0;
+            Version     = 0;
+            UID         = "";
             LevelUpTime = DateTime.MinValue;
             
             HouseLevel = 0;

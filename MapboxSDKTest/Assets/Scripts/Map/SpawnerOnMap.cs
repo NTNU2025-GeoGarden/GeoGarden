@@ -50,16 +50,19 @@ namespace Map
         public bool collected;
 
          public void CollectThisResource()
-    {
-        if (collected) return; // Prevent duplicate collection
-        
-        StartCoroutine(FlyAndCollect());
-     
-    }
+        {
+            if (collected)
+                return;
+            StartCoroutine(FlyAndCollect());
+        }
 
         public void Start()
         {
+<<<<<<< HEAD
             //OnCollectResource += CollectThisResource;
+=======
+            OnCollectResource += CollectThisResource;
+>>>>>>> 31561d91982ac14a0f6b4238bb97d0fac057c2d4
 
             if (collected)
             {
@@ -99,7 +102,10 @@ namespace Map
             text.transform.LookAt(player);
         }
 
+<<<<<<< HEAD
   
+=======
+>>>>>>> 31561d91982ac14a0f6b4238bb97d0fac057c2d4
 
 private IEnumerator FlyAndCollect()
 {
@@ -129,7 +135,6 @@ private IEnumerator FlyAndCollect()
     Debug.Log("Resource has been collected and flown away!");
     // Destroy or hide the object after flight
     //Destroy(gameObject); // Remove after flying to "space"
-    
     
 } 
 

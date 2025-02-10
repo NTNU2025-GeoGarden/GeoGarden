@@ -108,6 +108,7 @@ namespace Stateful.Managers
             newObj.GetComponent<SpawnerOnMap>().collected = resource.collected;
         }
        }
+<<<<<<< HEAD
 
         /*
 
@@ -126,6 +127,12 @@ namespace Stateful.Managers
         public void TryRegisterCollectResource(LatitudeLongitude latLng)
         {
             Debug.Log("<color=lime>[MapResourceManager] Trying to register that the player collected a resource</color>");
+=======
+     
+       public async void TryRegisterCollectResource(LatitudeLongitude latLng)
+    {
+        Debug.Log("<color=lime>[MapResourceManager] Trying to register that the player collected a resource</color>");
+>>>>>>> 31561d91982ac14a0f6b4238bb97d0fac057c2d4
 
             // ✅ Check if _mapResources is null
             if (_mapResources == null)

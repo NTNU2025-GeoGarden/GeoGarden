@@ -10359,7 +10359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &847172626
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18184,11 +18184,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 78cdf869ba805fc4ba9ee00a3561a253, type: 3}
   m_PrefabInstance: {fileID: 1533033655}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1556188464 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2484534146596230633, guid: 15de3159cd3084f65a7cda857f34f03a, type: 3}
-  m_PrefabInstance: {fileID: 2096141719}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1561169630
 GameObject:
   m_ObjectHideFlags: 0
@@ -22396,27 +22391,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0837236dff1d349dca06fae3a5fc6fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titleText: {fileID: 2014585498}
-  coinCapText: {fileID: 1050819929}
-  energyCapText: {fileID: 932057790}
-  waterCapText: {fileID: 883255833}
-  upgradeTimeText: {fileID: 1848538319}
-  progressBarHolder: {fileID: 376974810}
-  coinCapBaseProgressBar: {fileID: 516557498}
-  coinCapExtensionProgressBar: {fileID: 1297065295}
-  energyCapBaseProgressBar: {fileID: 1195854378}
-  energyCapExtensionProgressBar: {fileID: 910038935}
-  waterCapBaseProgressBar: {fileID: 2003514553}
-  waterCapExtensionProgressBar: {fileID: 1441206995}
-  upgradeText: {fileID: 2106093283}
-  plantsRequirementText: {fileID: 701520426}
-  plantsRequirementImage: {fileID: 1651660895}
-  walkingRequirementText: {fileID: 1656925072}
-  walkingRequirementImage: {fileID: 376933616}
-  upgradeButton: {fileID: 728647098}
-  upgradeCost: {fileID: 1758202339}
-  houseReadytoUpgradeIcon: {fileID: 1556188464}
-  houseUI: {fileID: 847172625}
 --- !u!1 &1896244140
 GameObject:
   m_ObjectHideFlags: 0

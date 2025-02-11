@@ -12,11 +12,6 @@ namespace Stateful
 
         public static ForceSaveGame OnForceSaveGame;
         
-        public delegate void DelegateInventoryEvent(int itemID);
-
-        public static DelegateInventoryEvent OnRemoveInventoryItem;
-        public static DelegateInventoryEvent OnAddInventoryItem;
-        
         [Header("Save data storage config")] [SerializeField]
         private string fileName;
         
@@ -51,8 +46,6 @@ namespace Stateful
                 LoadGame();
             };
 
-            OnRemoveInventoryItem += RemoveInventoryItem;
-            OnAddInventoryItem    += AddInventoryItem;
             OnForceSaveGame       += () =>
             {
                 Debug.Log("<color=lime>[GameStateManager] Forcefully saving data</color>");
@@ -164,7 +157,7 @@ namespace Stateful
             return new List<IUsingGameState>(persistenceObjs);
         }
 
-        private void RemoveInventoryItem(int itemID)
+        public static void RemoveInventoryItem(int itemID)
         {
             Debug.Log($"<color=lime>[GameStateManager] Removing item (ID {itemID}) from inventory</color>");
             int index = CurrentState.Inventory.FindIndex(x => x.Id == itemID);
@@ -188,24 +181,19 @@ namespace Stateful
             }
         }
         
-        private void AddInventoryItem(int itemID)
+        public static void AddInventoryItem(SerializableInventoryEntry newItem)
         {
-            Debug.Log($"<color=lime>[GameStateManager] Adding item (ID {itemID}) to inventory</color>");
-            int index = CurrentState.Inventory.FindIndex(x => x.Id == itemID);
+            Debug.Log($"<color=lime>[GameStateManager] Adding item (ID {newItem.Id}) to inventory</color>");
+            int index = CurrentState.Inventory.FindIndex(x => x.Id == newItem.Id);
 
             if (index == -1)
             {
-                CurrentState.Inventory.Add(new SerializableInventoryEntry
-                {
-                    Id = itemID,
-                    Amount = 1
-                });
+                CurrentState.Inventory.Add(newItem);
             }
             else
             {
                 SerializableInventoryEntry entry = CurrentState.Inventory[index];
-                entry.Amount++;
-                
+                entry.Amount += newItem.Amount;
                 CurrentState.Inventory[index] = entry;
             }
         }

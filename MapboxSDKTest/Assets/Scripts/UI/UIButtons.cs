@@ -39,11 +39,6 @@ namespace UI
             openCloseState = !openCloseState;
             UICanvas.SetActive(openCloseState);
         }
-          
-        public void HandleGatherResource()
-        {
-            PlayerMovement.OnCollectResource();
-        }
 
         public void HandlePlantSeed()
         {

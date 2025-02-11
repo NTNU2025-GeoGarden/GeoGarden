@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Map;
 using Mapbox.BaseModule.Data.Vector2d;
 using Mapbox.BaseModule.Map;
@@ -12,9 +14,6 @@ namespace Stateful.Managers
 {
     public class MapResourceManager : MonoBehaviour, IUsingGameState
     {
-        public delegate void RegisterCollectResource(LatitudeLongitude latLng);
-        public static RegisterCollectResource OnRegisterCollectResource;
-    
         public GameObject mapObject;
         public GameObject resourcePrefab;
         public Transform player;
@@ -23,11 +22,10 @@ namespace Stateful.Managers
         private MapboxMapBehaviour _map;
         private int _todaysSeed;
         private Dictionary<int, List<SerializableSpawner>> _mapResources;
+        private Random _random;
     
         void Start()
         {
-            OnRegisterCollectResource += TryRegisterCollectResource;
-        
             _map = mapObject.GetComponent<MapboxMapBehaviour>();
 
             _map.MapServiceReady += _ =>
@@ -55,18 +53,19 @@ namespace Stateful.Managers
         
             // No data generated, fix that!
         
-            Random random = new(_todaysSeed);
+            _random = new Random(_todaysSeed);
 
             foreach (SpawnerCluster cluster in clusters)
             {
-                if (!(random.NextDouble() > 0.5)) continue;
+                if (!(_random.NextDouble() > 0.5)) continue;
 
                 SerializableSpawner newResource = new()
                 {
                     latLng = cluster.latLng,
-                    spawner = cluster.spawners[random.Next(cluster.spawners.Count)],
+                    spawner = cluster.spawners[_random.Next(cluster.spawners.Count)],
                     collected = false
                 };
+            
             
                 _mapResources[_todaysSeed].Add(newResource);
             }
@@ -78,39 +77,59 @@ namespace Stateful.Managers
             state.MapResources = _mapResources;
         }
 
-        private void AddInGameSpawners()
-        {
+       private void AddInGameSpawners()
+       {
             if (_mapResources == null || !_mapResources.ContainsKey(_todaysSeed))
             {
                 Debug.Log("<color=red>[MapResourceManager] Tried to generate spawners, but the data was not ready. Was LoadData() called?</color>");
                 LoadingScreen.OnLoadingError();
                 return;
             }
-        
+
+            int count = 0;
+
             foreach (SerializableSpawner resource in _mapResources[_todaysSeed])
             {
-                GameObject newObj = Instantiate(resourcePrefab, _map.MapInformation.ConvertLatLngToPosition(resource.latLng),
-                    Quaternion.identity);
+                Vector3 spawnPosition = _map.MapInformation.ConvertLatLngToPosition(resource.latLng);
+                spawnPosition.y = 45f; // ✅ Set a fixed Y-value for all spawners
+
+                GameObject newObj = Instantiate(resourcePrefab, spawnPosition, Quaternion.identity);
                 
                 newObj.GetComponent<SnapObjectToMap>().latLng    = resource.latLng;
                 newObj.GetComponent<SnapObjectToMap>().mapObject = mapObject;
 
                 newObj.GetComponent<SpawnerOnMap>().player    = player;
                 newObj.GetComponent<SpawnerOnMap>().spawner   = resource.spawner;
+                newObj.GetComponent<SpawnerOnMap>().spawnerId = count;
                 newObj.GetComponent<SpawnerOnMap>().latLng    = resource.latLng;
                 newObj.GetComponent<SpawnerOnMap>().collected = resource.collected;
-            }
-        }
+                newObj.GetComponent<SpawnerOnMap>().resourceManager = this;
 
-        public void TryRegisterCollectResource(LatitudeLongitude latLng)
+                count++;
+            }
+       }
+
+        public void Collect(SpawnerOnMap mapSpawner)
         {
             Debug.Log("<color=lime>[MapResourceManager] Trying to register that the player collected a resource</color>");
-            SerializableSpawner resource = _mapResources[_todaysSeed].Find(p => p.latLng.Equals(latLng));
-            resource.collected = true;
-            _mapResources[_todaysSeed].Remove(_mapResources[_todaysSeed].Find(p => p.latLng.Equals(latLng)));
-            _mapResources[_todaysSeed].Add(resource);
-        
-            print(_mapResources[_todaysSeed].Find(p => p.latLng.Equals(latLng)).collected);
+
+            // ✅ Check if _mapResources is null
+            if (_mapResources == null)
+            {
+                LoadData(GameStateManager.CurrentState);
+            }
+            
+            _mapResources![_todaysSeed][mapSpawner.spawnerId].collected = true;
+          
+            Spawner spawner = mapSpawner.spawner;
+            
+            SerializableInventoryEntry newEntry = new()
+            {
+                Id = spawner.itemId,
+                Amount = _random.Next(spawner.minAmount, spawner.maxAmount)
+            };
+
+            GameStateManager.AddInventoryItem(newEntry);
         }
     }
 }

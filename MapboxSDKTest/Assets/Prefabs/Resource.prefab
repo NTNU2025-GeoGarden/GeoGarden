@@ -415,8 +415,8 @@ Transform:
   m_GameObject: {fileID: 5107434709404205053}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 30}
+  m_LocalPosition: {x: 0, y: 33.11, z: 0}
+  m_LocalScale: {x: 50, y: 70, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7265809541455583674}
@@ -429,7 +429,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5107434709404205053}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 5362903646300287040, guid: ed3cbdb633b6c5d46bf04e50db951ef2, type: 3}
 --- !u!23 &4469507254805827651
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a677efc56538d747942c0660f22303a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  latLong:
+  latLng:
     Latitude: 0
     Longitude: 0
   mapObject: {fileID: 0}
@@ -528,10 +528,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawner:
     drops: []
-    minQuality: 0
-    maxQuality: 0
-  isTaken: 0
+    minRarity: 0
+    maxRarity: 0
+  latLng:
+    Latitude: 0
+    Longitude: 0
   text: {fileID: 1299716593852832082}
   player: {fileID: 0}
   textQuality: {fileID: 8021369003452109697}
   textQuantity: {fileID: 513877183474880943}
+  collected: 0

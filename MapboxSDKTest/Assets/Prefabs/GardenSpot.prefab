@@ -1089,7 +1089,7 @@ MonoBehaviour:
   growingStage2: {fileID: 1640733331049844036}
   growingStage3: {fileID: 5258806841265413487}
   growingStage4: {fileID: 3990665730144379734}
-  collider: {fileID: 24107329004808914}
+  boxCollider: {fileID: 24107329004808914}
   statusSymbolTimer: {fileID: 9017480925250607659}
   waterPopSoundEffect: {fileID: 8300000, guid: 7a859ac889a4ce64b9f07fbd800bcee8, type: 3}
 --- !u!82 &1161704815449326887

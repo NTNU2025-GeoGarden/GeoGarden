@@ -9,6 +9,7 @@ TagManager:
   - EditableObjectDrag
   - EditableObjectRot
   - EditableObjectDel
+  - House
   layers:
   - Default
   - TransparentFX

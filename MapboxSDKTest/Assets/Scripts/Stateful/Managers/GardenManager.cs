@@ -9,7 +9,7 @@ namespace Stateful.Managers
 {
     public class GardenManager : MonoBehaviour, IUsingGameState
     {
-        public delegate void DelegatePlantSeed(PlantableSpot spot, int seedID);
+        public delegate void DelegatePlantSeed(int seedID);
         public static DelegatePlantSeed OnPlantSeed;
 
         public delegate void DelegatePlantInteraction(PlantableSpot spot);
@@ -18,11 +18,12 @@ namespace Stateful.Managers
         public static DelegatePlantInteraction OnPlantHarvested;
 
         public GardenCamera gardenCamera;
-        public GameObject editUI;
         public EditableObject editableObjectPrefab;
+        
         private List<EditableObject> _objects;
         private List<SerializableGardenSpot> _serializedSpots;
         private List<PlantableSpot> _inGameSpots;
+        private PlantableSpot _selectedSpot;
 
         public void Start()
         {
@@ -54,9 +55,10 @@ namespace Stateful.Managers
             _inGameSpots = new List<PlantableSpot>();
             
             if(_objects != null)
-                _objects.Clear();
-            else
-                _objects = new List<EditableObject>();
+                foreach(EditableObject obj in _objects)
+                    Destroy(obj.gameObject);
+            
+            _objects = new List<EditableObject>();
             
             foreach (SerializableGardenSpot spot in _serializedSpots)
             {
@@ -72,6 +74,7 @@ namespace Stateful.Managers
                 _inGameSpots.Add(newSpot);
                 
                 newSpot.spotID = count;
+                newSpot.gardenCamera = gardenCamera;
                 SetPlantableSpotData(spot, newSpot);
 
                 newObj.GetComponent<BoxCollider>().enabled = false;
@@ -164,17 +167,17 @@ namespace Stateful.Managers
             state.GardenSpots = _serializedSpots;
         }
 
-        private void HandlePlantSeed(PlantableSpot spot, int seedID)
+        private void HandlePlantSeed(int seedID)
         {
-            Debug.Log($"<color=lime>[GardenManager] Planting a seed (ID {seedID}) in spot (ID {spot.spotID})</color>");
-            SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spot.spotID];
+            Debug.Log($"<color=lime>[GardenManager] Planting a seed (ID {seedID}) in spot (ID {_selectedSpot.spotID})</color>");
+            SerializableGardenSpot updatedSerializedSpot = _serializedSpots[_selectedSpot.spotID];
             updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddSeconds(5); //TODO get proper time
             updatedSerializedSpot.state = GrowState.Seeded;
             updatedSerializedSpot.seedID = seedID;
 
-            _serializedSpots[spot.spotID] = updatedSerializedSpot;
+            _serializedSpots[_selectedSpot.spotID] = updatedSerializedSpot;
             
-            SetPlantableSpotData(updatedSerializedSpot, spot);
+            SetPlantableSpotData(updatedSerializedSpot, _selectedSpot);
         }
         
         private void SeedTimeOut(PlantableSpot spot)
@@ -214,6 +217,11 @@ namespace Stateful.Managers
             _serializedSpots[spot.spotID] = updatedSerializedSpot;
             
             SetPlantableSpotData(_serializedSpots[spot.spotID], spot);
+        }
+
+        public void SetSelectedSpot(PlantableSpot spot)
+        {
+            _selectedSpot = spot;
         }
     }
 }

@@ -9,20 +9,23 @@ namespace Stateful
     public class GameStateManager : MonoBehaviour
     {
         public delegate void ForceSaveGame();
-
         public static ForceSaveGame OnForceSaveGame;
         
         [Header("Save data storage config")] [SerializeField]
         private string fileName;
+        public delegate void DelegateInventoryEvent(int itemID);
+        public static DelegateInventoryEvent OnRemoveInventoryItem;
+        public static DelegateInventoryEvent OnAddInventoryItem;
         
         public static GameStateManager Instance { get; private set; }
-
         public static GameState CurrentState { get; private set; }
         
+        [Header("Save data storage config")] [SerializeField]
+        private string fileName;
         private List<IUsingGameState> _persistenceObjs;
         private FileDataHandler _dataHandler;
-
-        private static int GAMEDATA_VERSION = 2;
+        
+        private static int GAMEDATA_VERSION = 4;
 
         private void Awake()
         {
@@ -35,9 +38,8 @@ namespace Stateful
             
             Instance = this;
             DontDestroyOnLoad(this);
-
             Application.targetFrameRate = 60;
-                
+
             SceneManager.activeSceneChanged += (_, _) =>
             {
                 Debug.Log("<color=lime>[GameStateManager] Scene load triggering game load</color>");
@@ -77,6 +79,13 @@ namespace Stateful
             */
 
             CurrentState.Version = GAMEDATA_VERSION;
+            CurrentState.HouseLevel = 1;
+            CurrentState.CoinCap    = HouseUpgrades.CoinCapPerLevel[1];
+            CurrentState.Coins      = 20;
+            CurrentState.EnergyCap  = HouseUpgrades.EnergyCapPerLevel[1];
+            CurrentState.Energy     = 20;
+            CurrentState.WaterCap   = HouseUpgrades.WaterCapPerLevel[1];
+            CurrentState.Water      = 20;
             
             CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 0, Amount = 1});
             CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 1, Amount = 2});
@@ -91,17 +100,17 @@ namespace Stateful
                 Z = 0.3f
             });
             
-            CurrentState.Objects.Add(new SerializableObject
+            /*CurrentState.Objects.Add(new SerializableObject
             {
-                   X        = 0,
+                   X        = -0.8f,
                    Y        = 0,
-                   Z        = 0,
+                   Z        = -1,
                 RotX        = 0,
                 RotY        = 0,
                 RotZ        = 0,
                 RotW        = 1,
-                Type     = EditableObjectType.Tree
-            });
+                Type     = EditableObjectType.DirtPatch
+            });*/
         }
 
         private void LoadGame()
@@ -122,7 +131,7 @@ namespace Stateful
                 CurrentState = null;
                 NewGame();
             }
-            
+             
             // Push loaded data to other scripts
 
             foreach (IUsingGameState persistenceObj in _persistenceObjs)

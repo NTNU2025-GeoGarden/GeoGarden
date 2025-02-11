@@ -84,13 +84,10 @@ namespace UI
             plantButton.interactable = false;
         
             previewItem.DisplayedItem = null;
-        
-            cam.uiOpen = false;
         }
 
         private void OnEnable()
         {
-            cam.uiOpen = true;
             LoadData(GameStateManager.CurrentState);
         }
 

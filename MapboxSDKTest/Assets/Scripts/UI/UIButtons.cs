@@ -10,6 +10,7 @@ namespace UI
     {
         public GameObject UICanvas;
         public GameObject SecondaryUICanvas;
+        
         public bool openCloseState;
         
         public void HandleMapButtonClick()
@@ -64,6 +65,18 @@ namespace UI
         {
             UICanvas.SetActive(false);
             SecondaryUICanvas.SetActive(true);
+        }
+
+        public void HandleStartGame()
+        {
+            FirebaseManager.TelemetryRecordLogin();
+            SceneManager.LoadSceneAsync("Home");
+        }
+
+        public void HandleUpgradeHouse()
+        {
+            UICanvas.SetActive(false);
+            HouseLevelUpUI.OnHouseLevelUp();
         }
     }
 }

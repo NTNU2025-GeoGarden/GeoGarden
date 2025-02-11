@@ -10,7 +10,6 @@ namespace Map
 		
 		public static HandleResourceCollected OnCollectResource;
 		
-		//public GameObject resourcesUI;
 		private SpawnerOnMap _ref = null;
 		private Color _resourceColorRef;
 		
@@ -24,15 +23,10 @@ namespace Map
 		private bool _readyForUpdates = false;
 		
 		public bool SnapToTerrain = false;
-
-
-
 	
 		private void Start()
 		{
 			OnCollectResource += CollectResource;
-			
-			//resourcesUI.SetActive(false);
 			
 			MapBehaviour.Initialized += map =>
 			{
@@ -79,8 +73,6 @@ namespace Map
             }
         }
 
-
-
 		private void OnTriggerEnter(Collider other)
 		{
 			Debug.Log($"🚀 Player entered trigger of: {other.gameObject.name}");
@@ -104,7 +96,6 @@ namespace Map
 
 			_resourceColorRef = other.GetComponent<Renderer>().material.color;
 			other.GetComponent<Renderer>().material.color = Color.green;
-			//resourcesUI.SetActive(true);
 		}
 
 		private void OnTriggerExit(Collider other)
@@ -120,12 +111,8 @@ namespace Map
 				Debug.Log("⚠️ Player exited trigger, clearing _ref!");
 				_ref = null;
 			}
-
-			//resourcesUI.SetActive(false);
 		}
-
-
-
+		
 		private void CollectResource()
 		{
 			  Debug.Log($"📢 CollectResource() was called from: {new System.Diagnostics.StackTrace()}");
@@ -140,7 +127,6 @@ namespace Map
 			Debug.Log($"✅ Collecting resource: {_ref.gameObject.name}");
 
 			_ref.CollectThisResource();
-			//resourcesUI.SetActive(false);
 			_ref = null;
 
 			Debug.Log($"📌 AFTER collecting: _ref = {_ref}"); // Should be NULL after collection
@@ -189,37 +175,5 @@ namespace Map
 				transform.position = new Vector3(transform.position.x, elevation, transform.position.z);
 			}
 		}
-
-
-
-		// void Update()
-		// {
-		// 	if (!_readyForUpdates)
-		// 		return;
-			
-		// 	var direction = Vector3.ProjectOnPlane(Target.position - transform.position, Vector3.up);
-		// 	var distance = direction.magnitude; //Vector3.Distance(transform.position, Target.position);
-		// 	if (distance > 1/_scale)
-		// 	{
-		// 		transform.LookAt(transform.position + direction);
-		// 		transform.Translate(Vector3.forward * (Speed/_scale));
-		// 		if(CharacterAnimator) CharacterAnimator.SetBool("IsWalking", true);
-		// 	}
-		// 	else
-		// 	{
-		// 		if(CharacterAnimator) CharacterAnimator.SetBool("IsWalking", false);
-		// 	}
-
-		// 	if (SnapToTerrain)
-		// 	{
-		// 		var latlng = _mapInformation.ConvertPositionToLatLng(this.transform.position);
-		// 		var tileId = Conversions.LatitudeLongitudeToTileId(latlng, 16).Canonical;
-				
-		// 		//changed this part and haven't tested...
-		// 		var tileSpace = Conversions.LatitudeLongitudeToInTile01(latlng, tileId);
-		// 		var elevation = _mapInformation.QueryElevation(tileId, tileSpace.x, tileSpace.y);
-		// 		transform.position = new Vector3(transform.position.x, elevation, transform.position.z);
-		// 	}
-		// }
 	}
 }

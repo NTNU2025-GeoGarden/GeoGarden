@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.mapbox.unity-sdk": "file:/Users/kjeks/Documents/Programmering/Master/mapbox-unity-sdk-sdk3",
+    "com.mapbox.unity-sdk": "file:C:/Users/Hackerspace VR/Documents/mapboxsdk(IKKESLETT)/mapbox-unity-sdk-sdk3",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.collab-proxy": "2.5.2",
     "com.unity.device-simulator.devices": "1.0.0",

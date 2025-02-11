@@ -15327,6 +15327,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8991916482402405009, guid: c3afe01a9b9344df3a5ecac731b53bde, type: 3}
+      propertyPath: m_text
+      value: "HVIS DU SER DENNE SKJERMEN UTEN TILSYN AV UTVIKLERNE, TA KONTAKT! IKKE
+        G\xC5 VIDERE!\nOla - ola.h.jacobsen@ntnu.no, tlf 46828054\nHaakon - haakon.t.kanter@ntnu.no,
+        tlf 90238420"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

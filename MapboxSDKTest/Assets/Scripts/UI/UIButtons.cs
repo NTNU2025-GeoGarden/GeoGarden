@@ -39,10 +39,6 @@ namespace UI
             openCloseState = !openCloseState;
             UICanvas.SetActive(openCloseState);
         }
-          
-          
-           
-        
 
         public void HandlePlantSeed()
         {
@@ -64,6 +60,17 @@ namespace UI
         {
             UICanvas.SetActive(false);
             SecondaryUICanvas.SetActive(true);
+        }
+
+        public void HandleStartGame()
+        {
+            SceneManager.LoadSceneAsync("Home");
+        }
+
+        public void HandleUpgradeHouse()
+        {
+            UICanvas.SetActive(false);
+            HouseLevelUpUI.OnHouseLevelUp();
         }
     }
 }

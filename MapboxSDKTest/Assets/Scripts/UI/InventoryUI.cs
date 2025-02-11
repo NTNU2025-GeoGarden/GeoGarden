@@ -58,13 +58,7 @@ namespace UI
 
         private void OnEnable()
         {
-            cam.uiOpen = true;
             LoadData(GameStateManager.CurrentState);
-        }
-    
-        private void OnDisable()
-        {
-            cam.uiOpen = false;
         }
     }
 }

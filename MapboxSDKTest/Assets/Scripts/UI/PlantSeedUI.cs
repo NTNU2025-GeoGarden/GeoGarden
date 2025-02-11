@@ -84,19 +84,16 @@ namespace UI
             plantButton.interactable = false;
         
             previewItem.DisplayedItem = null;
-        
-            cam.uiOpen = false;
         }
 
         private void OnEnable()
         {
-            cam.uiOpen = true;
             LoadData(GameStateManager.CurrentState);
         }
 
         private void SeedPlanted()
         {
-            GardenManager.OnPlantSeed(cam.lastSelectedGardenSpot, previewItem.DisplayedItem.Item.AppendID);
+            GardenManager.OnPlantSeed(previewItem.DisplayedItem.Item.AppendID);
             GameStateManager.OnRemoveInventoryItem(previewItem.DisplayedItem.Item.ID);
         }
     }

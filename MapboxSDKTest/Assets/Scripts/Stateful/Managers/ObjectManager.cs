@@ -67,7 +67,7 @@ namespace Stateful.Managers
 
         public void AddObject(EditableObject editableObject)
         {
-            Debug.Log("<color=lime>[ObjectManager] Adding object</color>");
+            Debug.Log($"<color=lime>[ObjectManager] Adding object (X {editableObject.transform.position.x} Y {editableObject.transform.position.y} Z {editableObject.transform.position.z}</color>");
             _serializedObjects.Add(new SerializableObject
             {
                 Type = editableObject.type,

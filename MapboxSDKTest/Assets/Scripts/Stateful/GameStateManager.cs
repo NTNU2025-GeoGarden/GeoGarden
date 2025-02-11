@@ -9,25 +9,20 @@ namespace Stateful
     public class GameStateManager : MonoBehaviour
     {
         public delegate void ForceSaveGame();
-
         public static ForceSaveGame OnForceSaveGame;
-        
         public delegate void DelegateInventoryEvent(int itemID);
-
         public static DelegateInventoryEvent OnRemoveInventoryItem;
         public static DelegateInventoryEvent OnAddInventoryItem;
         
-        [Header("Save data storage config")] [SerializeField]
-        private string fileName;
-        
         public static GameStateManager Instance { get; private set; }
-
         public static GameState CurrentState { get; private set; }
         
+        [Header("Save data storage config")] [SerializeField]
+        private string fileName;
         private List<IUsingGameState> _persistenceObjs;
         private FileDataHandler _dataHandler;
-
-        private static int GAMEDATA_VERSION = 3;
+        
+        private static int GAMEDATA_VERSION = 4;
 
         private void Awake()
         {
@@ -40,9 +35,8 @@ namespace Stateful
             
             Instance = this;
             DontDestroyOnLoad(this);
-
             Application.targetFrameRate = 60;
-                
+
             SceneManager.activeSceneChanged += (_, _) =>
             {
                 Debug.Log("<color=lime>[GameStateManager] Scene load triggering game load</color>");
@@ -136,7 +130,7 @@ namespace Stateful
                 CurrentState = null;
                 NewGame();
             }
-            
+             
             // Push loaded data to other scripts
 
             foreach (IUsingGameState persistenceObj in _persistenceObjs)

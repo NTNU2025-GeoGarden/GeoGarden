@@ -9,7 +9,7 @@ public class UnlockTextSwingEffect : MonoBehaviour
     {
         _rt = GetComponent<RectTransform>();
     }
-
+    //test comment
     // Update is called once per frame
     void Update()
     {

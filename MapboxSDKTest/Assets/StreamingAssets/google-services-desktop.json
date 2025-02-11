@@ -1,0 +1,31 @@
+{
+  "project_info": {
+    "project_number": "1070879427596",
+    "project_id": "geogarden-3ba37",
+    "storage_bucket": "geogarden-3ba37.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070879427596:ios:5053f7b9b72ffdb7083229",
+        "android_client_info": {
+          "package_name": "com.Hackerspace.GeoGarden"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-hmPFPQRlsy5xdCZ93SJoUk6RNrNBh4o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

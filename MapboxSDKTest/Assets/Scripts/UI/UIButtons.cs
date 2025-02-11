@@ -64,6 +64,8 @@ namespace UI
 
         public void HandleStartGame()
         {
+            FirebaseManager.TelemetryRecordLogin();
+            GameStateManager.OnForceSaveGame();
             SceneManager.LoadSceneAsync("Home");
         }
 

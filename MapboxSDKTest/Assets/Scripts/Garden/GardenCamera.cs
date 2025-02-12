@@ -2,6 +2,7 @@ using System;
 using Stateful;
 using Stateful.Managers;
 using Structs;
+using UI;
 using UnityEngine;
 
 namespace Garden
@@ -12,6 +13,8 @@ namespace Garden
         
         public GardenManager gardenManager;
         public ObjectManager objectManager;
+
+        public TutorialUI introTutorial;
         
         public GameObject plantSeedCanvas;
         public GameObject shopCanvas;
@@ -80,6 +83,8 @@ namespace Garden
                         }
                     }
                     
+                    if (introTutorial.showTutorial) return;
+                    
                     MoveCamera(delta);
 
                     _previousPosition = currentPosition;
@@ -92,6 +97,8 @@ namespace Garden
                     //only runs once.
                     if (!_tapped)
                     {
+                        if (introTutorial.barrier.activeSelf) return;
+                        
                         //Do a raycast
                         Ray ray = _mainCamera.ScreenPointToRay(touch.position);
                         if (Physics.Raycast(ray, out RaycastHit hit, 1000))

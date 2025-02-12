@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Structs;
+using UnityEngine.Experimental.GlobalIllumination;
 
 namespace Structs
 {

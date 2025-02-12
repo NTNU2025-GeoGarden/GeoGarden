@@ -10,6 +10,8 @@ TagManager:
   - EditableObjectRot
   - EditableObjectDel
   - House
+  - TutorialMarker
+  - Blocker
   layers:
   - Default
   - TransparentFX

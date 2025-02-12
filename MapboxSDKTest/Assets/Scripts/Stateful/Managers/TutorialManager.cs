@@ -6,6 +6,7 @@ namespace Stateful.Managers
     public class TutorialManager : MonoBehaviour
     {
         public TutorialUI introTutorial;
+        public TutorialUI layoutTutorial;
 
         public void Update()
         {
@@ -13,6 +14,12 @@ namespace Stateful.Managers
             {
                 introTutorial.showTutorial = true;
                 GameStateManager.CurrentState.IntroTutorial = true;
+            }
+            
+            if (GameStateManager.CurrentState.HouseLevel == 2 && GameStateManager.CurrentState.LayoutTutorial == false)
+            {
+                layoutTutorial.showTutorial = true;
+                GameStateManager.CurrentState.LayoutTutorial = true;
             }
         }
     }

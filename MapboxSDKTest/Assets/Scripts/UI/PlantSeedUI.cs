@@ -72,9 +72,22 @@ namespace UI
             previewItem.DisplayedItem = item;
             previewItem.DisplayedItem.Amount = 1;
             previewItem.UpdateInformation();
-            
-            if(previewItem.DisplayedItem.Item.Type == ItemType.Seed)
+
+            if (previewItem.DisplayedItem.Item.Type == ItemType.Seed)
+            {
+                int seedId = previewItem.DisplayedItem.Item.AppendID;
+                Seed seed = Seeds.FromID(seedId);
+           
+                int neededEnergy = seed.Energy;
+                if (GameStateManager.CurrentState.Energy < neededEnergy )
+                {
+                    //TODO give user feedback
+                    Debug.Log("Not enough energy");
+                    return;
+                }
                 plantButton.interactable = true;
+            }
+               
         
         }
 
@@ -93,7 +106,9 @@ namespace UI
 
         private void SeedPlanted()
         {
-            GardenManager.OnPlantSeed(previewItem.DisplayedItem.Item.AppendID);
+            int seedId = previewItem.DisplayedItem.Item.AppendID;
+            
+            GardenManager.OnPlantSeed(seedId);
             GameStateManager.RemoveInventoryItem(previewItem.DisplayedItem.Item.ID);
         }
     }

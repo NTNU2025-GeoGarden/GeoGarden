@@ -187,26 +187,20 @@ namespace Garden
         {
             PlantableSpot spot = hit.transform.GetComponent<PlantableSpot>();
             gardenManager.SetSelectedSpot(spot);
-            int neededEnergy = 15;
-            int neededWater = 15;
+            Seed seed = Seeds.FromID(spot.seedID);
+            int neededWater = seed.Water;
+            int neededEnergy = seed.Energy;
+          
             int currentWater = GameStateManager.CurrentState.Water;
             int currentEnergy = GameStateManager.CurrentState.Energy;    
 
             if(spot.state == GrowState.Vacant){
-                if(currentEnergy<neededEnergy){
-                    Debug.Log("Not enough energy");
-                    return;
-                }
-
-                GameStateManager.CurrentState.Energy -= neededEnergy;
                 plantSeedCanvas.SetActive(true);
             }
 
             if (spot.needsWater)
             {
-                Seed seed = Seeds.FromID(spot.seedID);
-                neededWater = seed.Water;
-                neededEnergy = seed.Energy;
+               
                 if(currentEnergy<neededEnergy || currentWater<neededWater){
                     //TODO give the user information 
                     if(currentWater<neededWater){

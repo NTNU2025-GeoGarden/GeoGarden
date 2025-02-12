@@ -202,11 +202,13 @@ namespace Garden
 
             if (spot.needsWater)
             {
-                 
-
+                Seed seed = Seeds.FromID(spot.seedID);
+                neededWater = seed.Water;
+                neededEnergy = seed.Energy;
+                //neededEnergy = spot.seed.Energy;
                 if(currentEnergy<neededEnergy || currentWater<neededWater){
                     if(currentWater<neededWater){
-                        Debug.Log("Not enough water");
+                        Debug.Log("Not enough water" + " needed water: " + neededWater);
                     }
                     else if (currentEnergy<neededEnergy){
                         Debug.Log("Not enough energy");

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 
 namespace Stateful
 {
-    [System.Serializable]
+    [Serializable]
     public class GameState
     {
         public int Version;
         public string UID;
+
+        public bool IntroTutorial;
+        public bool LayoutTutorial;
 
         public int HouseLevel;
         public DateTime LevelUpTime;
@@ -31,8 +34,11 @@ namespace Stateful
         
         public GameState()
         {
-            Version     = 0;
-            UID         = "";
+            Version        = 0;
+            UID            = "";
+            IntroTutorial  = false;
+            LayoutTutorial = false;
+            
             LevelUpTime = DateTime.MinValue;
             
             HouseLevel = 0;

@@ -197,16 +197,18 @@ namespace Garden
                     Debug.Log("Not enough energy");
                     return;
                 }
+
+                GameStateManager.CurrentState.Energy -= neededEnergy;
                 plantSeedCanvas.SetActive(true);
-                 }
+            }
 
             if (spot.needsWater)
             {
                 Seed seed = Seeds.FromID(spot.seedID);
                 neededWater = seed.Water;
                 neededEnergy = seed.Energy;
-                //neededEnergy = spot.seed.Energy;
                 if(currentEnergy<neededEnergy || currentWater<neededWater){
+                    //TODO give the user information 
                     if(currentWater<neededWater){
                         Debug.Log("Not enough water" + " needed water: " + neededWater);
                     }

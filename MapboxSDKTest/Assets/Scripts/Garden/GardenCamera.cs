@@ -195,6 +195,7 @@ namespace Garden
             int currentEnergy = GameStateManager.CurrentState.Energy;    
 
             if(spot.state == GrowState.Vacant){
+                
                 plantSeedCanvas.SetActive(true);
             }
 

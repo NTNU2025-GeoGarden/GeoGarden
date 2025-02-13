@@ -85,6 +85,7 @@ namespace UI
                     Debug.Log("Not enough energy");
                     return;
                 }
+                
                 plantButton.interactable = true;
             }
                

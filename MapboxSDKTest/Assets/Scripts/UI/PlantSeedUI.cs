@@ -4,6 +4,7 @@ using Garden;
 using Stateful;
 using Stateful.Managers;
 using Structs;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -79,6 +80,8 @@ namespace UI
                 Seed seed = Seeds.FromID(seedId);
            
                 int neededEnergy = seed.Energy;
+                TextMeshProUGUI buttonText = plantButton.GetComponentInChildren<TextMeshProUGUI>();
+                buttonText.text = "" + neededEnergy + "";
                 if (GameStateManager.CurrentState.Energy < neededEnergy )
                 {
                     //TODO give user feedback

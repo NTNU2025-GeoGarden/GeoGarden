@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using Stateful;
 using Stateful.Managers;
 using Structs;
+using TMPro;
 using UnityEngine;
 
 namespace Garden
@@ -25,7 +27,7 @@ namespace Garden
         private bool _draggingEditableObj;
         private EditableObject _tappedEditableObj;
         private BoxCollider _tappedButton;
-        
+        private bool textCreated = false;
         private const float SCALE_FACTOR = 0.0001f;
 
         public void Start()
@@ -131,6 +133,50 @@ namespace Garden
             }
         }
 
+        private void CreateText(string message)
+        {
+           
+            textCreated = true;
+            
+            // Create a new TextMeshPro object
+            GameObject textObject = new("DynamicText");
+
+
+            textObject.transform.localPosition = Vector3.zero; // Position it at the center
+
+            // Add TextMeshPro component
+            TextMeshPro textMesh = textObject.AddComponent<TextMeshPro>();
+
+          
+            
+            textMesh.text = message;
+            textMesh.fontSize = 1;
+            textMesh.color = Color.white;
+            textMesh.alignment = TextAlignmentOptions.Center;
+            
+
+            textObject.transform.localPosition += new Vector3(0.95f, 1.25f, 0.34f); // ✅ Position
+
+            // Apply rotation
+            textObject.transform.localRotation = Quaternion.Euler(25.9f, -128.5f, 0f);
+
+            // Apply scaling
+            textObject.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+
+            // ✅ Start a coroutine to reset textCreated after 3 seconds
+            StartCoroutine(ResetTextCreated(3f));
+
+            // Destroy the object after 3 seconds
+            Destroy(textObject, 3f);
+        }
+
+        // ✅ Coroutine to reset textCreated after a delay
+        private IEnumerator ResetTextCreated(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            textCreated = false; // ✅ Allow new text to be created again
+        }
+
         /// <summary>
         /// Opens the house UI.
         /// </summary>
@@ -205,10 +251,13 @@ namespace Garden
                 if(currentEnergy<neededEnergy || currentWater<neededWater){
                     //TODO give the user information 
                     if(currentWater<neededWater){
-                        Debug.Log("Not enough water" + " needed water: " + neededWater);
+                        if(!textCreated)
+                            CreateText("Not enough water");
+                        
                     }
                     else if (currentEnergy<neededEnergy){
-                        Debug.Log("Not enough energy");
+                        if(!textCreated)
+                            CreateText("Not enough energy");
                     }
                     return;
                 }

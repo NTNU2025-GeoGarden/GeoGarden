@@ -40,7 +40,7 @@ namespace UI
                 }
             }
             
-            //Is this the frame where we started to show the tutorial?
+            // Is this the frame where we started to show the tutorial?
             if(showTutorial != _showTutorialOld)
                 pages[_currentPage].page.SetActive(true);
             

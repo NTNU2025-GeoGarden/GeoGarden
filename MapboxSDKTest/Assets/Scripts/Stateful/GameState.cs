@@ -9,7 +9,8 @@ namespace Stateful
         public int Version;
         public string UID;
 
-        public bool IntroTutorial;
+        public bool GardenTutorial;
+        public bool MapTutorial;
         public bool LayoutTutorial;
 
         public int HouseLevel;
@@ -36,7 +37,8 @@ namespace Stateful
         {
             Version        = 0;
             UID            = "";
-            IntroTutorial  = false;
+            GardenTutorial  = false;
+            MapTutorial  = false;
             LayoutTutorial = false;
             
             LevelUpTime = DateTime.MinValue;

@@ -1,5 +1,6 @@
 using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Stateful.Managers
 {
@@ -10,10 +11,16 @@ namespace Stateful.Managers
 
         public void Update()
         {
-            if (GameStateManager.CurrentState.HouseLevel == 1 && GameStateManager.CurrentState.IntroTutorial == false)
+            if (GameStateManager.CurrentState.HouseLevel == 1 && GameStateManager.CurrentState.GardenTutorial == false)
             {
                 introTutorial.showTutorial = true;
-                GameStateManager.CurrentState.IntroTutorial = true;
+                GameStateManager.CurrentState.GardenTutorial = true;
+            }
+            
+            if (SceneManager.GetActiveScene().name == "Map" && GameStateManager.CurrentState.MapTutorial == false)
+            {
+                introTutorial.showTutorial = true;
+                GameStateManager.CurrentState.MapTutorial = true;
             }
             
             if (GameStateManager.CurrentState.HouseLevel == 2 && GameStateManager.CurrentState.LayoutTutorial == false)

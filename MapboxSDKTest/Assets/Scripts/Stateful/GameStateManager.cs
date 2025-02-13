@@ -22,7 +22,7 @@ namespace Stateful
         private List<IUsingGameState> _persistenceObjs;
         private FileDataHandler _dataHandler;
 
-        private static int GAMEDATA_VERSION = 4;
+        private static int GAMEDATA_VERSION = 5;
 
         private void Awake()
         {
@@ -84,7 +84,8 @@ namespace Stateful
             CurrentState.Energy     = 20;
             CurrentState.WaterCap   = HouseUpgrades.WaterCapPerLevel[1];
             CurrentState.Water      = 20;
-            CurrentState.IntroTutorial  = false;
+            CurrentState.GardenTutorial = false;
+            CurrentState.MapTutorial    = false;
             CurrentState.LayoutTutorial = false;
             
             CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 0, Amount = 1});

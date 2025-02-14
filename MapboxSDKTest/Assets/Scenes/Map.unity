@@ -918,11 +918,11 @@ PrefabInstance:
     - target: {fileID: 5699273019784767049, guid: b2642906233d946e1886286baaf28f00, type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: ca269a12857c9f04ea855a240b1f615e, type: 3}
+      objectReference: {fileID: 2800000, guid: 007ee5073d3594f7983cb684152097ad, type: 3}
     - target: {fileID: 6374038185661655861, guid: b2642906233d946e1886286baaf28f00, type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: ca269a12857c9f04ea855a240b1f615e, type: 3}
+      objectReference: {fileID: 2800000, guid: 007ee5073d3594f7983cb684152097ad, type: 3}
     - target: {fileID: 6577272871583022992, guid: b2642906233d946e1886286baaf28f00, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -14.661896
@@ -2568,7 +2568,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 72e5d08e3ddd7e04382dbac8388daadb, type: 3}
+  m_Texture: {fileID: 2800000, guid: 2a31fd7261e4e4eb6bcb24a22864266e, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3827,7 +3827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.29803923}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5301,7 +5301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1478520710
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8041,11 +8041,11 @@ PrefabInstance:
     - target: {fileID: 5699273019784767049, guid: b2642906233d946e1886286baaf28f00, type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: 4ac9e5b52e336f74b939edf69b393223, type: 3}
+      objectReference: {fileID: 2800000, guid: 463b829b458d84c0894529707421c704, type: 3}
     - target: {fileID: 6374038185661655861, guid: b2642906233d946e1886286baaf28f00, type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: 4ac9e5b52e336f74b939edf69b393223, type: 3}
+      objectReference: {fileID: 2800000, guid: 463b829b458d84c0894529707421c704, type: 3}
     - target: {fileID: 6577272871583022992, guid: b2642906233d946e1886286baaf28f00, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -14.661896

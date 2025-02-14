@@ -44,6 +44,7 @@ namespace UI
         {
             PlantSeedUI.OnPlayerPlantedSeed();
             UICanvas.SetActive(false);
+            SecondaryUICanvas.SetActive(true);
         }
         
         public void HandleSell(){

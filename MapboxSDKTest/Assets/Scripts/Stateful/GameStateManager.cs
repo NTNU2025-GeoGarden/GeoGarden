@@ -22,7 +22,7 @@ namespace Stateful
         private List<IUsingGameState> _persistenceObjs;
         private FileDataHandler _dataHandler;
 
-        private static int GAMEDATA_VERSION = 3;
+        private static int GAMEDATA_VERSION = 5;
 
         private void Awake()
         {
@@ -76,7 +76,7 @@ namespace Stateful
                 The player is then taught how to plant the seed
             */
 
-            CurrentState.Version = GAMEDATA_VERSION;
+            CurrentState.Version    = GAMEDATA_VERSION;
             CurrentState.HouseLevel = 1;
             CurrentState.CoinCap    = HouseUpgrades.CoinCapPerLevel[1];
             CurrentState.Coins      = 20;
@@ -84,11 +84,11 @@ namespace Stateful
             CurrentState.Energy     = 20;
             CurrentState.WaterCap   = HouseUpgrades.WaterCapPerLevel[1];
             CurrentState.Water      = 20;
+            CurrentState.GardenTutorial = false;
+            CurrentState.MapTutorial    = false;
+            CurrentState.LayoutTutorial = false;
             
             CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 0, Amount = 1});
-            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 1, Amount = 2});
-            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 2, Amount = 1});
-            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 3, Amount = 1});
             
             CurrentState.GardenSpots.Add(new SerializableGardenSpot
             {
@@ -97,18 +97,6 @@ namespace Stateful
                 Y = 0,
                 Z = 0.3f
             });
-            
-            /*CurrentState.Objects.Add(new SerializableObject
-            {
-                   X        = -0.8f,
-                   Y        = 0,
-                   Z        = -1,
-                RotX        = 0,
-                RotY        = 0,
-                RotZ        = 0,
-                RotW        = 1,
-                Type     = EditableObjectType.DirtPatch
-            });*/
         }
 
         private void LoadGame()

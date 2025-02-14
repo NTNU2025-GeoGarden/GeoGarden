@@ -3,7 +3,7 @@ using System.Collections;
 using Stateful;
 using Stateful.Managers;
 using Structs;
-using TMPro;
+using UI;
 using UnityEngine;
 
 namespace Garden
@@ -14,6 +14,8 @@ namespace Garden
         
         public GardenManager gardenManager;
         public ObjectManager objectManager;
+
+        public TutorialUI introTutorial;
         
         public GameObject plantSeedCanvas;
         public GameObject shopCanvas;
@@ -82,6 +84,8 @@ namespace Garden
                         }
                     }
                     
+                    if (introTutorial.showTutorial) return;
+                    
                     MoveCamera(delta);
 
                     _previousPosition = currentPosition;
@@ -94,6 +98,8 @@ namespace Garden
                     //only runs once.
                     if (!_tapped)
                     {
+                        if (introTutorial.barrier.activeSelf) return;
+                        
                         //Do a raycast
                         Ray ray = _mainCamera.ScreenPointToRay(touch.position);
                         if (Physics.Raycast(ray, out RaycastHit hit, 1000))
@@ -187,7 +193,6 @@ namespace Garden
         /// Performs updates on plant spots when they are tapped.
         /// </summary>
         /// <param name="hit">The raycast hit information.</param>
-        
         private void RaycastHitPlantSpot(RaycastHit hit)
         {
             PlantableSpot spot = hit.transform.GetComponent<PlantableSpot>();

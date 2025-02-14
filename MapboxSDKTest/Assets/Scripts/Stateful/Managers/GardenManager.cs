@@ -172,8 +172,12 @@ namespace Stateful.Managers
         {
             Debug.Log($"<color=lime>[GardenManager] Planting a seed (ID {seedID}) in spot (ID {_selectedSpot.spotID})</color>");
             SerializableGardenSpot updatedSerializedSpot = _serializedSpots[_selectedSpot.spotID];
-            updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddSeconds(5); //TODO get proper time
+
             updatedSerializedSpot.state = GrowState.Seeded;
+            
+            DateTime newTime = DateTime.Now.Add(Seeds.FromID(seedID).GrowTime.Multiply(GrowStateTimeMultiplier.FromState(updatedSerializedSpot.state)));
+            updatedSerializedSpot.stateCompletionTime = newTime;
+            
             updatedSerializedSpot.seedID = seedID;
 
             _serializedSpots[_selectedSpot.spotID] = updatedSerializedSpot;
@@ -192,9 +196,12 @@ namespace Stateful.Managers
         {
             Debug.Log($"<color=lime>[GardenManager] Watered spot (ID {spot.spotID})</color>");
             SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spot.spotID];
-            updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddSeconds(5); //TODO get proper time
+            
             updatedSerializedSpot.state += 1;
-
+            
+            DateTime newTime = DateTime.Now.Add(Seeds.FromID(spot.seedID).GrowTime.Multiply(GrowStateTimeMultiplier.FromState(updatedSerializedSpot.state)));
+            updatedSerializedSpot.stateCompletionTime = newTime;
+            
             _serializedSpots[spot.spotID] = updatedSerializedSpot;
             
             SetPlantableSpotData(_serializedSpots[spot.spotID], spot);

@@ -10,10 +10,17 @@ namespace Structs
         public int ProductItemID { get; private set; }
         public TimeSpan GrowTime { get; private set; }
 
-        public Seed(int id, int product, TimeSpan growTime)
+        
+        public int Energy {get; private set;}
+
+        public int Water {get; private set;}
+
+        public Seed(int id, int product, TimeSpan growTime, int energy, int water)
         {
             ID = id;
             ProductItemID = product;
+            Energy = energy;
+            Water = water;
             GrowTime = growTime;
         }
     }
@@ -22,7 +29,7 @@ namespace Structs
     {
         private static List<Seed> _seedList = new(new Collection<Seed>
         {
-            new(0, 4, TimeSpan.FromMinutes(3))
+            new(0, 4, TimeSpan.FromMinutes(3),15,15)
         });
 
         public static Seed FromID(int id)

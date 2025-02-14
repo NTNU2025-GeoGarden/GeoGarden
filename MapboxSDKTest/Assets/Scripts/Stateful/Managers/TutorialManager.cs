@@ -23,11 +23,11 @@ namespace Stateful.Managers
                 GameStateManager.CurrentState.MapTutorial = true;
             }
             
-            if (GameStateManager.CurrentState.HouseLevel == 2 && GameStateManager.CurrentState.LayoutTutorial == false)
+            /*if (GameStateManager.CurrentState.HouseLevel == 2 && GameStateManager.CurrentState.LayoutTutorial == false)
             {
                 layoutTutorial.showTutorial = true;
                 GameStateManager.CurrentState.LayoutTutorial = true;
-            }
+            }*/
         }
     }
 }

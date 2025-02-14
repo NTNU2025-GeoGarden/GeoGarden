@@ -110,6 +110,7 @@ namespace Stateful.Managers
             plantableSpot.statusSymbolFinished.SetActive(false);
             plantableSpot.statusSymbolNeedsWater.SetActive(false);
             plantableSpot.statusSymbolTimer.gameObject.SetActive(false);
+            int neededEnergy = Seeds.FromID(plantableSpot.seedID).Energy;
 
             plantableSpot.boxCollider.center = new Vector3(0, 0, -0.61f);
             plantableSpot.boxCollider.size   = new Vector3(0.59f, 0.58f, 1.13f);
@@ -119,12 +120,12 @@ namespace Stateful.Managers
                 case GrowState.Vacant:
                     plantableSpot.boxCollider.center = new Vector3(0, 0, -0.1f);
                     plantableSpot.boxCollider.size   = new Vector3(1, 1, 0.1f);
-                    
                     plantableSpot.perimeter.SetActive(true);
                     plantableSpot.statusSymbolAddPlant.SetActive(true);
                     plantableSpot.completionTime = DateTime.MinValue;
                     break;
                 case GrowState.Seeded:
+                    GameStateManager.CurrentState.Energy -= neededEnergy;
                     plantableSpot.growingStage1.SetActive(true);
                     
                     plantableSpot.completionTime = serializedSpot.stateCompletionTime;
@@ -171,8 +172,12 @@ namespace Stateful.Managers
         {
             Debug.Log($"<color=lime>[GardenManager] Planting a seed (ID {seedID}) in spot (ID {_selectedSpot.spotID})</color>");
             SerializableGardenSpot updatedSerializedSpot = _serializedSpots[_selectedSpot.spotID];
-            updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddSeconds(5); //TODO get proper time
+
             updatedSerializedSpot.state = GrowState.Seeded;
+            
+            DateTime newTime = DateTime.Now.Add(Seeds.FromID(seedID).GrowTime.Multiply(GrowStateTimeMultiplier.FromState(updatedSerializedSpot.state)));
+            updatedSerializedSpot.stateCompletionTime = newTime;
+            
             updatedSerializedSpot.seedID = seedID;
 
             _serializedSpots[_selectedSpot.spotID] = updatedSerializedSpot;
@@ -191,9 +196,12 @@ namespace Stateful.Managers
         {
             Debug.Log($"<color=lime>[GardenManager] Watered spot (ID {spot.spotID})</color>");
             SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spot.spotID];
-            updatedSerializedSpot.stateCompletionTime = DateTime.Now.AddSeconds(5); //TODO get proper time
+            
             updatedSerializedSpot.state += 1;
-
+            
+            DateTime newTime = DateTime.Now.Add(Seeds.FromID(spot.seedID).GrowTime.Multiply(GrowStateTimeMultiplier.FromState(updatedSerializedSpot.state)));
+            updatedSerializedSpot.stateCompletionTime = newTime;
+            
             _serializedSpots[spot.spotID] = updatedSerializedSpot;
             
             SetPlantableSpotData(_serializedSpots[spot.spotID], spot);

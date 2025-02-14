@@ -16,7 +16,7 @@ namespace Garden
         public bool harvestable;
         public DateTime completionTime;
         public GrowState state;
-
+        public TextMeshPro textField;
         public GardenCamera gardenCamera;
         public GameObject perimeter;
         public GameObject statusSymbolAddPlant;
@@ -68,6 +68,8 @@ namespace Garden
 
             harvestable = false;
         }
+
+
 
 
 

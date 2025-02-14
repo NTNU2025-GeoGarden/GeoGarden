@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using Stateful;
 using Stateful.Managers;
 using Structs;
+using UI;
 using UnityEngine;
 
 namespace Garden
@@ -12,6 +14,8 @@ namespace Garden
         
         public GardenManager gardenManager;
         public ObjectManager objectManager;
+
+        public TutorialUI introTutorial;
         
         public GameObject plantSeedCanvas;
         public GameObject shopCanvas;
@@ -80,6 +84,8 @@ namespace Garden
                         }
                     }
                     
+                    if (introTutorial.showTutorial) return;
+                    
                     MoveCamera(delta);
 
                     _previousPosition = currentPosition;
@@ -92,6 +98,8 @@ namespace Garden
                     //only runs once.
                     if (!_tapped)
                     {
+                        if (introTutorial.barrier.activeSelf) return;
+                        
                         //Do a raycast
                         Ray ray = _mainCamera.ScreenPointToRay(touch.position);
                         if (Physics.Raycast(ray, out RaycastHit hit, 1000))
@@ -130,6 +138,8 @@ namespace Garden
                     break;
             }
         }
+
+        
 
         /// <summary>
         /// Opens the house UI.
@@ -187,23 +197,59 @@ namespace Garden
         {
             PlantableSpot spot = hit.transform.GetComponent<PlantableSpot>();
             gardenManager.SetSelectedSpot(spot);
-                                        
-            if(spot.state == GrowState.Vacant)
+            Seed seed = Seeds.FromID(spot.seedID);
+            int neededWater = seed.Water;
+            int neededEnergy = seed.Energy;
+          
+            int currentWater = GameStateManager.CurrentState.Water;
+            int currentEnergy = GameStateManager.CurrentState.Energy;    
+
+            if(spot.state == GrowState.Vacant){
+                
                 plantSeedCanvas.SetActive(true);
+            }
 
             if (spot.needsWater)
             {
+               
+                if(currentEnergy<neededEnergy || currentWater<neededWater){
+                
+                    if(currentWater<neededWater){
+                       
+                            spot.textField.text = "Not enough water";
+                            StartCoroutine(RemoveTextAfterDelay(spot));
+                    }
+                    else if (currentEnergy<neededEnergy){
+                        
+                            spot.textField.text = "Not enough energy";
+                            StartCoroutine(RemoveTextAfterDelay(spot));
+                    }
+                    return;
+                }
+                //litt jalla, men orker ikke coroutines atm. er MVP anyway
+                spot.textField.text = "";
+                GameStateManager.CurrentState.Energy -= 15;
+                GameStateManager.CurrentState.Water -= 15;
                 spot.UserPoppedWaterPopup();
                 GardenManager.OnPlantWater(spot);
             }
 
             if (spot.harvestable)
             {
+                if(currentEnergy<neededEnergy){
+                    Debug.Log("Not enough energy");
+                    return;
+                }
+                GameStateManager.CurrentState.Energy -= 15;
                 spot.UserHarvestedPlant();
                 GardenManager.OnPlantHarvested(spot);
             }
         }
-
+        IEnumerator RemoveTextAfterDelay(PlantableSpot spot)
+        {
+            yield return new WaitForSeconds(2f);
+            spot.textField.text = "";
+        }
         /// <summary>
         /// Moves the GardenCamera according to the delta.
         /// </summary>

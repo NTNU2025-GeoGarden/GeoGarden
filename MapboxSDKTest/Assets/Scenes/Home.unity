@@ -1712,7 +1712,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d022b8b97b1ac6246bc0a7f63c8a3004, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d7f803ca1f51c48b18d1e120acbeae99, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3882,7 +3882,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &233651378
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7913,7 +7913,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d022b8b97b1ac6246bc0a7f63c8a3004, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d7f803ca1f51c48b18d1e120acbeae99, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14355,7 +14355,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &848585184
@@ -16610,7 +16610,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d022b8b97b1ac6246bc0a7f63c8a3004, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d7f803ca1f51c48b18d1e120acbeae99, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -30301,7 +30301,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d022b8b97b1ac6246bc0a7f63c8a3004, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d7f803ca1f51c48b18d1e120acbeae99, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

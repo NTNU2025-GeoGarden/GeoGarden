@@ -208,16 +208,16 @@ namespace Garden
             {
                
                 if(currentEnergy<neededEnergy || currentWater<neededWater){
-                    //TODO give the user information 
+                
                     if(currentWater<neededWater){
                        
-                            spot.textField.text = "Not enough water"; 
-                           
+                            spot.textField.text = "Not enough water";
+                            StartCoroutine(RemoveTextAfterDelay(spot));
                     }
                     else if (currentEnergy<neededEnergy){
                         
                             spot.textField.text = "Not enough energy";
-                           
+                            StartCoroutine(RemoveTextAfterDelay(spot));
                     }
                     return;
                 }
@@ -240,7 +240,11 @@ namespace Garden
                 GardenManager.OnPlantHarvested(spot);
             }
         }
-
+        IEnumerator RemoveTextAfterDelay(PlantableSpot spot)
+        {
+            yield return new WaitForSeconds(2f);
+            spot.textField.text = "";
+        }
         /// <summary>
         /// Moves the GardenCamera according to the delta.
         /// </summary>

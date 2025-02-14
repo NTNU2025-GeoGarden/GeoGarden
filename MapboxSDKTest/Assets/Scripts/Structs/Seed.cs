@@ -8,10 +8,16 @@ namespace Structs
         public int ID { get; private set; }
         public int ProductItemID { get; private set; }
 
-        public Seed(int id, int product)
+        public int Energy {get; private set;}
+
+        public int Water {get; private set;}
+
+        public Seed(int id, int product, int energy, int water)
         {
             ID = id;
             ProductItemID = product;
+            Energy = energy;
+            Water = water;
         }
     }
 
@@ -19,7 +25,7 @@ namespace Structs
     {
         private static List<Seed> _seedList = new(new Collection<Seed>
         {
-            new(0, 4)
+            new(0, 4, 15,15)
         });
 
         public static Seed FromID(int id)

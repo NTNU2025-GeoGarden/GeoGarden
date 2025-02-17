@@ -125,7 +125,6 @@ namespace Stateful.Managers
                     plantableSpot.completionTime = DateTime.MinValue;
                     break;
                 case GrowState.Seeded:
-                    GameStateManager.CurrentState.Energy -= neededEnergy;
                     plantableSpot.growingStage1.SetActive(true);
                     
                     plantableSpot.completionTime = serializedSpot.stateCompletionTime;

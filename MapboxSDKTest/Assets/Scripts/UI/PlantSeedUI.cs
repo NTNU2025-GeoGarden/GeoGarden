@@ -111,8 +111,9 @@ namespace UI
         private void SeedPlanted()
         {
             int seedId = previewItem.DisplayedItem.Item.AppendID;
-            
+            int neededEnergy = Seeds.FromID(seedId).Energy;
             GardenManager.OnPlantSeed(seedId);
+            GameStateManager.CurrentState.Energy -= neededEnergy;
             GameStateManager.RemoveInventoryItem(previewItem.DisplayedItem.Item.ID);
         }
     }

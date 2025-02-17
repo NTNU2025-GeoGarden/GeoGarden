@@ -11474,8 +11474,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.39996338, y: -13}
-  m_SizeDelta: {x: -0.8, y: 0}
+  m_AnchoredPosition: {x: -0.39996338, y: -6.5}
+  m_SizeDelta: {x: -0.8, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &693502903
 MonoBehaviour:
@@ -11497,7 +11497,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Let's go back!
+  m_text: Let's go back! Tap the 'x' in the top right.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
   m_sharedMaterial: {fileID: 3057482856749465163, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
@@ -27876,8 +27876,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.050023, y: 947}
-  m_SizeDelta: {x: 1090.2, y: 150}
+  m_AnchoredPosition: {x: 0.050023, y: -899.2}
+  m_SizeDelta: {x: 1090.2, y: 276.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1592654247
 MonoBehaviour:

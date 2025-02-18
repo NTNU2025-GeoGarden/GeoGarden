@@ -226,6 +226,7 @@ namespace Garden
                     }
                     return;
                 }
+                
                 //litt jalla, men orker ikke coroutines atm. er MVP anyway
                 spot.textField.text = "";
                 GameStateManager.CurrentState.Energy -= 15;

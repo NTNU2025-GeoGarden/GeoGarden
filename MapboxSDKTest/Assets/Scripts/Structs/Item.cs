@@ -6,8 +6,6 @@ namespace Structs
     public enum ItemType
     {
         Seed,
-        Water,
-        Fertilizer,
         Generic
     }
 

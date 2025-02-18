@@ -13,6 +13,8 @@ namespace UI
         public TMP_Text amount;
     
         public Image icon;
+        public Image iconShadow;
+        
         public Sprite commonSeed;
         public Sprite uncommonSeed;
         public Sprite rareSeed;
@@ -51,6 +53,8 @@ namespace UI
                 ItemType.Generic => itemIcon,
                 _ => throw new ArgumentOutOfRangeException()
             };
+
+            iconShadow.sprite = icon.sprite;
 
             switch(DisplayedItem.Item.Rarity)
             {

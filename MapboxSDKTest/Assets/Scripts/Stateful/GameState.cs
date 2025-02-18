@@ -13,6 +13,9 @@ namespace Stateful
         public bool MapTutorial;
         public bool LayoutTutorial;
 
+        public int daysLoggedIn;
+        public DateTime lastLoggedIn;
+
         public int HouseLevel;
         public DateTime LevelUpTime;
         

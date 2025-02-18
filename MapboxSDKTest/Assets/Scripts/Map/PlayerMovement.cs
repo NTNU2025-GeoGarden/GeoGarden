@@ -61,13 +61,13 @@ namespace Map
 
                 if (_ref == null)
                 {
-                    Debug.LogError("❌ ERROR: Player is not close enough to collect this resource!");
+                    Debug.Log("❌ ERROR: Player is not close enough to collect this resource!");
                     return;
                 }
 
                 if (clickedResource != _ref)
                 {
-                    Debug.LogError($"❌ ERROR: Clicked object ({clickedResource.gameObject.name}) is not the currently collided resource!");
+                    Debug.Log($"❌ ERROR: Clicked object ({clickedResource.gameObject.name}) is not the currently collided resource!");
                     return;
                 }
 
@@ -189,37 +189,5 @@ namespace Map
 				transform.position = new Vector3(transform.position.x, elevation, transform.position.z);
 			}
 		}
-
-
-
-		// void Update()
-		// {
-		// 	if (!_readyForUpdates)
-		// 		return;
-			
-		// 	var direction = Vector3.ProjectOnPlane(Target.position - transform.position, Vector3.up);
-		// 	var distance = direction.magnitude; //Vector3.Distance(transform.position, Target.position);
-		// 	if (distance > 1/_scale)
-		// 	{
-		// 		transform.LookAt(transform.position + direction);
-		// 		transform.Translate(Vector3.forward * (Speed/_scale));
-		// 		if(CharacterAnimator) CharacterAnimator.SetBool("IsWalking", true);
-		// 	}
-		// 	else
-		// 	{
-		// 		if(CharacterAnimator) CharacterAnimator.SetBool("IsWalking", false);
-		// 	}
-
-		// 	if (SnapToTerrain)
-		// 	{
-		// 		var latlng = _mapInformation.ConvertPositionToLatLng(this.transform.position);
-		// 		var tileId = Conversions.LatitudeLongitudeToTileId(latlng, 16).Canonical;
-				
-		// 		//changed this part and haven't tested...
-		// 		var tileSpace = Conversions.LatitudeLongitudeToInTile01(latlng, tileId);
-		// 		var elevation = _mapInformation.QueryElevation(tileId, tileSpace.x, tileSpace.y);
-		// 		transform.position = new Vector3(transform.position.x, elevation, transform.position.z);
-		// 	}
-		// }
 	}
 }

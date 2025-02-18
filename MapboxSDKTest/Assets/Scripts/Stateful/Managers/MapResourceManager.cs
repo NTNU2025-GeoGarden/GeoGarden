@@ -130,7 +130,8 @@ namespace Stateful.Managers
             };
 
             GameStateManager.AddInventoryItem(newEntry);
-            GameStateManager.CurrentState.Water += 15;
+            int randomWaterAmount = _random.Next(-5, 6); // Random amount between -5 and 5
+            GameStateManager.CurrentState.Water += 15 + randomWaterAmount;
         }
     }
 }

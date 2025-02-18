@@ -110,7 +110,7 @@ namespace Map
             
             // Register collection with the resource manager
             resourceManager.Collect(this);
-            
+
             Debug.Log("Resource has been collected and flown away!");
         }
     }

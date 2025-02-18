@@ -13,7 +13,10 @@ namespace Stateful.Managers
         private bool _isReady;
         private bool _loaded;
         private LatitudeLongitude _lastPosition;
-        private double _totalDistance; 
+        private double _totalDistance;
+        private double _rewardDistanceTracker; // Track distance for rewards
+
+        private double _rewardDistance = 0.1; // Track distance for rewards
 
         void Start()
         {
@@ -28,12 +31,24 @@ namespace Stateful.Managers
         {
             if (!(_isReady && _loaded)) return;
             LatitudeLongitude newPosition = map.MapInformation.ConvertPositionToLatLng(playerPosition.position);
-
+            // rewardDistanceTracker is now a class-level variable
+            
+            int energyReward = 10;
+            _rewardDistanceTracker += Distance(_lastPosition, newPosition);
             _totalDistance += Distance(_lastPosition, newPosition);
 
             _lastPosition = newPosition;
 
             GameStateManager.CurrentState.DistanceWalked = (float)Math.Round(_totalDistance, 1, MidpointRounding.ToEven);
+
+        
+            if (_rewardDistanceTracker >= _rewardDistance)
+            {
+                GameStateManager.CurrentState.Energy += energyReward;
+                _rewardDistanceTracker = 0; // Reset reward distance tracker after awarding energy
+            }
+ 
+            
         }
 
         /// <summary>

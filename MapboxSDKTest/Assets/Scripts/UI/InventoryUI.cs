@@ -14,6 +14,8 @@ namespace UI
         private List<ItemIcon> _inventoryUIitems;
         public GardenCamera cam;
         public TextMeshProUGUI descriptionText;
+        public TextMeshProUGUI itemTypeText;
+        public TextMeshProUGUI itemRarityText;
         public void Start()
         {
             LoadData(GameStateManager.CurrentState);
@@ -55,24 +57,12 @@ namespace UI
 
         public void HandleCallbackFromItem(InventoryItem item)
         {
-            Debug.Log($"Item Type: {item.Item.Type}");
-            if (item.Item.Type == ItemType.Seed)
-            {
-               descriptionText.text = "This is a seed. It can be used to grow plants, which you can sell the produce of for money.";
-               Debug.Log(" This is a seed. It can be used to grow plants, which you can sell the produce of for money.");
-            }
-            
-            else if (item.Item.Type == ItemType.Fertilizer)
-            {
-                descriptionText.text = "This is a fertilizer. It can be used to speed up the growth of plants.";
-                Debug.Log("This is a fertilizer. It can be used to speed up the growth of plants.");
-            }
-        
-            else if (item.Item.Type == ItemType.Generic)
-            {
-                descriptionText.text = "This is a product. It can be sold for money.";
-                Debug.Log("This is a product. It can be sold for money.");
-            }
+
+               
+               itemTypeText.text = item.Item.Type.ToString();
+               descriptionText.text = item.Item.Description;
+               itemRarityText.text = item.Item.Rarity.ToString();
+           
         }
 
         private void OnEnable()

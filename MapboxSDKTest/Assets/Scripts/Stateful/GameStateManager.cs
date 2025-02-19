@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Structs;
@@ -22,7 +23,7 @@ namespace Stateful
         private List<IUsingGameState> _persistenceObjs;
         private FileDataHandler _dataHandler;
 
-        private static int GAMEDATA_VERSION = 5;
+        private static int GAMEDATA_VERSION = 6;
 
         private void Awake()
         {
@@ -76,14 +77,17 @@ namespace Stateful
                 The player is then taught how to plant the seed
             */
 
-            CurrentState.Version    = GAMEDATA_VERSION;
-            CurrentState.HouseLevel = 1;
-            CurrentState.CoinCap    = HouseUpgrades.CoinCapPerLevel[1];
-            CurrentState.Coins      = 20;
-            CurrentState.EnergyCap  = HouseUpgrades.EnergyCapPerLevel[1];
-            CurrentState.Energy     = 20;
-            CurrentState.WaterCap   = HouseUpgrades.WaterCapPerLevel[1];
-            CurrentState.Water      = 20;
+            CurrentState.Version      = GAMEDATA_VERSION;
+            CurrentState.HouseLevel   = 1;
+            CurrentState.LastLogin    = DateTime.MinValue;
+            CurrentState.DaysLoggedIn = 0;
+            CurrentState.DaysClaimed  = new List<bool>(14) { false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+            CurrentState.CoinCap      = HouseUpgrades.CoinCapPerLevel[1];
+            CurrentState.Coins        = 20;
+            CurrentState.EnergyCap    = HouseUpgrades.EnergyCapPerLevel[1];
+            CurrentState.Energy       = 20;
+            CurrentState.WaterCap     = HouseUpgrades.WaterCapPerLevel[1];
+            CurrentState.Water        = 20;
             CurrentState.GardenTutorial = false;
             CurrentState.MapTutorial    = false;
             CurrentState.LayoutTutorial = false;

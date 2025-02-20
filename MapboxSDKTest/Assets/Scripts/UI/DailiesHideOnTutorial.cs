@@ -11,7 +11,6 @@ namespace UI
         public TutorialUI tutorial;
 
         private bool _shouldShow;
-        private bool _fixTutorial;
 
         public void Start()
         {
@@ -32,17 +31,15 @@ namespace UI
             if (!holder.activeSelf && !tutorial.showTutorial && _shouldShow)
                 holder.SetActive(true);
 
-            if (tutorial.showTutorial && !_fixTutorial)
+            if (tutorial.showTutorial)
             {
-                gameObject.SetActive(false);
-
                 if (_shouldShow)
                 {
                     GameStateManager.CurrentState.LastLogin = DateTime.Today - TimeSpan.FromDays(1);
                     GameStateManager.CurrentState.DaysLoggedIn--;
                 }
                 
-                _fixTutorial = true;
+                gameObject.SetActive(false);
             }
         }
     }

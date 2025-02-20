@@ -120,7 +120,7 @@ namespace Stateful.Managers
             }
             
             _mapResources![_todaysSeed][mapSpawner.spawnerId].collected = true;
-          
+
             Spawner spawner = mapSpawner.spawner;
             
             SerializableInventoryEntry newEntry = new()
@@ -130,6 +130,8 @@ namespace Stateful.Managers
             };
 
             GameStateManager.AddInventoryItem(newEntry);
+            int randomWaterAmount = _random.Next(-5, 6); // Random amount between -5 and 5
+            GameStateManager.CurrentState.Water += 15 + randomWaterAmount;
         }
     }
 }

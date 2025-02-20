@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Garden;
 using Stateful;
 using Structs;
+using TMPro;
 using UnityEngine;
 
 namespace UI
@@ -12,7 +13,9 @@ namespace UI
         public ItemIcon baseItem;
         private List<ItemIcon> _inventoryUIitems;
         public GardenCamera cam;
-
+        public TextMeshProUGUI descriptionText;
+        public TextMeshProUGUI itemTypeText;
+        public TextMeshProUGUI itemRarityText;
         public void Start()
         {
             LoadData(GameStateManager.CurrentState);
@@ -54,6 +57,12 @@ namespace UI
 
         public void HandleCallbackFromItem(InventoryItem item)
         {
+
+               
+               itemTypeText.text = item.Item.Type.ToString();
+               descriptionText.text = item.Item.Description;
+               itemRarityText.text = item.Item.Rarity.ToString();
+           
         }
 
         private void OnEnable()

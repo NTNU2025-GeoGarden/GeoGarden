@@ -22,6 +22,7 @@ namespace Garden
         public GameObject editModeCanvas;
         public GameObject houseCanvas;
         public GameObject dailiesCanvas;
+        public GameObject inventoryCanvas;
     
         private Camera _mainCamera;
         private Vector2 _previousPosition;
@@ -49,7 +50,8 @@ namespace Garden
                 || plantSeedCanvas.activeSelf
                 || shopCanvas.activeSelf
                 || houseCanvas.activeSelf
-                || dailiesCanvas.activeSelf) return;
+                || dailiesCanvas.activeSelf
+                || inventoryCanvas.activeSelf ) return;
             
             //Get the touch input data
             Touch touch = Input.GetTouch(0);

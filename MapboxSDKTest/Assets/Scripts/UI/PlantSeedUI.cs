@@ -91,8 +91,6 @@ namespace UI
                 
                 plantButton.interactable = true;
             }
-               
-        
         }
 
         public void OnDisable()
@@ -114,6 +112,7 @@ namespace UI
             int neededEnergy = Seeds.FromID(seedId).Energy;
             GardenManager.OnPlantSeed(seedId);
             GameStateManager.CurrentState.Energy -= neededEnergy;
+            FirebaseManager.TelemetryRecordEnergySpent(neededEnergy);
             GameStateManager.RemoveInventoryItem(previewItem.DisplayedItem.Item.ID);
         }
     }

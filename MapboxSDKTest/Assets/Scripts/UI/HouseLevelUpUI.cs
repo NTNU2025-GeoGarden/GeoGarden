@@ -121,7 +121,10 @@ namespace UI
 
         private void StartHouseLevelUp()
         {
-            GameStateManager.CurrentState.Coins -= HouseUpgrades.UpgradeCost[_state.HouseLevel];
+            int costOfUpgrade = HouseUpgrades.UpgradeCost[_state.HouseLevel];
+            GameStateManager.CurrentState.Coins -= costOfUpgrade;
+            FirebaseManager.TelemetryRecordCoinsUsed(costOfUpgrade);
+            
             GameStateManager.CurrentState.LevelUpTime =
                 DateTime.Now.Add(HouseUpgrades.UpgradeTimePerLevel[_state.HouseLevel]);
             

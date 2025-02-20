@@ -122,6 +122,7 @@ namespace UI
             manager.AddObject(obj);
             
             GameStateManager.CurrentState.Coins -= _cost;
+            FirebaseManager.TelemetryRecordCoinsUsed(_cost);
             GameStateManager.OnForceSaveGame();
         }
     }

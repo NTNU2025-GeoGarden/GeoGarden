@@ -19,6 +19,9 @@ namespace Stateful
         // Amount of times they logged in
         private int _logins;
         
+        // Days logged in
+        private int _daysLoggedIn;
+        
         // Total amount of playtime
         private float _playtime;
         
@@ -30,6 +33,21 @@ namespace Stateful
         
         // Total distance walked
         private float _dist;
+
+        // Coins spent
+        private int _coinsUsed;
+        
+        // Coins
+        private int _currentCoins;
+        
+        // Coins generated
+        private int _coinsGenerated;
+        
+        // Energy spent
+        private int _energyUsed;
+        
+        // Energy generated
+        private int _energyGenerated;
         
         [FirestoreProperty]
         public string UID
@@ -37,6 +55,49 @@ namespace Stateful
             get => _uid;
             set => _uid = value;
         }
+        
+        [FirestoreProperty]
+        public int DaysLoggedIn
+        {
+            get => _daysLoggedIn;
+            set => _daysLoggedIn = value;
+        }
+        
+        [FirestoreProperty]
+        public int TotalCoinsUsed
+        {
+            get => _coinsUsed;
+            set => _coinsUsed = value;
+        }
+        
+        [FirestoreProperty]
+        public int CoinBalance
+        {
+            get => _currentCoins;
+            set => _currentCoins = value;
+        }
+        
+        [FirestoreProperty]
+        public int TotalCoinsGenerated
+        {
+            get => _coinsGenerated;
+            set => _coinsGenerated = value;
+        }
+        
+        [FirestoreProperty]
+        public int TotalEnergyUsed
+        {
+            get => _energyUsed;
+            set => _energyUsed = value;
+        }
+        
+        [FirestoreProperty]
+        public int TotalEnergyGenerated
+        {
+            get => _energyGenerated;
+            set => _energyGenerated = value;
+        }
+        
         
         [FirestoreProperty]
         public DateTime CreationTime

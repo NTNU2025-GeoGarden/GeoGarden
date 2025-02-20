@@ -45,6 +45,7 @@ namespace Stateful.Managers
             if (_rewardDistanceTracker >= _rewardDistance)
             {
                 GameStateManager.CurrentState.Energy += energyReward;
+                FirebaseManager.TelemetryRecordEnergyGenerated(energyReward);
                 _rewardDistanceTracker = 0; // Reset reward distance tracker after awarding energy
             }
  

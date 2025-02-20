@@ -13,8 +13,12 @@ namespace UI
         public TMP_Text amount;
     
         public Image icon;
-        public Image itemBg;
-        public Sprite seedIcon;
+        public Image iconShadow;
+        
+        public Sprite commonSeed;
+        public Sprite uncommonSeed;
+        public Sprite rareSeed;
+        public Sprite legendarySeed;
         public Sprite itemIcon;
 
         public GameObject star1;
@@ -34,45 +38,45 @@ namespace UI
         public void UpdateInformation()
         {
             amount.text = "x" + DisplayedItem.Amount;
-        
-            switch(DisplayedItem.Item.Type)
+
+            icon.sprite = DisplayedItem.Item.Type switch
             {
-                case ItemType.Seed:
-                    icon.sprite = seedIcon;
-                    break;
-                case ItemType.Water:
-                    break;
-                case ItemType.Fertilizer:
-                    break;
-                case ItemType.Generic:
-                    icon.sprite = itemIcon;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        
+                ItemType.Seed => DisplayedItem.Item.Rarity switch
+                {
+                    Rarity.Common    => commonSeed,
+                    Rarity.Uncommon  => uncommonSeed,
+                    Rarity.Rare      => rareSeed,
+                    Rarity.Legendary => legendarySeed,
+                    Rarity.Special   => legendarySeed,
+                    _ => throw new ArgumentOutOfRangeException()
+                },
+                ItemType.Generic => itemIcon,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            iconShadow.sprite = icon.sprite;
+
             switch(DisplayedItem.Item.Rarity)
             {
                 case Rarity.Common:
-                    itemBg.color = new Color(0, 0, 0, 0.3490196f);
                     star1.SetActive(false);
                     star2.SetActive(false);
                     break;
                 case Rarity.Uncommon:
-                    itemBg.color = new Color(0.29f, 0.722f, 1f);
                     star1.SetActive(false);
                     star2.SetActive(false);
                     break;
                 case Rarity.Rare:
-                    itemBg.color = new Color(1f, 0.325f, 0.204f);
                     star1.SetActive(false);
                     star2.SetActive(true);
+                    star2.GetComponent<Image>().color  = new Color(1f, 0.3f, 0.8f, 0.6f);
                     break;
                 case Rarity.Special:
                 case Rarity.Legendary:
-                    itemBg.color = new Color(1f, 0.655f, 0f);
                     star1.SetActive(true);
                     star2.SetActive(true);
+                    star1.GetComponent<Image>().color  = new Color(1f, 0.8f, 0.3f );
+                    star2.GetComponent<Image>().color  = new Color(1f, 0.8f, 0.3f );
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

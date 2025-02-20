@@ -21,7 +21,7 @@ namespace Garden
         public GameObject shopCanvas;
         public GameObject editModeCanvas;
         public GameObject houseCanvas;
-
+        public GameObject dailiesCanvas;
         public GameObject inventoryCanvas;
     
         private Camera _mainCamera;
@@ -50,6 +50,7 @@ namespace Garden
                 || plantSeedCanvas.activeSelf
                 || shopCanvas.activeSelf
                 || houseCanvas.activeSelf
+                || dailiesCanvas.activeSelf
                 || inventoryCanvas.activeSelf ) return;
             
             //Get the touch input data
@@ -229,6 +230,7 @@ namespace Garden
                     }
                     return;
                 }
+                
                 //litt jalla, men orker ikke coroutines atm. er MVP anyway
                 spot.textField.text = "";
                 GameStateManager.CurrentState.Energy -= 15;

@@ -99,7 +99,8 @@ namespace UI
             if (_selectedItem != null)
             {
                 int sellValue = _selectedItem.Item.Value;
-                GameStateManager.CurrentState.Coins += sellValue;
+                GameStateManager.CurrentState.Coins = Math.Min(GameStateManager.CurrentState.Coins + sellValue, GameStateManager.CurrentState.CoinCap);
+                FirebaseManager.TelemetryRecordCoinsGenerated(sellValue);
                 GameStateManager.RemoveInventoryItem(_selectedItem.Item.ID);
                 UpdateCoinText();
                 _selectedItem = null;

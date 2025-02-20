@@ -13,6 +13,10 @@ namespace Stateful
         public bool MapTutorial;
         public bool LayoutTutorial;
 
+        public int DaysLoggedIn;
+        public DateTime LastLogin;
+        public List<bool> DaysClaimed;
+
         public int HouseLevel;
         public DateTime LevelUpTime;
         
@@ -40,6 +44,11 @@ namespace Stateful
             GardenTutorial  = false;
             MapTutorial  = false;
             LayoutTutorial = false;
+
+            DaysLoggedIn = 0;
+            LastLogin    = DateTime.MinValue;
+            DaysClaimed = new List<bool>(14);
+            
             
             LevelUpTime = DateTime.MinValue;
             

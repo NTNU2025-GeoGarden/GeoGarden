@@ -79,13 +79,18 @@ namespace Stateful
                     data = new FirebaseData
                     {
                         UID = state.UID,
+                        DaysLoggedIn = 0,
                         CreationTime = DateTime.Now,
                         LastLogin = DateTime.Now,
                         Logins = 0,
                         Playtime = 0,
                         Level = 1,
                         Harvests = 0,
-                        Distance = 0
+                        Distance = 0,
+                        TotalCoinsUsed = 0,
+                        CoinBalance = GameStateManager.CurrentState.Coins,
+                        TotalEnergyGenerated = 0,
+                        TotalEnergyUsed = GameStateManager.CurrentState.Energy,
                     };
                 }
                 
@@ -99,10 +104,48 @@ namespace Stateful
             
             DocumentReference thisUser = Database.Collection("users").Document(GameStateManager.CurrentState.UID);
                 
+            thisUser.UpdateAsync("DaysLoggedIn", GameStateManager.CurrentState.DaysLoggedIn);
             thisUser.UpdateAsync("Logins", FieldValue.Increment(1));
             thisUser.UpdateAsync("LastLogin", DateTime.Now);
         }
 
+        public static void TelemetryRecordCoinsUsed(int amount)
+        {
+            if (!FirebaseAvailable) return;
+            
+            DocumentReference thisUser = Database.Collection("users").Document(GameStateManager.CurrentState.UID);
+                
+            thisUser.UpdateAsync("TotalCoinsUsed", FieldValue.Increment(amount));
+        }
+        
+        public static void TelemetryRecordCoinsGenerated(int amount)
+        {
+            if (!FirebaseAvailable) return;
+            
+            DocumentReference thisUser = Database.Collection("users").Document(GameStateManager.CurrentState.UID);
+                
+            thisUser.UpdateAsync("TotalCoinsGenerated", FieldValue.Increment(amount));
+        }
+
+        public static void TelemetryRecordEnergySpent(int amount)
+        {
+            if (!FirebaseAvailable) return;
+            
+            DocumentReference thisUser = Database.Collection("users").Document(GameStateManager.CurrentState.UID);
+                
+            thisUser.UpdateAsync("TotalEnergyUsed", FieldValue.Increment(amount));
+        }
+        
+        public static void TelemetryRecordEnergyGenerated(int amount)
+        {
+            if (!FirebaseAvailable) return;
+            
+            DocumentReference thisUser = Database.Collection("users").Document(GameStateManager.CurrentState.UID);
+                
+            thisUser.UpdateAsync("TotalEnergyGenerated", FieldValue.Increment(amount));
+        }
+        
+        
         public static void TelemetryRecordLogout()
         {
             if (!FirebaseAvailable) return;
@@ -113,6 +156,7 @@ namespace Stateful
             thisUser.UpdateAsync("Level", GameStateManager.CurrentState.HouseLevel);
             thisUser.UpdateAsync("Harvests", GameStateManager.CurrentState.PlantsHarvested);
             thisUser.UpdateAsync("Distance", GameStateManager.CurrentState.DistanceWalked);
+            thisUser.UpdateAsync("CoinBalance", GameStateManager.CurrentState.Coins);
         }
     }
 }

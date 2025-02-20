@@ -168,7 +168,10 @@ namespace Garden
             {
                 EditableObject obj = hit.transform.parent.parent.parent.GetComponent<EditableObject>();
 
-                GameStateManager.CurrentState.Coins += EditableObjectCost.GetCostByType(obj.type);
+                int cost = EditableObjectCost.GetCostByType(obj.type);
+                GameStateManager.CurrentState.Coins = Math.Min(GameStateManager.CurrentState.Coins + cost, GameStateManager.CurrentState.CoinCap);
+                FirebaseManager.TelemetryRecordCoinsGenerated(cost);
+                
                 Destroy(obj.gameObject);
                 objectManager.DeleteObject(obj);
             }
@@ -229,6 +232,8 @@ namespace Garden
                 //litt jalla, men orker ikke coroutines atm. er MVP anyway
                 spot.textField.text = "";
                 GameStateManager.CurrentState.Energy -= 15;
+                FirebaseManager.TelemetryRecordEnergySpent(15);
+                
                 GameStateManager.CurrentState.Water -= 15;
                 spot.UserPoppedWaterPopup();
                 GardenManager.OnPlantWater(spot);
@@ -241,6 +246,8 @@ namespace Garden
                     return;
                 }
                 GameStateManager.CurrentState.Energy -= 15;
+                FirebaseManager.TelemetryRecordEnergySpent(15)
+                    ;
                 spot.UserHarvestedPlant();
                 GardenManager.OnPlantHarvested(spot);
             }

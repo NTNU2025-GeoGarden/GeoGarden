@@ -23800,7 +23800,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000091553, y: -0.0015869}
+  m_AnchoredPosition: {x: -0.00012207031, y: -0.0015869141}
   m_SizeDelta: {x: 1031.1, y: 1369.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1076453293
@@ -26500,7 +26500,7 @@ MonoBehaviour:
   previewItem: {fileID: 2133623977}
   sellButton: {fileID: 961621239}
   coinText: {fileID: 1670895419}
-  scrollView: {fileID: 0}
+  scrollView: {fileID: 1192002774}
 --- !u!1 &1195854377
 GameObject:
   m_ObjectHideFlags: 0

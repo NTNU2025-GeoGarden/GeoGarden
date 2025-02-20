@@ -89,6 +89,9 @@ namespace Stateful
             CurrentState.LayoutTutorial = false;
             
             CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 0, Amount = 1});
+            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 1, Amount = 1});
+            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 2, Amount = 1});
+            CurrentState.Inventory.Add(new SerializableInventoryEntry{Id = 3, Amount = 1});
             
             CurrentState.GardenSpots.Add(new SerializableGardenSpot
             {

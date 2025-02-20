@@ -54,7 +54,7 @@ namespace UI
             switch(DisplayedItem.Item.Rarity)
             {
                 case Rarity.Common:
-                    itemBg.color = Color.white;
+                    itemBg.color = new Color(0, 0, 0, 0.3490196f);
                     star1.SetActive(false);
                     star2.SetActive(false);
                     break;

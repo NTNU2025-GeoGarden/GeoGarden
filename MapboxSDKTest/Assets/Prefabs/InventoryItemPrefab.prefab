@@ -180,7 +180,7 @@ MonoBehaviour:
   amount: {fileID: 783048380123723999}
   icon: {fileID: 6085252504474139634}
   itemBg: {fileID: 5105349245573380640}
-  seedIcon: {fileID: 21300000, guid: 71ff41aa09cb7451a96ebb91ff359b6e, type: 3}
+  seedIcon: {fileID: 21300000, guid: b9aeee12b30a1470d89a74ebcd37923d, type: 3}
   itemIcon: {fileID: 21300000, guid: 12a0e0d49dc0e454fbc4f6a064b26c92, type: 3}
   star1: {fileID: 4022864686687911495}
   star2: {fileID: 3283360592053855567}
@@ -218,8 +218,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.6951904, y: 76.094}
-  m_SizeDelta: {x: 172.7694, y: 50}
+  m_AnchoredPosition: {x: 0.8456421, y: -65}
+  m_SizeDelta: {x: 189.85, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7864494905463561814
 CanvasRenderer:
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -562,7 +562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7613789898265091645
 RectTransform:
   m_ObjectHideFlags: 0
@@ -647,14 +647,14 @@ RectTransform:
   m_GameObject: {fileID: 7821500835608514383}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.22, y: 1.22, z: 1.22}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1264475343720986315}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.8456421, y: 0.000076293945}
+  m_AnchoredPosition: {x: 10.3, y: 27.4}
   m_SizeDelta: {x: 158.97, y: 158.9706}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7024053355934089112
@@ -685,7 +685,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 71ff41aa09cb7451a96ebb91ff359b6e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b9aeee12b30a1470d89a74ebcd37923d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

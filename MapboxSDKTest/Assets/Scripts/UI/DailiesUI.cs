@@ -18,22 +18,22 @@ namespace UI
 
         public void LoadData(GameState state)
         {
+            // For every login bonus that we have
             for (int i = 0; i < days.Count; i++)
             {
+                // If the login bonus we are looking it is one of the ones unlocked
+                // by the user logging in
                 if (i < GameStateManager.CurrentState.DaysLoggedIn)
                 {
-                    if (GameStateManager.CurrentState.DaysClaimed[i])
-                    {
-                        days[i].collected = true;
-                        days[i].available = false;
-                    }
-                    else
-                    {
-                        days[i].available = true;
-                    }
+                    // The login bonus is available if the user has NOT claimed it yet
+                    days[i].available = !GameStateManager.CurrentState.DaysClaimed[i];
+                    
+                    // It is already collected if the user has claimed it
+                    days[i].collected = GameStateManager.CurrentState.DaysClaimed[i];
                 }
                 else
                 {
+                    // If it is one of the days not yet unlocked, then it is not available.
                     days[i].available = false;
                 }
             }

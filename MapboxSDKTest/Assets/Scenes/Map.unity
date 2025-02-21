@@ -1430,7 +1430,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.39996338, y: -13}
+  m_AnchoredPosition: {x: -0.39996338, y: -12.9999695}
   m_SizeDelta: {x: -0.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &273467724
@@ -1453,15 +1453,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'You can pan the view, but it''s always centered on you. Get out and explore!
+  m_text: 'That''s it!
 
 
-    That''s
-    all for the tutorials for now. We will be back later though!
+    Get out and explore!
 
 
-    Enjoy GeoGarden,
-    and see you soon!'
+
+    Enjoy GeoGarden, and see
+    you soon!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
   m_sharedMaterial: {fileID: 3057482856749465163, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
@@ -1725,8 +1725,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.9999743, y: 153.00003}
-  m_SizeDelta: {x: 1090.2, y: 511.1475}
+  m_AnchoredPosition: {x: 5.9999743, y: 215.772}
+  m_SizeDelta: {x: 1090.2, y: 385.6035}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &313871992
 MonoBehaviour:
@@ -2412,7 +2412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.39996338, y: -12.999985}
+  m_AnchoredPosition: {x: -0.39996338, y: -13}
   m_SizeDelta: {x: -0.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &389025067
@@ -2435,8 +2435,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Here you see your surrounding area, as well as locations where you can
-    pick up resources!
+  m_text: View your surroundings and find resource pickup spots.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
   m_sharedMaterial: {fileID: 3057482856749465163, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
@@ -3496,7 +3495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.39996338, y: -12.999954}
+  m_AnchoredPosition: {x: -0.39996338, y: -12.9999695}
   m_SizeDelta: {x: -0.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &706039480
@@ -3519,8 +3518,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Here, you can also see your next upgrade goal, to keep track of how you're
-    doing.
+  m_text: Keep an eye on your next upgrade target right here.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
   m_sharedMaterial: {fileID: 3057482856749465163, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
@@ -3904,7 +3902,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.39996338, y: -12.9999695}
+  m_AnchoredPosition: {x: -0.39996338, y: -12.999985}
   m_SizeDelta: {x: -0.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &752102656
@@ -3927,8 +3925,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Unlike other games, you can't spend money to buy your way to victory. In
-    GeoGarden, you have to go out and move!
+  m_text: "In GeoGarden, progress comes from moving\u2014not buying your way to victory."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
   m_sharedMaterial: {fileID: 3057482856749465163, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
@@ -4353,9 +4350,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Speaking of water: to get water you have to go to an area with water in
-    real life! For example, the docks or a river. You don''t have to be very close,
-    just in the area.'
+  m_text: The same is true for water.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
   m_sharedMaterial: {fileID: 3057482856749465163, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
@@ -5536,8 +5531,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6, y: 153}
-  m_SizeDelta: {x: 1090.2, y: 511.1475}
+  m_AnchoredPosition: {x: 6, y: 104.494385}
+  m_SizeDelta: {x: 1090.2, y: 608.1587}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1007302370
 MonoBehaviour:
@@ -7571,8 +7566,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Certain unlocks in the game require you to have moved a certain distance
-    using the game. Remember to be on this map to track your distance!
+  m_text: "Some features require you to travel certain distances. \nRemember to be
+    on the map to track your distance!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
   m_sharedMaterial: {fileID: 3057482856749465163, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
@@ -7745,7 +7740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1478520710
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8625,8 +8620,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.859166, y: 103.610016}
-  m_SizeDelta: {x: 1090.2, y: 609.9229}
+  m_AnchoredPosition: {x: 5.859166, y: 162.38736}
+  m_SizeDelta: {x: 1090.2, y: 492.3682}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1708501524
 MonoBehaviour:
@@ -8701,8 +8696,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.049901, y: -50.775116}
-  m_SizeDelta: {x: 1090.2, y: 1258.657}
+  m_AnchoredPosition: {x: 0.049901, y: -18.001}
+  m_SizeDelta: {x: 1090.2, y: 850.5679}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1730491471
 MonoBehaviour:
@@ -9226,8 +9221,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.9999743, y: 204.29}
-  m_SizeDelta: {x: 1090.2, y: 408.57}
+  m_AnchoredPosition: {x: 5.9999743, y: 276.763}
+  m_SizeDelta: {x: 1090.2, y: 263.6238}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1787617138
 MonoBehaviour:
@@ -9668,7 +9663,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'You also gain energy when moving and completing objectives on the map. '
+  m_text: Gain energy by moving and completing map objectives.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
   m_sharedMaterial: {fileID: 3057482856749465163, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
@@ -9931,7 +9926,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.39996338, y: -12.999985}
+  m_AnchoredPosition: {x: -0.39996338, y: -12.9999695}
   m_SizeDelta: {x: -0.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1876053498
@@ -9954,7 +9949,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Welcome to the map! The second and most important part of GeoGarden!
+  m_text: 'Welcome to the map!
+
+
+    This is the second, most important part of GeoGarden.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
   m_sharedMaterial: {fileID: 3057482856749465163, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
@@ -10157,8 +10155,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.9999743, y: -12.761688}
-  m_SizeDelta: {x: 1090.2, y: 842.67}
+  m_AnchoredPosition: {x: 5.9999743, y: 262.3904}
+  m_SizeDelta: {x: 1090.2, y: 292.3659}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1891530944
 MonoBehaviour:
@@ -10761,8 +10759,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.9999743, y: 156.45897}
-  m_SizeDelta: {x: 1090.2, y: 504.225}
+  m_AnchoredPosition: {x: 5.9999743, y: 262.03003}
+  m_SizeDelta: {x: 1090.2, y: 293.0831}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2086153986
 MonoBehaviour:

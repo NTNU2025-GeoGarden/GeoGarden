@@ -24,7 +24,7 @@ namespace UI
         private List<ItemIcon> _inventoryUIitems;
         private InventoryItem _selectedItem;
 
-
+        public Image coinIcon;
 
         public void Start()
         {
@@ -99,7 +99,7 @@ namespace UI
             previewItem.DisplayedItem = item;
             previewItem.DisplayedItem.Amount = 1;
             priceText.text = $"{item.Item.Value}";
-           
+            coinIcon.gameObject.SetActive(true);
             previewItem.UpdateInformation();
         }
 
@@ -115,6 +115,7 @@ namespace UI
                 previewItem.gameObject.SetActive(false);
                 sellButton.interactable = false;
                 Debug.Log($"Coins gathered: {GameStateManager.CurrentState.Coins}");
+                coinIcon.gameObject.SetActive(false);
                 priceText.text = "";
                 OnPlayerSoldItem?.Invoke();
             }

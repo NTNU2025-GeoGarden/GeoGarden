@@ -26926,6 +26926,7 @@ MonoBehaviour:
   sellButton: {fileID: 961621239}
   priceText: {fileID: 1621460516}
   scrollView: {fileID: 1192002774}
+  coinIcon: {fileID: 1880904249}
 --- !u!1 &1195854377
 GameObject:
   m_ObjectHideFlags: 0
@@ -32844,7 +32845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264475343720986315, guid: f829cba02e944be4e8ac5fb04da2fd20, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 54.97
+      value: 54.96997
       objectReference: {fileID: 0}
     - target: {fileID: 1264475343720986315, guid: f829cba02e944be4e8ac5fb04da2fd20, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -41636,7 +41637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1880904248
 RectTransform:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ namespace UI
         public ItemIcon previewItem;
         public Button sellButton;
         public TextMeshProUGUI coinText;
+        public RectTransform scrollView;
 
         private List<ItemIcon> _inventoryUIitems;
         private InventoryItem _selectedItem;
@@ -56,12 +57,16 @@ namespace UI
             {
                 ItemIcon newItem = Instantiate(baseItem.gameObject, transform).GetComponent<ItemIcon>();
                 newItem.DisplayedItem = new InventoryItem(entry.Id, entry.Amount);
-                newItem.transform.localPosition = new Vector3((count - (float)Math.Floor(count / 4f)) * 225 + 25, -25 - (float)Math.Floor(count / 4f) * 225, 0);
+                newItem.transform.localPosition = new Vector3(
+                    count % 4 * 225 + 50, 
+                    -25 - (float)Math.Floor(count / 4f) * 225, 0
+                );
                 newItem.ClickScreenWithItemIcons = this;
-
                 _inventoryUIitems.Add(newItem);
                 count++;
             }
+            
+            scrollView.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (float)Math.Floor(count / 4f) * 225);
         }
 
         public void SaveData(ref GameState state) { }

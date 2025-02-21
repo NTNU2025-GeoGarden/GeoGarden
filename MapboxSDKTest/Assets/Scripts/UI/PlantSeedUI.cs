@@ -18,7 +18,7 @@ namespace UI
         public ItemIcon baseItem;
         public ItemIcon previewItem;
         public Button plantButton;
-        public GardenCamera cam;
+        public RectTransform scrollView;
     
         private List<ItemIcon> _inventoryUIitems;
 
@@ -50,7 +50,10 @@ namespace UI
             {
                 ItemIcon newItem = Instantiate(baseItem.gameObject, transform).GetComponent<ItemIcon>();
                 newItem.DisplayedItem = new InventoryItem(entry.Id, entry.Amount);
-                newItem.transform.localPosition = new Vector3((count - (float)Math.Floor(count / 4f)) * 225 + 25, -25 - (float)Math.Floor(count / 4f) * 225, 0);
+                newItem.transform.localPosition = new Vector3(
+                    count % 4 * 225 + 50, 
+                    -25 - (float)Math.Floor(count / 4f) * 225, 0
+                );
                 newItem.ClickScreenWithItemIcons = this;
             
                 _inventoryUIitems.Add(newItem);
@@ -59,6 +62,7 @@ namespace UI
             }
         
             previewItem.gameObject.SetActive(false);
+            scrollView.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (float)Math.Floor(count / 4f) * 225);
         }
 
         public void SaveData(ref GameState state)

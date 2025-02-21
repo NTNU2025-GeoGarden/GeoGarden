@@ -37,6 +37,12 @@ namespace UI
 
         public void UpdateInformation()
         {
+            if (amount == null || DisplayedItem == null || icon == null || iconShadow == null)
+            {
+                
+                return;
+            }
+
             amount.text = "x" + DisplayedItem.Amount;
 
             icon.sprite = DisplayedItem.Item.Type switch
@@ -55,6 +61,13 @@ namespace UI
             };
 
             iconShadow.sprite = icon.sprite;
+
+            if (star1 == null || star2 == null)
+            {
+                Debug.LogError("[ItemIcon] Star GameObjects are not set!");
+                return;
+            }
+
 
             switch(DisplayedItem.Item.Rarity)
             {

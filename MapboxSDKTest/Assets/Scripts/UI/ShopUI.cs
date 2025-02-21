@@ -17,16 +17,18 @@ namespace UI
         public ItemIcon baseItem;
         public ItemIcon previewItem;
         public Button sellButton;
-        public TextMeshProUGUI coinText;
+
+        public TextMeshProUGUI priceText;
         public RectTransform scrollView;
 
         private List<ItemIcon> _inventoryUIitems;
         private InventoryItem _selectedItem;
 
+
+
         public void Start()
         {
             LoadData(GameStateManager.CurrentState);
-            UpdateCoinText();
             sellButton.interactable = false;
             
             sellButton.onClick.AddListener(SellSelectedItem);
@@ -96,6 +98,8 @@ namespace UI
             previewItem.gameObject.SetActive(true);
             previewItem.DisplayedItem = item;
             previewItem.DisplayedItem.Amount = 1;
+            priceText.text = $"{item.Item.Value}";
+           
             previewItem.UpdateInformation();
         }
 
@@ -107,19 +111,16 @@ namespace UI
                 GameStateManager.CurrentState.Coins = Math.Min(GameStateManager.CurrentState.Coins + sellValue, GameStateManager.CurrentState.CoinCap);
                 FirebaseManager.TelemetryRecordCoinsGenerated(sellValue);
                 GameStateManager.RemoveInventoryItem(_selectedItem.Item.ID);
-                UpdateCoinText();
                 _selectedItem = null;
                 previewItem.gameObject.SetActive(false);
                 sellButton.interactable = false;
                 Debug.Log($"Coins gathered: {GameStateManager.CurrentState.Coins}");
+                priceText.text = "";
                 OnPlayerSoldItem?.Invoke();
             }
         }
 
-        private void UpdateCoinText()
-        {
-            coinText.text = $"{GameStateManager.CurrentState.Coins}";
-        }
+        
 
         private void ItemSold()
         {

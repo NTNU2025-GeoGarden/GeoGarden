@@ -42585,6 +42585,7 @@ MonoBehaviour:
   houseCanvas: {fileID: 847172625}
   dailiesCanvas: {fileID: 258734408}
   inventoryCanvas: {fileID: 568272157}
+  uiCanvas: {fileID: 1294344676}
 --- !u!1 &1920808139
 GameObject:
   m_ObjectHideFlags: 0

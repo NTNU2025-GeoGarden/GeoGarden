@@ -37,7 +37,30 @@ namespace Stateful.Managers
                 AddInGameSpawners();
             };
         }
-        private void InitializeTestCoordinates()
+        private static System.Random random = new System.Random();
+
+        private int GetWeightedRandomItemId()
+        {
+            int roll = random.Next(100); // Get a random number between 0 and 99
+            if (roll < 65)
+            {
+                return random.Next(0, 24);  // 65% chance
+            }
+            else if (roll < 85)
+            {
+                return random.Next(24, 40); // 20% chance
+            }
+            else if (roll < 95)
+            {
+                return random.Next(40, 47); // 10% chance
+            }
+            else
+            {
+                return random.Next(47, 51); // 5% chance
+            }
+        }
+
+        private void InitializeTestCoordinates() 
         {
             TextAsset coordFile = Resources.Load<TextAsset>("points");
             if (coordFile == null)
@@ -50,7 +73,7 @@ namespace Stateful.Managers
             foreach (string line in lines)
             {
                 if (string.IsNullOrWhiteSpace(line)) continue;
-                
+
                 string[] parts = line.Trim().Split(',');
                 if (parts.Length == 2 && 
                     double.TryParse(parts[0], out double lat) && 
@@ -59,23 +82,28 @@ namespace Stateful.Managers
                     AddTestSpawnerCluster(lat, lng);
                 }
             }
-            
+
             Debug.Log($"<color=cyan>[MapResourceManager] Added {lines.Length} test spawner clusters from file</color>");
         }
-        public void AddTestSpawnerCluster(double latitude, double longitude)
+       public void AddTestSpawnerCluster(double latitude, double longitude)
         {
             if (clusters == null)
             {
                 clusters = new List<SpawnerCluster>();
             }
 
-            List<Spawner> testSpawners = new List<Spawner>
+            List<Spawner> testSpawners = new List<Spawner>();
+            int numberOfSpawners = random.Next(3, 6); // Randomize number of spawners in the cluster
+
+            for (int i = 0; i < numberOfSpawners; i++)
             {
-                new Spawner { itemId = 1, minAmount = 1, maxAmount = 3 },  // Common
-                new Spawner { itemId = 2, minAmount = 2, maxAmount = 4 },  // Uncommon
-                new Spawner { itemId = 3, minAmount = 1, maxAmount = 2 },  // Rare
-                new Spawner { itemId = 4, minAmount = 1, maxAmount = 1 }   // Legendary
-            };
+                testSpawners.Add(new Spawner 
+                { 
+                    itemId = GetWeightedRandomItemId(), 
+                    minAmount = random.Next(1, 4), 
+                    maxAmount = random.Next(3, 6) 
+                });
+            }
 
             SpawnerCluster newCluster = new SpawnerCluster
             {
@@ -84,7 +112,7 @@ namespace Stateful.Managers
             };
 
             clusters.Add(newCluster);
-            Debug.Log($"<color=cyan>[MapResourceManager] Added test spawner cluster at {latitude}, {longitude}</color>");
+            Debug.Log($"<color=cyan>[MapResourceManager] Added test spawner cluster at {latitude}, {longitude} with {numberOfSpawners} spawners</color>");
         }
         public void LoadData(GameState state)
 {

@@ -112,10 +112,11 @@ namespace UI
 
         private void SeedPlanted()
         {
-            int seedId = previewItem.DisplayedItem.Item.AppendID;
+            int seedId = previewItem.DisplayedItem.Item.ID;
             int neededEnergy = Seeds.FromID(seedId).Energy;
             GardenManager.OnPlantSeed(seedId);
             GameStateManager.CurrentState.Energy -= neededEnergy;
+            Debug.Log("Planted seed with id: " + seedId + "and rarity: " + Seeds.FromID(seedId).Rarity);
             FirebaseManager.TelemetryRecordEnergySpent(neededEnergy);
             GameStateManager.RemoveInventoryItem(previewItem.DisplayedItem.Item.ID);
         }

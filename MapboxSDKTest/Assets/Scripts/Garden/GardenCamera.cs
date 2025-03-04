@@ -234,8 +234,6 @@ namespace Garden
                     return;
                 }
                 
-                //litt jalla, men orker ikke coroutines atm. er MVP anyway
-                spot.textField.text = "";
                 GameStateManager.CurrentState.Energy -= 15;
                 FirebaseManager.TelemetryRecordEnergySpent(15);
                 
@@ -251,8 +249,7 @@ namespace Garden
                     return;
                 }
                 GameStateManager.CurrentState.Energy -= 15;
-                FirebaseManager.TelemetryRecordEnergySpent(15)
-                    ;
+                FirebaseManager.TelemetryRecordEnergySpent(15);
                 spot.UserHarvestedPlant();
                 GardenManager.OnPlantHarvested(spot);
             }

@@ -216,7 +216,7 @@ namespace Stateful.Managers
 
             GameStateManager.AddInventoryItem(new SerializableInventoryEntry()
             {
-                Id = Seeds.FromID(updatedSerializedSpot.seedID).ProductItemID,
+                Id = Seeds.FromID(updatedSerializedSpot.seedID).GetRandomProduct(),
                 Amount = 1
             });
             GameStateManager.CurrentState.PlantsHarvested++;

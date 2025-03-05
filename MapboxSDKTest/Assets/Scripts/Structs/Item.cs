@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Structs
@@ -60,7 +60,7 @@ namespace Structs
                 new(0, "Common seed", "Variant of common",    ItemType.Seed, Rarity.Common, 0, 5),
                 new(1, "Uncommon seed", "Variant of uncommon",  ItemType.Seed, Rarity.Uncommon, 0, 25),
                 new(2, "Rare seed", "Variant of rare",      ItemType.Seed, Rarity.Rare, 0, 100),
-                new(3, "Legendary seed", "Variant of legendary", ItemType.Seed, Rarity.Legendary, 0, 200),
+                new(3, "Legendary seed", "Variant of legendary", ItemType.Seed, Rarity.Legendary, 0 , 200),
 
                 new(4, "Tomato", "Tomato", ItemType.Generic, Rarity.Common, -1, 20),
                 new(5, "Cucumber", "Cucumber", ItemType.Generic, Rarity.Common, -1, 15),

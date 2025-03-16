@@ -208,6 +208,22 @@ MonoBehaviour:
   coffeeBeanIcon: {fileID: 21300000, guid: e9c8699138631c745b0550e876c3a2aa, type: 3}
   cornIcon: {fileID: 21300000, guid: b4b6055a7af066b4e8a7162beaa6ab37, type: 3}
   eggplantIcon: {fileID: 21300000, guid: f4a84829411aeb5459f3d69eab2e2897, type: 3}
+  appleIcon: {fileID: 21300000, guid: b18aa5a17cf35bb4cb6542c551d16e43, type: 3}
+  strawberryIcon: {fileID: 21300000, guid: a6e3332aa5d79474a9a227ba71fca764, type: 3}
+  blackberryIcon: {fileID: 21300000, guid: f739f1e27f3c12e45b4942bb260a8a70, type: 3}
+  lingonberryIcon: {fileID: 21300000, guid: 9e4ab993b4314c84f9ae5ec5b706e90e, type: 3}
+  raspberryIcon: {fileID: 21300000, guid: 782476abd321f0c43901d318747109a7, type: 3}
+  blackcurrantIcon: {fileID: 21300000, guid: 101bcfb1cbbb9b14e87b0ffc00183b3a, type: 3}
+  apricotIcon: {fileID: 21300000, guid: dc0b0fbd4f48b8442b64456a45c9527c, type: 3}
+  dragonfruitIcon: {fileID: 21300000, guid: b239be8dfd669c44a9e03688d73c8f24, type: 3}
+  mangoIcon: {fileID: 21300000, guid: 02f8fe8ea680d754dad5f84f222786d7, type: 3}
+  limeIcon: {fileID: 21300000, guid: 3d4b3d2850e65304b8998a6796a0b717, type: 3}
+  kiwiIcon: {fileID: 21300000, guid: b5e9136b6608ece448d667d2d812c74c, type: 3}
+  edamameIcon: {fileID: 21300000, guid: 8f2c51d6db23d614cb76285405175b89, type: 3}
+  orangeIcon: {fileID: 21300000, guid: 9b519bc3bc351a04f9438152ad814729, type: 3}
+  papayaIcon: {fileID: 21300000, guid: 217874acd76800d4baae95a39f4f505c, type: 3}
+  pearIcon: {fileID: 21300000, guid: b24267ceea1966247b51b56d6d840168, type: 3}
+  pineappleIcon: {fileID: 21300000, guid: 01e755a0762715140823d45b5235b89c, type: 3}
   star1: {fileID: 4022864686687911495}
   star2: {fileID: 3283360592053855567}
 --- !u!1 &1751305353108511242

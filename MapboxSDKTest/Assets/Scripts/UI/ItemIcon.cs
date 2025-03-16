@@ -48,6 +48,24 @@ namespace UI
         public Sprite cornIcon;        // ID 26
         public Sprite eggplantIcon;    // ID 27
 
+        [Header("Uncommon Plant Icons")]
+        public Sprite appleIcon;        // ID 28
+        public Sprite strawberryIcon;   // ID 29
+        public Sprite blackberryIcon;   // ID 30
+        public Sprite lingonberryIcon;  // ID 31
+        public Sprite raspberryIcon;    // ID 32
+        public Sprite blackcurrantIcon; // ID 33
+        public Sprite apricotIcon;      // ID 34
+        public Sprite dragonfruitIcon;  // ID 35
+        public Sprite mangoIcon;        // ID 36
+        public Sprite limeIcon;         // ID 37
+        public Sprite kiwiIcon;         // ID 38
+        public Sprite edamameIcon;      // ID 39
+        public Sprite orangeIcon;       // ID 40
+        public Sprite papayaIcon;       // ID 41
+        public Sprite pearIcon;         // ID 42
+        public Sprite pineappleIcon;    // ID 43
+
         private Sprite GetSpriteById(int id)
         {
             return id switch
@@ -76,6 +94,25 @@ namespace UI
                 25 => coffeeBeanIcon,
                 26 => cornIcon,
                 27 => eggplantIcon,
+
+                // Uncommon plants
+                28 => appleIcon,
+                29 => strawberryIcon,
+                30 => blackberryIcon,
+                31 => lingonberryIcon,
+                32 => raspberryIcon,
+                33 => blackcurrantIcon,
+                34 => apricotIcon,
+                35 => dragonfruitIcon,
+                36 => mangoIcon,
+                37 => limeIcon,
+                38 => kiwiIcon,
+                39 => edamameIcon,
+                40 => orangeIcon,
+                41 => papayaIcon,
+                42 => pearIcon,
+                43 => pineappleIcon,
+
                 _ => itemIcon
             };
         }

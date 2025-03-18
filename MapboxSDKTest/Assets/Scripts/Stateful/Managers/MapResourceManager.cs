@@ -27,49 +27,126 @@ namespace Stateful.Managers
         void Start()
         {
             _map = mapObject.GetComponent<MapboxMapBehaviour>();
-
+            // Initialize test coordinates first
+            InitializeTestCoordinates();
+            
+            // Then load the data which will process the clusters
+            LoadData(GameStateManager.CurrentState);
             _map.MapServiceReady += _ =>
             {
                 AddInGameSpawners();
             };
         }
+        private static System.Random random = new System.Random();
 
-        public void LoadData(GameState state)
+        private int GetWeightedRandomItemId()
         {
-            Debug.Log("<color=cyan>[MapResourceManager] Loading spawner data</color>");
-            
-            _todaysSeed = DateTime.Now.Year * 1000 + DateTime.Now.DayOfYear;
-            _mapResources = state.MapResources;
-        
-            if (_mapResources.ContainsKey(_todaysSeed))
+            int roll = random.Next(100); // Get a random number between 0 and 99
+            if (roll < 65)
             {
-                Debug.Log("<color=cyan>----> Spawner data found, skipping generation.</color>");
-                return;
+                return random.Next(0, 24);  // 65% chance
             }
-            
-            Debug.Log("<color=cyan>----> Not generated, proceeding with generation. </color>");
-        
-            _mapResources.Add(_todaysSeed, new List<SerializableSpawner>());
-        
-            // No data generated, fix that!
-        
-            _random = new Random(_todaysSeed);
-
-            foreach (SpawnerCluster cluster in clusters)
+            else if (roll < 85)
             {
-                if (!(_random.NextDouble() > 0.5)) continue;
-
-                SerializableSpawner newResource = new()
-                {
-                    latLng = cluster.latLng,
-                    spawner = cluster.spawners[_random.Next(cluster.spawners.Count)],
-                    collected = false
-                };
-            
-            
-                _mapResources[_todaysSeed].Add(newResource);
+                return random.Next(24, 40); // 20% chance
+            }
+            else if (roll < 95)
+            {
+                return random.Next(40, 47); // 10% chance
+            }
+            else
+            {
+                return random.Next(47, 51); // 5% chance
             }
         }
+
+        private void InitializeTestCoordinates() 
+        {
+            TextAsset coordFile = Resources.Load<TextAsset>("points");
+            if (coordFile == null)
+            {
+                Debug.LogError("[MapResourceManager] Could not load coordinates.txt file!");
+                return;
+            }
+
+            string[] lines = coordFile.text.Split('\n');
+            foreach (string line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line)) continue;
+
+                string[] parts = line.Trim().Split(',');
+                if (parts.Length == 2 && 
+                    double.TryParse(parts[0], out double lat) && 
+                    double.TryParse(parts[1], out double lng))
+                {
+                    AddTestSpawnerCluster(lat, lng);
+                }
+            }
+
+            Debug.Log($"<color=cyan>[MapResourceManager] Added {lines.Length} test spawner clusters from file</color>");
+        }
+       public void AddTestSpawnerCluster(double latitude, double longitude)
+        {
+            if (clusters == null)
+            {
+                clusters = new List<SpawnerCluster>();
+            }
+
+            List<Spawner> testSpawners = new List<Spawner>();
+            int numberOfSpawners = random.Next(3, 6); // Randomize number of spawners in the cluster
+
+            for (int i = 0; i < numberOfSpawners; i++)
+            {
+                testSpawners.Add(new Spawner 
+                { 
+                    itemId = GetWeightedRandomItemId(), 
+                    minAmount = random.Next(1, 4), 
+                    maxAmount = random.Next(3, 6) 
+                });
+            }
+
+            SpawnerCluster newCluster = new SpawnerCluster
+            {
+                latLng = new LatitudeLongitude(latitude, longitude),
+                spawners = testSpawners
+            };
+
+            clusters.Add(newCluster);
+            Debug.Log($"<color=cyan>[MapResourceManager] Added test spawner cluster at {latitude}, {longitude} with {numberOfSpawners} spawners</color>");
+        }
+        public void LoadData(GameState state)
+{
+    Debug.Log("<color=cyan>[MapResourceManager] Loading spawner data</color>");
+    
+    _todaysSeed = DateTime.Now.Year * 1000 + DateTime.Now.DayOfYear;
+    _mapResources = state.MapResources ?? new Dictionary<int, List<SerializableSpawner>>();
+    
+    // Clear or create new list for today
+    _mapResources[_todaysSeed] = new List<SerializableSpawner>();
+    
+    Debug.Log("<color=cyan>----> Generating resources from clusters</color>");
+    
+    _random = new Random(_todaysSeed);
+
+    foreach (SpawnerCluster cluster in clusters)
+    {
+        if (!(_random.NextDouble() > 0.5)) continue;
+
+        SerializableSpawner newResource = new()
+        {
+            latLng = cluster.latLng,
+            spawner = cluster.spawners[_random.Next(cluster.spawners.Count)],
+            collected = false
+        };
+        
+        _mapResources[_todaysSeed].Add(newResource);
+    }
+
+    // Update the state's reference
+    state.MapResources = _mapResources;
+    
+    Debug.Log($"<color=cyan>[MapResourceManager] Generated {_mapResources[_todaysSeed].Count} resources for today</color>");
+}
 
         public void SaveData(ref GameState state)
         {

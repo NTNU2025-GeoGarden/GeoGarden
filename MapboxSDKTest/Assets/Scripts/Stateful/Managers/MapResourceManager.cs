@@ -210,10 +210,7 @@ namespace Stateful.Managers
                 Debug.LogError("[MapResourceManager] Map resources not initialized!");
                 return;
             }
-
-            Debug.Log("<color=lime>[MapResourceManager] Collecting resource</color>");
             
-            // Get the random instance
             var random = _random ?? new Random(_todaysSeed);
             
             _mapResources[_todaysSeed][mapSpawner.spawnerId].collected = true;
@@ -224,10 +221,22 @@ namespace Stateful.Managers
                 Amount = random.Next(mapSpawner.spawner.minAmount, mapSpawner.spawner.maxAmount + 1)
             };
 
+            int waterGained = 15 + random.Next(-5, 6);
             GameStateManager.AddInventoryItem(newEntry);
-            GameStateManager.CurrentState.Water += 15 + random.Next(-5, 6);
-            
-            Debug.Log($"<color=lime>[MapResourceManager] Collected item {newEntry.Id}, amount: {newEntry.Amount}</color>");
+            GameStateManager.CurrentState.Water += waterGained;
+
+            string rarity = newEntry.Id switch
+            {
+                < 24 => "Common",
+                < 40 => "Uncommon",
+                < 47 => "Rare",
+                _ => "Legendary"
+            };
+
+            string message = $"Found {newEntry.Amount} {rarity} seed(s) and {waterGained} water!";
+            NotificationManager.Instance?.ShowNotification(message);
         }
     }
+
+   
 }

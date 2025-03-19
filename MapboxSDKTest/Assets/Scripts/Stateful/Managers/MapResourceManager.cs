@@ -6,7 +6,6 @@ using Mapbox.BaseModule.Map;
 using Mapbox.Example.Scripts.Map;
 using UnityEngine;
 using Random = System.Random;
-
 namespace Stateful.Managers
 {
     public class MapResourceManager : MonoBehaviour, IUsingGameState
@@ -24,6 +23,7 @@ namespace Stateful.Managers
         private List<GameObject> _spawnedObjects = new List<GameObject>();
         private bool _isInitialized;
         private static Random random = new Random();
+        public MapboxMapBehaviour map;
 
         void Start()
         {
@@ -59,16 +59,47 @@ namespace Stateful.Managers
 
         private void InitializeTestCoordinates() 
         {
+           
             if (_lastGeneratedDay != _todaysSeed)
             {
-                Debug.Log("<color=cyan>[MapResourceManager] Initializing new day's resources</color>");
-                
-                TextAsset coordFile = Resources.Load<TextAsset>("points");
+                LatitudeLongitude playerPosition = _map.MapInformation.ConvertPositionToLatLng(player.position);
+                Debug.Log("player position: " + playerPosition.Latitude + ", " + playerPosition.Longitude);
+            
+                CoordinateGenerator.GenerateUniquePointsAndWriteToFile(
+                    playerPosition.Latitude, 
+                    playerPosition.Longitude, 
+                    3000, 
+                    "Assets/Resources/points.txt", 
+                    1000
+                );
+
+                //JALLA MEN det funker når vi må være ferdig til i morgen
+                // Add retry mechanism for file loading
+                TextAsset coordFile = null;
+                int maxRetries = 5;
+                int currentTry = 0;
+
+                while (coordFile == null && currentTry < maxRetries)
+                {
+                    #if UNITY_EDITOR
+                    UnityEditor.AssetDatabase.Refresh();
+                    #endif
+                    
+                    coordFile = Resources.Load<TextAsset>("points");
+                    if (coordFile == null)
+                    {
+                        currentTry++;
+                        Debug.Log($"<color=yellow>[MapResourceManager] Waiting for file... Attempt {currentTry}/{maxRetries}</color>");
+                        System.Threading.Thread.Sleep(100); // Short delay between attempts
+                    }
+                }
+
                 if (coordFile == null)
                 {
-                    Debug.LogError("[MapResourceManager] Could not load coordinates.txt file!");
+                    Debug.LogError("[MapResourceManager] Could not load coordinates.txt file after multiple attempts!");
                     return;
-                }
+        }
+
 
                 clusters = new List<SpawnerCluster>();
                 
@@ -95,6 +126,8 @@ namespace Stateful.Managers
 
         private void GenerateDailyResources()
         {
+            
+            
             _mapResources = GameStateManager.CurrentState.MapResources ?? new Dictionary<int, List<SerializableSpawner>>();
             _mapResources[_todaysSeed] = new List<SerializableSpawner>();
 

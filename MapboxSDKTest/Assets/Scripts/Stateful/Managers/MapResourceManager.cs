@@ -6,7 +6,6 @@ using Mapbox.BaseModule.Map;
 using Mapbox.Example.Scripts.Map;
 using UnityEngine;
 using Random = System.Random;
-
 namespace Stateful.Managers
 {
     public class MapResourceManager : MonoBehaviour, IUsingGameState
@@ -15,7 +14,7 @@ namespace Stateful.Managers
         public GameObject resourcePrefab;
         public Transform player;
         public List<SpawnerCluster> clusters;
-    
+
         private MapboxMapBehaviour _map;
         private int _todaysSeed;
         private Dictionary<int, List<SerializableSpawner>> _mapResources;
@@ -24,6 +23,7 @@ namespace Stateful.Managers
         private List<GameObject> _spawnedObjects = new List<GameObject>();
         private bool _isInitialized;
         private static Random random = new Random();
+        public MapboxMapBehaviour map;
 
         void Start()
         {
@@ -48,38 +48,70 @@ namespace Stateful.Managers
         {
             int roll = random.Next(100);
             if (roll < 65)
-                return random.Next(0, 24);   // 65% chance
-            else if (roll < 85)
-                return random.Next(24, 40);  // 20% chance
+                return random.Next(0, 24);   // 65% chance common
             else if (roll < 95)
-                return random.Next(40, 47);  // 10% chance
+                return random.Next(24, 40);  // 30% chance uncommon
+            else if (roll < 99)
+                return random.Next(40, 47);  // 4% chance rare
             else
-                return random.Next(47, 51);  // 5% chance
+                return random.Next(47, 51);  // 1% chance legendary
         }
 
-        private void InitializeTestCoordinates() 
+        private void InitializeTestCoordinates()
         {
+
             if (_lastGeneratedDay != _todaysSeed)
             {
-                Debug.Log("<color=cyan>[MapResourceManager] Initializing new day's resources</color>");
-                
-                TextAsset coordFile = Resources.Load<TextAsset>("points");
+                LatitudeLongitude playerPosition = _map.MapInformation.ConvertPositionToLatLng(player.position);
+                Debug.Log("player position: " + playerPosition.Latitude + ", " + playerPosition.Longitude);
+
+                CoordinateGenerator.GenerateUniquePointsAndWriteToFile(
+                    playerPosition.Latitude,
+                    playerPosition.Longitude,
+                    5000,
+                    "Assets/Resources/points.txt",
+                    2000,
+                    0.3
+                );
+
+                //JALLA MEN det funker når vi må være ferdig til i morgen
+                // Add retry mechanism for file loading
+                TextAsset coordFile = null;
+                int maxRetries = 5;
+                int currentTry = 0;
+
+                while (coordFile == null && currentTry < maxRetries)
+                {
+#if UNITY_EDITOR
+                    UnityEditor.AssetDatabase.Refresh();
+#endif
+
+                    coordFile = Resources.Load<TextAsset>("points");
+                    if (coordFile == null)
+                    {
+                        currentTry++;
+                        Debug.Log($"<color=yellow>[MapResourceManager] Waiting for file... Attempt {currentTry}/{maxRetries}</color>");
+                        System.Threading.Thread.Sleep(100); // Short delay between attempts
+                    }
+                }
+
                 if (coordFile == null)
                 {
-                    Debug.LogError("[MapResourceManager] Could not load coordinates.txt file!");
+                    Debug.LogError("[MapResourceManager] Could not load coordinates.txt file after multiple attempts!");
                     return;
                 }
 
+
                 clusters = new List<SpawnerCluster>();
-                
+
                 string[] lines = coordFile.text.Split('\n');
                 foreach (string line in lines)
                 {
                     if (string.IsNullOrWhiteSpace(line)) continue;
 
                     string[] parts = line.Trim().Split(',');
-                    if (parts.Length == 2 && 
-                        double.TryParse(parts[0], out double lat) && 
+                    if (parts.Length == 2 &&
+                        double.TryParse(parts[0], out double lat) &&
                         double.TryParse(parts[1], out double lng))
                     {
                         AddTestSpawnerCluster(lat, lng);
@@ -89,12 +121,14 @@ namespace Stateful.Managers
                 GenerateDailyResources();
                 Debug.Log($"<color=cyan>[MapResourceManager] Initialized {lines.Length} spawner clusters for new day</color>");
             }
-            
+
             _isInitialized = true;
         }
 
         private void GenerateDailyResources()
         {
+
+
             _mapResources = GameStateManager.CurrentState.MapResources ?? new Dictionary<int, List<SerializableSpawner>>();
             _mapResources[_todaysSeed] = new List<SerializableSpawner>();
 
@@ -108,13 +142,13 @@ namespace Stateful.Managers
                     spawner = cluster.spawners[_random.Next(cluster.spawners.Count)],
                     collected = false
                 };
-                
+
                 _mapResources[_todaysSeed].Add(newResource);
             }
 
             GameStateManager.CurrentState.MapResources = _mapResources;
             _lastGeneratedDay = _todaysSeed;
-            
+
             Debug.Log($"<color=cyan>[MapResourceManager] Generated {_mapResources[_todaysSeed].Count} resources for today</color>");
         }
 
@@ -125,11 +159,11 @@ namespace Stateful.Managers
 
             for (int i = 0; i < numberOfSpawners; i++)
             {
-                testSpawners.Add(new Spawner 
-                { 
-                    itemId = GetWeightedRandomItemId(), 
-                    minAmount = random.Next(1, 4), 
-                    maxAmount = random.Next(3, 6) 
+                testSpawners.Add(new Spawner
+                {
+                    itemId = GetWeightedRandomItemId(),
+                    minAmount = random.Next(1, 4),
+                    maxAmount = random.Next(3, 6)
                 });
             }
 
@@ -168,7 +202,7 @@ namespace Stateful.Managers
                 spawnPosition.y = 45f;
 
                 GameObject newObj = Instantiate(resourcePrefab, spawnPosition, Quaternion.identity);
-                
+
                 newObj.GetComponent<SnapObjectToMap>().latLng = resource.latLng;
                 newObj.GetComponent<SnapObjectToMap>().mapObject = mapObject;
 
@@ -190,7 +224,7 @@ namespace Stateful.Managers
             Debug.Log("<color=cyan>[MapResourceManager] Loading data</color>");
             _mapResources = state.MapResources;
             _lastGeneratedDay = _mapResources?.ContainsKey(_todaysSeed) == true ? _todaysSeed : -1;
-            
+
             if (_mapResources == null)
             {
                 _mapResources = new Dictionary<int, List<SerializableSpawner>>();
@@ -211,23 +245,32 @@ namespace Stateful.Managers
                 return;
             }
 
-            Debug.Log("<color=lime>[MapResourceManager] Collecting resource</color>");
-            
-            // Get the random instance
             var random = _random ?? new Random(_todaysSeed);
-            
+
             _mapResources[_todaysSeed][mapSpawner.spawnerId].collected = true;
-            
+
             SerializableInventoryEntry newEntry = new()
             {
                 Id = mapSpawner.spawner.itemId,
                 Amount = random.Next(mapSpawner.spawner.minAmount, mapSpawner.spawner.maxAmount + 1)
             };
 
+            int waterGained = 15 + random.Next(-5, 6);
             GameStateManager.AddInventoryItem(newEntry);
-            GameStateManager.CurrentState.Water += 15 + random.Next(-5, 6);
-            
-            Debug.Log($"<color=lime>[MapResourceManager] Collected item {newEntry.Id}, amount: {newEntry.Amount}</color>");
+            GameStateManager.CurrentState.Water += waterGained;
+
+            string rarity = newEntry.Id switch
+            {
+                < 24 => "Common",
+                < 40 => "Uncommon",
+                < 47 => "Rare",
+                _ => "Legendary"
+            };
+
+            string message = $"Found {newEntry.Amount} {rarity} seed(s) and {waterGained} water!";
+            NotificationManager.Instance?.ShowNotification(message);
         }
     }
+
+
 }

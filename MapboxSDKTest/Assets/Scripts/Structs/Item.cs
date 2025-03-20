@@ -57,10 +57,10 @@ namespace Structs
         private static List<Item> _itemList = new(
             new Collection<Item>
             {
-                new(0, "Common seed", "A pack of seeds, I wonder what you will grow..",    ItemType.Seed, Rarity.Common, 0, 5),
-                new(1, "Uncommon seed", "A pack of seeds, I wonder what you will grow..",  ItemType.Seed, Rarity.Uncommon, 0, 25),
-                new(2, "Rare seed", "A pack of seeds, I wonder what you will grow..",      ItemType.Seed, Rarity.Rare, 0, 100),
-                new(3, "Legendary seed", "A pack of seeds, I wonder what you will grow..", ItemType.Seed, Rarity.Legendary, 0 , 200),
+                new(0, "Common seed", "A pack of seeds, I wonder what you will grow into..",    ItemType.Seed, Rarity.Common, 0, 5),
+                new(1, "Uncommon seed", "A pack of seeds, I wonder what you will grow into..",  ItemType.Seed, Rarity.Uncommon, 0, 25),
+                new(2, "Rare seed", "A pack of seeds, I wonder what you will grow into..",      ItemType.Seed, Rarity.Rare, 0, 100),
+                new(3, "Legendary seed", "A pack of seeds, I wonder what you will grow into..", ItemType.Seed, Rarity.Legendary, 0 , 200),
 
                 new(4, "Tomato", "Tomato", ItemType.Produce, Rarity.Common, -1, 20),
                 new(5, "Cucumber", "Cucumber", ItemType.Produce, Rarity.Common, -1, 15),

@@ -56,7 +56,7 @@ namespace Structs
             _seedList.Add(new Seed(
                 id: 0,
                 rarity: SeedRarity.Common,
-                growTime: TimeSpan.FromMinutes(15),
+                growTime: TimeSpan.FromMinutes(2),
                 energy: 15,
                 water: 15,
                 value: 5
@@ -66,7 +66,7 @@ namespace Structs
             _seedList.Add(new Seed(
                 id: 1,
                 rarity: SeedRarity.Uncommon,
-                growTime: TimeSpan.FromHours(1),
+                growTime: TimeSpan.FromMinutes(10),
                 energy: 15,
                 water: 15,
                 value: 25
@@ -76,7 +76,7 @@ namespace Structs
             _seedList.Add(new Seed(
                 id: 2,
                 rarity: SeedRarity.Rare,
-                growTime: TimeSpan.FromHours(3),
+                growTime: TimeSpan.FromMinutes(30),
                 energy: 15,
                 water: 15,
                 value: 100
@@ -86,7 +86,7 @@ namespace Structs
             _seedList.Add(new Seed(
                 id: 3,
                 rarity: SeedRarity.Legendary,
-                growTime: TimeSpan.FromHours(6),
+                growTime: TimeSpan.FromHours(1),
                 energy: 15,
                 water: 15,
                 value: 200

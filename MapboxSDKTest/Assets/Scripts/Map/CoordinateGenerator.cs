@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Mapbox.BaseModule.Data.Vector2d;
 using System.IO;
 using UnityEngine;
 using Random = System.Random;
@@ -27,87 +28,35 @@ public class CoordinateGenerator
     }
 
     // Public method to generate unique points and write them to a file
-    public static void GenerateUniquePointsAndWriteToFile(double centerLat, double centerLng, double distanceMeters, string filePath, int numPoints = 5, double minDistance = 0.001)
-    {
-        try 
-        {
-            var boundingBox = GetBoundingBox(centerLat, centerLng, distanceMeters);
-            var points = new List<Tuple<double, double>>(numPoints);
-            var maxAttempts = numPoints * 10; // Limit attempts to prevent infinite loops
-            var attempts = 0;
-
-            while (points.Count < numPoints && attempts < maxAttempts)
-            {
-                attempts++;
-                double lat = random.NextDouble() * (boundingBox.Item2.Item1 - boundingBox.Item1.Item1) + boundingBox.Item1.Item1;
-                double lon = random.NextDouble() * (boundingBox.Item2.Item2 - boundingBox.Item1.Item2) + boundingBox.Item1.Item2;
-                var newPoint = Tuple.Create(Math.Round(lat, 6), Math.Round(lon, 6));
-
-                // Quick check if point is too close to existing points
-                bool isFarEnough = true;
-                foreach (var point in points)
-                {
-                    if (CalculateDistance(newPoint.Item1, newPoint.Item2, point.Item1, point.Item2) < minDistance)
-                    {
-                        isFarEnough = false;
-                        break;
-                    }
-                }
-
-                if (isFarEnough)
-                {
-                    points.Add(newPoint);
-                }
-            }
-
-            // Write points directly without creating intermediate strings
-            using (var writer = new StreamWriter(filePath, false))
-            {
-                foreach (var point in points)
-                {
-                    writer.WriteLine($"{point.Item1}, {point.Item2}");
-                }
-            }
-
-            Debug.Log($"<color=cyan>[CoordinateGenerator] Generated {points.Count} points in {attempts} attempts</color>");
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"[CoordinateGenerator] Error generating coordinates: {e.Message}");
-        }
-    }
-
-    // Helper method to generate unique points
-    private static List<Tuple<double, double>> GenerateUniquePoints(double centerLat, double centerLng, double distanceMeters, int numPoints, double minDistance)
+    public static List<LatitudeLongitude> GenerateUniquePoints(double centerLat, double centerLng, double distanceMeters, int numPoints = 5, double minDistance = 0.001)
     {
         var boundingBox = GetBoundingBox(centerLat, centerLng, distanceMeters);
-        var topLeft = boundingBox.Item1;
-        var bottomRight = boundingBox.Item2;
+        var points = new List<LatitudeLongitude>(numPoints);
+        var maxAttempts = numPoints * 10; // Limit attempts to prevent infinite loops
+        var attempts = 0;
 
-        var points = new List<Tuple<double, double>>();
-
-        while (points.Count < numPoints)
+        while (points.Count < numPoints && attempts < maxAttempts)
         {
-            double lat = Math.Round(random.NextDouble() * (bottomRight.Item1 - topLeft.Item1) + topLeft.Item1, 6);
-            double lon = Math.Round(random.NextDouble() * (bottomRight.Item2 - topLeft.Item2) + topLeft.Item2, 6);
-            var newPoint = Tuple.Create(lat, lon);
+            attempts++;
+            double lat = random.NextDouble() * (boundingBox.Item2.Item1 - boundingBox.Item1.Item1) + boundingBox.Item1.Item1;
+            double lon = random.NextDouble() * (boundingBox.Item2.Item2 - boundingBox.Item1.Item2) + boundingBox.Item1.Item2;
+            var newPoint = new LatitudeLongitude(lat, lon);
 
+            // Quick check if point is too close to existing points
             bool isFarEnough = true;
-            foreach (var existingPoint in points)
+            foreach (var point in points)
             {
-                if (CalculateDistance(newPoint.Item1, newPoint.Item2, existingPoint.Item1, existingPoint.Item2) < minDistance)
+                if (CalculateDistance(newPoint.Latitude, newPoint.Longitude, point.Latitude, point.Longitude) < minDistance)
                 {
                     isFarEnough = false;
                     break;
                 }
             }
 
-            if (isFarEnough)
-            {
-                points.Add(newPoint);
-            }
+            if (isFarEnough) points.Add(newPoint);
         }
 
+        Debug.Log($"<color=cyan>[CoordinateGenerator] Generated {points.Count} points in {attempts} attempts</color>");
         return points;
     }
 

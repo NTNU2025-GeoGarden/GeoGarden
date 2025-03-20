@@ -67,61 +67,24 @@ namespace Stateful.Managers
                 LatitudeLongitude playerPosition = _map.MapInformation.ConvertPositionToLatLng(player.position);
                 Debug.Log("player position: " + playerPosition.Latitude + ", " + playerPosition.Longitude);
 
-                CoordinateGenerator.GenerateUniquePointsAndWriteToFile(
+                List<LatitudeLongitude> spawnerLocs = CoordinateGenerator.GenerateUniquePoints(
                     playerPosition.Latitude,
                     playerPosition.Longitude,
                     5000,
-                    "Assets/Resources/points.txt",
                     2000,
                     0.3
                 );
 
-                //JALLA MEN det funker når vi må være ferdig til i morgen
-                // Add retry mechanism for file loading
-                TextAsset coordFile = null;
-                int maxRetries = 5;
-                int currentTry = 0;
-
-                while (coordFile == null && currentTry < maxRetries)
-                {
-#if UNITY_EDITOR
-                    UnityEditor.AssetDatabase.Refresh();
-#endif
-
-                    coordFile = Resources.Load<TextAsset>("points");
-                    if (coordFile == null)
-                    {
-                        currentTry++;
-                        Debug.Log($"<color=yellow>[MapResourceManager] Waiting for file... Attempt {currentTry}/{maxRetries}</color>");
-                        System.Threading.Thread.Sleep(100); // Short delay between attempts
-                    }
-                }
-
-                if (coordFile == null)
-                {
-                    Debug.LogError("[MapResourceManager] Could not load coordinates.txt file after multiple attempts!");
-                    return;
-                }
-
-
                 clusters = new List<SpawnerCluster>();
-
-                string[] lines = coordFile.text.Split('\n');
-                foreach (string line in lines)
+                ;
+                foreach (LatitudeLongitude pos in spawnerLocs)
                 {
-                    if (string.IsNullOrWhiteSpace(line)) continue;
-
-                    string[] parts = line.Trim().Split(',');
-                    if (parts.Length == 2 &&
-                        double.TryParse(parts[0], out double lat) &&
-                        double.TryParse(parts[1], out double lng))
-                    {
-                        AddTestSpawnerCluster(lat, lng);
-                    }
+                    AddSpawnerCluster(pos.Latitude, pos.Longitude);
                 }
 
                 GenerateDailyResources();
-                Debug.Log($"<color=cyan>[MapResourceManager] Initialized {lines.Length} spawner clusters for new day</color>");
+
+                Debug.Log($"<color=cyan>[MapResourceManager] Initialized {spawnerLocs.Count} spawner clusters for new day</color>");
             }
 
             _isInitialized = true;
@@ -129,8 +92,6 @@ namespace Stateful.Managers
 
         private void GenerateDailyResources()
         {
-
-
             _mapResources = GameStateManager.CurrentState.MapResources ?? new Dictionary<int, List<SerializableSpawner>>();
             _mapResources[_todaysSeed] = new List<SerializableSpawner>();
 
@@ -154,7 +115,7 @@ namespace Stateful.Managers
             Debug.Log($"<color=cyan>[MapResourceManager] Generated {_mapResources[_todaysSeed].Count} resources for today</color>");
         }
 
-        public void AddTestSpawnerCluster(double latitude, double longitude)
+        public void AddSpawnerCluster(double latitude, double longitude)
         {
             List<Spawner> testSpawners = new List<Spawner>();
 
@@ -163,8 +124,6 @@ namespace Stateful.Managers
                 itemId = GetWeightedRandomItemId(),
                 minAmount = 1,
                 maxAmount = 1
-                //minAmount = random.Next(1, 4),
-                //maxAmount = random.Next(3, 6)
             });
 
             SpawnerCluster newCluster = new SpawnerCluster
@@ -174,7 +133,6 @@ namespace Stateful.Managers
             };
 
             clusters.Add(newCluster);
-            //Debug.Log($"<color=cyan>[MapResourceManager] Added test spawner cluster at {latitude}, {longitude} with {numberOfSpawners} spawners</color>");
         }
 
         private void ClearExistingSpawners()

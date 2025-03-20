@@ -11,12 +11,12 @@ namespace Garden
     public class GardenCamera : MonoBehaviour
     {
         public float speed = 1;
-        
+
         public GardenManager gardenManager;
         public ObjectManager objectManager;
 
         public TutorialUI introTutorial;
-        
+
         public GameObject plantSeedCanvas;
         public GameObject shopCanvas;
         public GameObject editModeCanvas;
@@ -24,7 +24,7 @@ namespace Garden
         public GameObject dailiesCanvas;
         public GameObject inventoryCanvas;
         public GameObject uiCanvas;
-    
+
         private Camera _mainCamera;
         private Vector2 _previousPosition;
         private double _previousPinchDistance;
@@ -32,7 +32,7 @@ namespace Garden
         private bool _draggingEditableObj;
         private EditableObject _tappedEditableObj;
         private BoxCollider _tappedButton;
-        
+
         private const float SCALE_FACTOR = 0.0001f;
 
         public void Start()
@@ -44,20 +44,20 @@ namespace Garden
         {
             // If there are no fingers touching the screen, skip update
             if (Input.touchCount <= 0) return;
-            
+
             //If there are multiple fingers touching the screen, skip update
             //Also, if the plant seed screen is open, or the shop screen is open, skip update
-            if (Input.touchCount != 1 
+            if (Input.touchCount != 1
                 || plantSeedCanvas.activeSelf
                 || shopCanvas.activeSelf
                 || houseCanvas.activeSelf
                 || dailiesCanvas.activeSelf
-                || inventoryCanvas.activeSelf 
-                || uiCanvas.activeSelf ) return;
-            
+                || inventoryCanvas.activeSelf
+                || uiCanvas.activeSelf) return;
+
             //Get the touch input data
             Touch touch = Input.GetTouch(0);
-            
+
             //For each phase the touch is in
             switch (touch.phase)
             {
@@ -65,18 +65,18 @@ namespace Garden
                 case TouchPhase.Began:
                     _previousPosition = touch.position;
                     break;
-                
+
                 //The user moved their finger
                 case TouchPhase.Moved:
                     Vector2 currentPosition = touch.position;
                     Vector2 delta = currentPosition - _previousPosition;
-                    
+
                     //If the edit screen is open, don't move the camera if the user touched low on their screen (this UI has a scroller)
                     if (editModeCanvas.activeSelf && currentPosition.y < 660)
                         break;
 
                     _tapped = true;
-                    
+
                     //Do a raycast
                     Ray rayMoved = _mainCamera.ScreenPointToRay(touch.position);
                     if (Physics.Raycast(rayMoved, out RaycastHit hitMoved, 1000))
@@ -89,23 +89,23 @@ namespace Garden
                             break;
                         }
                     }
-                    
+
                     if (introTutorial.showTutorial) return;
-                    
+
                     MoveCamera(delta);
 
                     _previousPosition = currentPosition;
                     break;
-                
+
                 //The user hasn't moved their finger (rarely happens, as it is difficult to keep a finger on the exact same XY-coordinate for multiple frames)
                 case TouchPhase.Stationary:
-                    
+
                     //Are we in the same tap? The user will leave their finger on the screen for multiple frames. This makes sure that the code
                     //only runs once.
                     if (!_tapped)
                     {
                         if (introTutorial.barrier.activeSelf) return;
-                        
+
                         //Do a raycast
                         Ray ray = _mainCamera.ScreenPointToRay(touch.position);
                         if (Physics.Raycast(ray, out RaycastHit hit, 1000))
@@ -120,7 +120,7 @@ namespace Garden
                             }
                             else
                             {
-                                if(hit.transform.CompareTag("PlantSpot"))
+                                if (hit.transform.CompareTag("PlantSpot"))
                                     RaycastHitPlantSpot(hit);
                                 else if (hit.transform.CompareTag("House"))
                                     RaycastHitHouse(hit);
@@ -130,7 +130,7 @@ namespace Garden
                         _tapped = true;
                     }
                     break;
-                
+
                 //The touch event is over, somehow ended or was interrupted in some way
                 default:
                 case TouchPhase.Canceled:
@@ -138,14 +138,14 @@ namespace Garden
                     //Reset all the state variables, so we are ready for a new touch
                     _tapped = false;
                     _draggingEditableObj = false;
-                            
-                    if(_tappedButton != null)
+
+                    if (_tappedButton != null)
                         _tappedButton.size = new Vector3(1, 1, 0.1f);
                     break;
             }
         }
 
-        
+
 
         /// <summary>
         /// Opens the house UI.
@@ -153,7 +153,7 @@ namespace Garden
         /// <param name="hitInfo">The raycast hit information.</param>
         private void RaycastHitHouse(RaycastHit hitInfo)
         {
-            if(GameStateManager.CurrentState.LevelUpTime == DateTime.MinValue && GameStateManager.CurrentState.HouseLevel != HouseUpgrades.MaxLevel)
+            if (GameStateManager.CurrentState.LevelUpTime == DateTime.MinValue && GameStateManager.CurrentState.HouseLevel != HouseUpgrades.MaxLevel)
                 houseCanvas.SetActive(true);
         }
 
@@ -177,7 +177,7 @@ namespace Garden
                 int cost = EditableObjectCost.GetCostByType(obj.type);
                 GameStateManager.CurrentState.Coins = Math.Min(GameStateManager.CurrentState.Coins + cost, GameStateManager.CurrentState.CoinCap);
                 FirebaseManager.TelemetryRecordCoinsGenerated(cost);
-                
+
                 Destroy(obj.gameObject);
                 objectManager.DeleteObject(obj);
             }
@@ -189,12 +189,12 @@ namespace Garden
         /// <param name="hit">The raycast hit information.</param>
         private void RaycastHitEnableEditControlsOnObj(RaycastHit hit)
         {
-            if(_tappedEditableObj != null)
+            if (_tappedEditableObj != null)
                 _tappedEditableObj.editControls.SetActive(false);
-                                        
+
             EditableObject obj = hit.transform.GetComponent<EditableObject>();
             obj.editControls.SetActive(true);
-                                        
+
             _tappedEditableObj = obj;
         }
 
@@ -209,36 +209,40 @@ namespace Garden
             Seed seed = Seeds.FromID(spot.seedID);
             int neededWater = seed.Water;
             int neededEnergy = seed.Energy;
-          
-            int currentWater = GameStateManager.CurrentState.Water;
-            int currentEnergy = GameStateManager.CurrentState.Energy;    
 
-            if(spot.state == GrowState.Vacant){
-                
+            int currentWater = GameStateManager.CurrentState.Water;
+            int currentEnergy = GameStateManager.CurrentState.Energy;
+
+            if (spot.state == GrowState.Vacant)
+            {
+
                 plantSeedCanvas.SetActive(true);
             }
 
             if (spot.needsWater)
             {
-               
-                if(currentEnergy<neededEnergy || currentWater<neededWater){
-                
-                    if(currentWater<neededWater){
-                       
-                            spot.textField.text = "Not enough water";
-                            StartCoroutine(RemoveTextAfterDelay(spot));
+
+                if (currentEnergy < neededEnergy || currentWater < neededWater || currentEnergy < 1)
+                {
+
+                    if (currentWater < neededWater)
+                    {
+
+                        spot.textField.text = "Not enough water";
+                        StartCoroutine(RemoveTextAfterDelay(spot));
                     }
-                    else if (currentEnergy<neededEnergy){
-                        
-                            spot.textField.text = "Not enough energy";
-                            StartCoroutine(RemoveTextAfterDelay(spot));
+                    else if (currentEnergy < neededEnergy)
+                    {
+
+                        spot.textField.text = "Not enough energy";
+                        StartCoroutine(RemoveTextAfterDelay(spot));
                     }
                     return;
                 }
-                
+
                 GameStateManager.CurrentState.Energy -= 15;
                 FirebaseManager.TelemetryRecordEnergySpent(15);
-                
+
                 GameStateManager.CurrentState.Water -= 15;
                 spot.UserPoppedWaterPopup();
                 GardenManager.OnPlantWater(spot);
@@ -246,7 +250,8 @@ namespace Garden
 
             if (spot.harvestable)
             {
-                if(currentEnergy<neededEnergy){
+                if (currentEnergy < neededEnergy || currentEnergy < 1)
+                {
                     Debug.Log("Not enough energy");
                     return;
                 }
@@ -272,7 +277,7 @@ namespace Garden
 
             if (_draggingEditableObj)
                 return;
-                            
+
             transform.Translate(movement);
 
             switch (transform.position.x)
@@ -284,7 +289,7 @@ namespace Garden
                     transform.Translate(new Vector3(-0.25f - transform.position.x, 0f, 0f));
                     break;
             }
-                    
+
             switch (transform.position.z)
             {
                 case > 2.6f:
@@ -312,9 +317,9 @@ namespace Garden
             objectToMove.rotation = Quaternion.identity;
             objectToMove.Translate(new Vector3(distanceToFinger.x - distanceToFinger.y, 0, -distanceToFinger.x - distanceToFinger.y));
             objectToMove.rotation = originalRotation;
-                                    
+
             EditableObject objectHit = objectToMove.gameObject.GetComponent<EditableObject>();
-                                    
+
             if (objectHit.type == EditableObjectType.Spot)
             {
                 gardenManager.ObjectChanged(objectHit);

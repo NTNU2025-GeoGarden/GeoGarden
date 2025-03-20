@@ -46,15 +46,15 @@ namespace Stateful.Managers
 
         private int GetWeightedRandomItemId()
         {
-            int roll = random.Next(100);
-            if (roll < 65)
-                return random.Next(0, 24);   // 65% chance common
-            else if (roll < 95)
-                return random.Next(24, 40);  // 30% chance uncommon
-            else if (roll < 99)
-                return random.Next(40, 47);  // 4% chance rare
+            double roll = random.NextDouble();
+            if (roll < 80.0)
+                return random.Next(0, 24);   // 80% chance common
+            else if (roll < 99.0)
+                return random.Next(24, 40);  // 19% chance uncommon
+            else if (roll < 99.05)
+                return random.Next(40, 47);  // 0.95% chance rare
             else
-                return random.Next(47, 51);  // 1% chance legendary
+                return random.Next(47, 51);  // 0.05% chance legendary
         }
 
         private void InitializeTestCoordinates()

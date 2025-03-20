@@ -47,14 +47,16 @@ namespace Stateful.Managers
         private int GetWeightedRandomItemId()
         {
             double roll = random.NextDouble();
-            if (roll < 80.0)
-                return random.Next(0, 24);   // 80% chance common
-            else if (roll < 99.0)
-                return random.Next(24, 40);  // 19% chance uncommon
-            else if (roll < 99.05)
-                return random.Next(40, 47);  // 0.95% chance rare
+            Debug.Log(roll);
+
+            if (roll < 0.8)
+                return random.Next(4, 28);   // 80% chance common
+            else if (roll < 0.99)
+                return random.Next(28, 44);  // 19% chance uncommon
+            else if (roll < 0.9995)
+                return random.Next(44, 51);  // 0.95% chance rare
             else
-                return random.Next(47, 51);  // 0.05% chance legendary
+                return random.Next(51, 54);  // 0.05% chance legendary
         }
 
         private void InitializeTestCoordinates()
@@ -155,17 +157,15 @@ namespace Stateful.Managers
         public void AddTestSpawnerCluster(double latitude, double longitude)
         {
             List<Spawner> testSpawners = new List<Spawner>();
-            int numberOfSpawners = random.Next(3, 6);
 
-            for (int i = 0; i < numberOfSpawners; i++)
+            testSpawners.Add(new Spawner
             {
-                testSpawners.Add(new Spawner
-                {
-                    itemId = GetWeightedRandomItemId(),
-                    minAmount = random.Next(1, 4),
-                    maxAmount = random.Next(3, 6)
-                });
-            }
+                itemId = GetWeightedRandomItemId(),
+                minAmount = 1,
+                maxAmount = 1
+                //minAmount = random.Next(1, 4),
+                //maxAmount = random.Next(3, 6)
+            });
 
             SpawnerCluster newCluster = new SpawnerCluster
             {
@@ -174,7 +174,7 @@ namespace Stateful.Managers
             };
 
             clusters.Add(newCluster);
-            Debug.Log($"<color=cyan>[MapResourceManager] Added test spawner cluster at {latitude}, {longitude} with {numberOfSpawners} spawners</color>");
+            //Debug.Log($"<color=cyan>[MapResourceManager] Added test spawner cluster at {latitude}, {longitude} with {numberOfSpawners} spawners</color>");
         }
 
         private void ClearExistingSpawners()

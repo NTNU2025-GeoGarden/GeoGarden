@@ -2378,6 +2378,7 @@ MonoBehaviour:
     - itemId: 1
       minAmount: 5
       maxAmount: 5
+  map: {fileID: 0}
 --- !u!1 &389025065
 GameObject:
   m_ObjectHideFlags: 0
@@ -12921,7 +12922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7512784582823842728, guid: 5cfb21e958bce467e966040b1be49240, type: 3}
       propertyPath: _latitudeLongitude
-      value: 63.41548, 10.40482
+      value: 50.51592026260379, 9.605952194731495
       objectReference: {fileID: 0}
     - target: {fileID: 7512784584146348565, guid: 5cfb21e958bce467e966040b1be49240, type: 3}
       propertyPath: MapInformation._zoom

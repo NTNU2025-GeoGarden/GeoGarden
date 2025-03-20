@@ -24,7 +24,7 @@ namespace Stateful
         private List<IUsingGameState> _persistenceObjs;
         private FileDataHandler _dataHandler;
 
-        private static int GAMEDATA_VERSION = 6;
+        private static int GAMEDATA_VERSION = 7;
 
         private void Awake()
         {
@@ -92,6 +92,13 @@ namespace Stateful
             CurrentState.GardenTutorial = false;
             CurrentState.MapTutorial = false;
             CurrentState.LayoutTutorial = false;
+
+
+            foreach (Item item in Items.ItemList)
+            {
+                if (item.Type == ItemType.Seed) continue;
+                CurrentState.SeenPlants[item.ID] = false;
+            }
 
             CurrentState.Inventory.Add(new SerializableInventoryEntry { Id = 0, Amount = 3 });
 

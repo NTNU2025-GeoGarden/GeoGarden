@@ -22,7 +22,7 @@ namespace Structs
     {
         public Item Item { get; private set; }
         public int Amount { get; set; }
-    
+
         public InventoryItem(int id, int amount)
         {
             Item = Items.FromID(id);
@@ -32,14 +32,14 @@ namespace Structs
 
     public class Item
     {
-        public int ID             { get; private set; }
-        public string Name        { get; private set; }
+        public int ID { get; private set; }
+        public string Name { get; private set; }
         public string Description { get; private set; }
-        public ItemType Type      { get; private set; }
-        public Rarity Rarity      { get; private set; }
-        public int AppendID       { get; private set; }
-        public int Value          { get; private set; } // New property for the item's value
-    
+        public ItemType Type { get; private set; }
+        public Rarity Rarity { get; private set; }
+        public int AppendID { get; private set; }
+        public int Value { get; private set; } // New property for the item's value
+
         public Item(int id, string name, string description, ItemType type, Rarity rarity, int appendID, int value = 300)
         {
             ID = id;
@@ -57,10 +57,10 @@ namespace Structs
         private static List<Item> _itemList = new(
             new Collection<Item>
             {
-                new(0, "Common seed", "Variant of common",    ItemType.Seed, Rarity.Common, 0, 5),
-                new(1, "Uncommon seed", "Variant of uncommon",  ItemType.Seed, Rarity.Uncommon, 0, 25),
-                new(2, "Rare seed", "Variant of rare",      ItemType.Seed, Rarity.Rare, 0, 100),
-                new(3, "Legendary seed", "Variant of legendary", ItemType.Seed, Rarity.Legendary, 0 , 200),
+                new(0, "Common seed", "A pack of seeds, I wonder what you will grow..",    ItemType.Seed, Rarity.Common, 0, 5),
+                new(1, "Uncommon seed", "A pack of seeds, I wonder what you will grow..",  ItemType.Seed, Rarity.Uncommon, 0, 25),
+                new(2, "Rare seed", "A pack of seeds, I wonder what you will grow..",      ItemType.Seed, Rarity.Rare, 0, 100),
+                new(3, "Legendary seed", "A pack of seeds, I wonder what you will grow..", ItemType.Seed, Rarity.Legendary, 0 , 200),
 
                 new(4, "Tomato", "Tomato", ItemType.Produce, Rarity.Common, -1, 20),
                 new(5, "Cucumber", "Cucumber", ItemType.Produce, Rarity.Common, -1, 15),

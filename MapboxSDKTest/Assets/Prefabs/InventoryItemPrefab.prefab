@@ -224,6 +224,17 @@ MonoBehaviour:
   papayaIcon: {fileID: 21300000, guid: 217874acd76800d4baae95a39f4f505c, type: 3}
   pearIcon: {fileID: 21300000, guid: b24267ceea1966247b51b56d6d840168, type: 3}
   pineappleIcon: {fileID: 21300000, guid: 01e755a0762715140823d45b5235b89c, type: 3}
+  wasabiIcon: {fileID: 21300000, guid: 2edb82ded93598b4cabd600438ab68b1, type: 3}
+  saffronIcon: {fileID: 21300000, guid: d1cd0f04b1ccd2c4fbdcdf9f13f3f273, type: 3}
+  vanillaIcon: {fileID: 21300000, guid: d011cb409f1636744a234a534b726aea, type: 3}
+  cinnamonIcon: {fileID: 21300000, guid: 4ecaf773cc26a374fbbef1151afedf0a, type: 3}
+  aniseIcon: {fileID: 21300000, guid: 5f0b9179021cde04a9fe4ad6aacb3dd4, type: 3}
+  nutmegIcon: {fileID: 21300000, guid: 2bf91abf6a89d184186b06042925f3a3, type: 3}
+  cuminIcon: {fileID: 21300000, guid: c69fb5994a545b54cba646984562a214, type: 3}
+  pumpkinIcon: {fileID: 21300000, guid: 4a8cf2929177fbb42b47ef4ca4677517, type: 3}
+  watermelonIcon: {fileID: 21300000, guid: 0e3da751ff31f8549a81f7c65bc4a990, type: 3}
+  coconutIcon: {fileID: 21300000, guid: 1b3f2dfef15a9d34baabfc00199e3d7e, type: 3}
+  durianIcon: {fileID: 21300000, guid: e90428ee5de1e8843bc6c820190b2070, type: 3}
   star1: {fileID: 4022864686687911495}
   star2: {fileID: 3283360592053855567}
 --- !u!1 &1751305353108511242

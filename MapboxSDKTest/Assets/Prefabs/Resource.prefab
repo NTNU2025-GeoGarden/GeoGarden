@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.695, y: 2.445}
+  m_AnchoredPosition: {x: 3.695, y: 1.18}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3953403989658485254
@@ -129,8 +129,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45.91
-  m_fontSizeBase: 45.91
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -226,7 +226,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8134064790898585158
 RectTransform:
   m_ObjectHideFlags: 0
@@ -527,9 +527,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner:
-    drops: []
-    minRarity: 0
-    maxRarity: 0
+    itemId: 0
+    minAmount: 0
+    maxAmount: 0
+  spawnerId: 0
   latLng:
     Latitude: 0
     Longitude: 0
@@ -538,3 +539,4 @@ MonoBehaviour:
   textQuality: {fileID: 8021369003452109697}
   textQuantity: {fileID: 513877183474880943}
   collected: 0
+  resourceManager: {fileID: 0}

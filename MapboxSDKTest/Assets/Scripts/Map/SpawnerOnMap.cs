@@ -39,8 +39,8 @@ namespace Map
         public bool collected;
 
         public MapResourceManager resourceManager;
-        
-         public void CollectThisResource()
+
+        public void CollectThisResource()
         {
             if (collected)
                 return;
@@ -56,27 +56,27 @@ namespace Map
                 textQuantity.text = "Good work!";
                 return;
             }
-        
+
             GetComponent<Renderer>().material.color = Items.FromID(spawner.itemId).Rarity switch
             {
-                Rarity.Common    => Color.white,
-                Rarity.Uncommon  => new Color(0.19f, 0.38f, 0.65f),
-                Rarity.Rare      => new Color(0.91f, 0.09f, 0.32f),
+                Rarity.Common => Color.white,
+                Rarity.Uncommon => new Color(0.19f, 0.38f, 0.65f),
+                Rarity.Rare => new Color(0.91f, 0.09f, 0.32f),
                 Rarity.Legendary => new Color(0.91f, 0.63f, 0.09f),
-                Rarity.Special   => Color.black,
+                Rarity.Special => Color.black,
                 _ => throw new ArgumentOutOfRangeException()
             };
 
             textQuality.text = Items.FromID(spawner.itemId).Rarity switch
             {
-                Rarity.Common => "Common?",
-                Rarity.Uncommon => "<Color=#3061a6>Uncommon?",
-                Rarity.Rare => "<Color=#e81752>Rare?",
-                Rarity.Legendary => "<Color=#e8a117>Legendary?",
+                Rarity.Common => "Common",
+                Rarity.Uncommon => "<Color=#3061a6>Uncommon",
+                Rarity.Rare => "<Color=#e81752>Rare",
+                Rarity.Legendary => "<Color=#e8a117>Legendary",
                 Rarity.Special => "<Color='black'>Special",
                 _ => throw new ArgumentOutOfRangeException()
             };
-        
+
             textQuantity.text =
                 spawner.minAmount == spawner.maxAmount ? spawner.minAmount.ToString() : $"{spawner.minAmount}~{spawner.maxAmount}";
 
@@ -86,13 +86,13 @@ namespace Map
         {
             text.transform.LookAt(player);
         }
-        
+
         private IEnumerator FlyAndCollect()
         {
             float duration = 3f; // Total flight time
             float acceleration = 7f; // Speed multiplier for acceleration
             float elapsedTime = 0f;
-            
+
             Vector3 direction = Vector3.up; // Fly straight up
 
             while (elapsedTime < duration)
@@ -107,7 +107,7 @@ namespace Map
             // Mark as collected immediately
             collected = true;
             GetComponent<Renderer>().material.color = Color.gray;
-            
+
             // Register collection with the resource manager
             resourceManager.Collect(this);
 

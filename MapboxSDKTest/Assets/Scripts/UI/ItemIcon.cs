@@ -66,6 +66,21 @@ namespace UI
         public Sprite pearIcon;         // ID 42
         public Sprite pineappleIcon;    // ID 43
 
+        [Header("Rare Plant Icons")]
+        public Sprite wasabiIcon;       // ID 44
+        public Sprite saffronIcon;      // ID 45
+        public Sprite vanillaIcon;      // ID 46
+        public Sprite cinnamonIcon;     // ID 47
+        public Sprite aniseIcon;        // ID 48
+        public Sprite nutmegIcon;       // ID 49
+        public Sprite cuminIcon;        // ID 50
+
+        [Header("Legendary Plant Icons")]
+        public Sprite pumpkinIcon;      // ID 51
+        public Sprite watermelonIcon;   // ID 52
+        public Sprite coconutIcon;      // ID 53
+        public Sprite durianIcon;       // ID 54
+
         private Sprite GetSpriteById(int id)
         {
             return id switch
@@ -113,6 +128,21 @@ namespace UI
                 42 => pearIcon,
                 43 => pineappleIcon,
 
+                 // Rare Plants
+                44 => wasabiIcon,
+                45 => saffronIcon,
+                46 => vanillaIcon,
+                47 => cinnamonIcon,
+                48 => aniseIcon,
+                49 => nutmegIcon,
+                50 => cuminIcon,
+
+                // Legendary Plants
+                51 => pumpkinIcon,
+                52 => watermelonIcon,
+                53 => coconutIcon,
+                54 => durianIcon,
+
                 _ => itemIcon
             };
         }
@@ -152,7 +182,7 @@ namespace UI
                 Rarity.Special => legendarySeed,
                 _ => throw new ArgumentOutOfRangeException()
             },
-            ItemType.Generic => GetSpriteById(DisplayedItem.Item.ID),
+            ItemType.Produce => GetSpriteById(DisplayedItem.Item.ID),
             _ => throw new ArgumentOutOfRangeException()
         };
 

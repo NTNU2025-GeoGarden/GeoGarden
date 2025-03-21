@@ -27,12 +27,21 @@ namespace UI
             collected = true;
             available = false;
             GameStateManager.CurrentState.DaysClaimed[dayNum] = true;
-            
-            GameStateManager.CurrentState.Coins += coinReward;
-            GameStateManager.CurrentState.Water += waterReward;
-            if(itemIDReward != -1)
-                GameStateManager.AddInventoryItem(new SerializableInventoryEntry{Amount = 1, Id = itemIDReward});
-            
+
+            if (GameStateManager.CurrentState.Coins + coinReward < HouseUpgrades.CoinCapPerLevel[GameStateManager.CurrentState.HouseLevel])
+                GameStateManager.CurrentState.Coins += coinReward;
+            else
+                GameStateManager.CurrentState.Coins = HouseUpgrades.CoinCapPerLevel[GameStateManager.CurrentState.HouseLevel];
+
+            if (GameStateManager.CurrentState.Water + waterGained < HouseUpgrades.WaterCapPerLevel[GameStateManager.CurrentState.HouseLevel])
+                GameStateManager.CurrentState.Water += waterGained;
+            else
+                GameStateManager.CurrentState.Water = HouseUpgrades.WaterCapPerLevel[GameStateManager.CurrentState.HouseLevel];
+
+
+            if (itemIDReward != -1)
+                GameStateManager.AddInventoryItem(new SerializableInventoryEntry { Amount = 1, Id = itemIDReward });
+
             SetTheAbsoluteState();
         }
 

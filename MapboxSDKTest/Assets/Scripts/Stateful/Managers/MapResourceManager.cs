@@ -5,7 +5,9 @@ using Mapbox.BaseModule.Data.Vector2d;
 using Mapbox.BaseModule.Map;
 using Mapbox.Example.Scripts.Map;
 using UnityEngine;
+using Structs;
 using Random = System.Random;
+
 namespace Stateful.Managers
 {
     public class MapResourceManager : MonoBehaviour, IUsingGameState
@@ -208,7 +210,11 @@ namespace Stateful.Managers
 
             int waterGained = 15 + random.Next(-5, 6);
             GameStateManager.AddInventoryItem(newEntry);
-            GameStateManager.CurrentState.Water += waterGained;
+
+            if (GameStateManager.CurrentState.Water + waterGained < HouseUpgrades.WaterCapPerLevel[GameStateManager.CurrentState.HouseLevel])
+                GameStateManager.CurrentState.Water += waterGained;
+            else
+                GameStateManager.CurrentState.Water = HouseUpgrades.WaterCapPerLevel[GameStateManager.CurrentState.HouseLevel];
 
             string rarity = newEntry.Id switch
             {

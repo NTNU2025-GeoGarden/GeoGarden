@@ -14947,7 +14947,7 @@ MonoBehaviour:
   m_text: 'Growth Time
 
 
-    Plants take time to grow - this one needs 3 minutes.'
+    Plants take time to grow - this one needs 2 minutes.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}
   m_sharedMaterial: {fileID: 3057482856749465163, guid: 67bb108237cee1541bb467abc7ddbbce, type: 2}

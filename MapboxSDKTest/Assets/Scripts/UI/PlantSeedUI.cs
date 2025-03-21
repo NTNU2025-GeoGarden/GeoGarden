@@ -14,13 +14,15 @@ namespace UI
     {
         public delegate void PlayerPlantedSeed();
         public static PlayerPlantedSeed OnPlayerPlantedSeed;
-        
+
         public ItemIcon baseItem;
         public ItemIcon previewItem;
         public Button plantButton;
         public RectTransform scrollView;
-    
+
         private List<ItemIcon> _inventoryUIitems;
+
+        private InventoryItem _lastItemTapped;
 
         public void Start()
         {
@@ -37,7 +39,7 @@ namespace UI
                 {
                     Destroy(obj.gameObject);
                 }
-        
+
                 _inventoryUIitems.Clear();
             }
             else
@@ -51,16 +53,16 @@ namespace UI
                 ItemIcon newItem = Instantiate(baseItem.gameObject, transform).GetComponent<ItemIcon>();
                 newItem.DisplayedItem = new InventoryItem(entry.Id, entry.Amount);
                 newItem.transform.localPosition = new Vector3(
-                    count % 4 * 225 + 50, 
+                    count % 4 * 225 + 50,
                     -25 - (float)Math.Floor(count / 4f) * 225, 0
                 );
                 newItem.ClickScreenWithItemIcons = this;
-            
+
                 _inventoryUIitems.Add(newItem);
-                
+
                 count++;
             }
-        
+
             previewItem.gameObject.SetActive(false);
             scrollView.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (float)Math.Floor(count / 4f) * 225);
         }
@@ -72,7 +74,9 @@ namespace UI
         public void HandleCallbackFromItem(InventoryItem item)
         {
             plantButton.interactable = false;
-            
+
+            _lastItemTapped = item;
+
             previewItem.gameObject.SetActive(true);
             previewItem.DisplayedItem = item;
             previewItem.DisplayedItem.Amount = 1;
@@ -82,17 +86,17 @@ namespace UI
             {
                 int seedId = previewItem.DisplayedItem.Item.AppendID;
                 Seed seed = Seeds.FromID(seedId);
-           
+
                 int neededEnergy = seed.Energy;
                 TextMeshProUGUI buttonText = plantButton.GetComponentInChildren<TextMeshProUGUI>();
                 buttonText.text = "" + neededEnergy + "";
-                if (GameStateManager.CurrentState.Energy < neededEnergy )
+                if (GameStateManager.CurrentState.Energy < neededEnergy)
                 {
                     //TODO give user feedback
                     Debug.Log("Not enough energy");
                     return;
                 }
-                
+
                 plantButton.interactable = true;
             }
         }
@@ -101,7 +105,7 @@ namespace UI
         {
             previewItem.gameObject.SetActive(false);
             plantButton.interactable = false;
-        
+
             previewItem.DisplayedItem = null;
         }
 
@@ -112,11 +116,14 @@ namespace UI
 
         private void SeedPlanted()
         {
-            int seedId = previewItem.DisplayedItem.Item.ID;
+            int seedId = _lastItemTapped.Item.ID;
             int neededEnergy = Seeds.FromID(seedId).Energy;
+
             GardenManager.OnPlantSeed(seedId);
             GameStateManager.CurrentState.Energy -= neededEnergy;
+
             Debug.Log("Planted seed with id: " + seedId + "and rarity: " + Seeds.FromID(seedId).Rarity);
+
             FirebaseManager.TelemetryRecordEnergySpent(neededEnergy);
             GameStateManager.RemoveInventoryItem(previewItem.DisplayedItem.Item.ID);
         }

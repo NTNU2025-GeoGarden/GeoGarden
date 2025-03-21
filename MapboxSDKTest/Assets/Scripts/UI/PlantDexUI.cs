@@ -48,21 +48,18 @@ namespace UI
                 newItem.DisplayedItem = new InventoryItem(item.ID, 1);
 
                 newItem.transform.localPosition = new Vector3(
-                    count % 4 * 225 + 50,
-                    -25 - (float)Math.Floor(count / 4f) * 225, 0
+                    count % 5 * 225 + 5,
+                    -25 - (float)Math.Floor(count / 5f) * 225, 0
                     );
 
                 newItem.ClickScreenWithItemIcons = this;
-
-                if (!state.SeenPlants[item.ID])
-                    newItem.DisplayedItem.Item.Name = "Not seen";
 
                 _inventoryUIitems.Add(newItem);
 
                 count++;
             }
 
-            scrollView.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ((float)Math.Floor(count / 4f) + 1) * 225);
+            scrollView.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ((float)Math.Floor(count / 5f) + 1) * 225);
         }
 
         public void SaveData(ref GameState state)
@@ -71,12 +68,16 @@ namespace UI
 
         public void HandleCallbackFromItem(InventoryItem item)
         {
-            plantNameText.text = item.Item.Name.ToString();
             if (!GameStateManager.CurrentState.SeenPlants[item.Item.ID])
+            {
                 plantRarityText.text = item.Item.Rarity.ToString() + ". " + "???";
+                plantNameText.text = "Not seen";
+            }
             else
+            {
                 plantRarityText.text = item.Item.Rarity.ToString() + ". " + item.Item.Description;
-
+                plantNameText.text = item.Item.Name;
+            }
         }
 
         private void OnEnable()

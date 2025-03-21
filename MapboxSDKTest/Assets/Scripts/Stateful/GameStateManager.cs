@@ -84,11 +84,11 @@ namespace Stateful
             CurrentState.DaysLoggedIn = 0;
             CurrentState.DaysClaimed = new List<bool>(14) { false, false, false, false, false, false, false, false, false, false, false, false, false, false };
             CurrentState.CoinCap = HouseUpgrades.CoinCapPerLevel[1];
-            CurrentState.Coins = 20;
+            CurrentState.Coins = 40;
             CurrentState.EnergyCap = HouseUpgrades.EnergyCapPerLevel[1];
-            CurrentState.Energy = 20;
+            CurrentState.Energy = 50;
             CurrentState.WaterCap = HouseUpgrades.WaterCapPerLevel[1];
-            CurrentState.Water = 20;
+            CurrentState.Water = 30;
             CurrentState.GardenTutorial = false;
             CurrentState.MapTutorial = false;
             CurrentState.LayoutTutorial = false;

@@ -50,13 +50,13 @@ namespace Stateful.Managers
             Debug.Log(roll);
 
             if (roll < 0.8)
-                return random.Next(4, 28);   // 80% chance common
+                return 0;   // 80% chance common
             else if (roll < 0.99)
-                return random.Next(28, 44);  // 19% chance uncommon
+                return 1;  // 19% chance uncommon
             else if (roll < 0.9995)
-                return random.Next(44, 51);  // 0.95% chance rare
+                return 2;  // 0.95% chance rare
             else
-                return random.Next(51, 54);  // 0.05% chance legendary
+                return 3;  // 0.05% chance legendary
         }
 
         private void InitializeTestCoordinates()

@@ -254,7 +254,8 @@ namespace Garden
             {
                 if (currentEnergy < neededEnergy || currentEnergy < 1)
                 {
-                    Debug.Log("Not enough energy");
+                    spot.textField.text = "Not enough energy";
+                    StartCoroutine(RemoveTextAfterDelay(spot));
                     return;
                 }
                 GameStateManager.CurrentState.Energy -= 15;

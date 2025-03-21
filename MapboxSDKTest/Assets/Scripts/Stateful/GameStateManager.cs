@@ -48,7 +48,7 @@ namespace Stateful
                 LoadGame();
             };
 
-            OnForceSaveGame += () =>
+            OnForceSaveGame = () =>
             {
                 Debug.Log("<color=lime>[GameStateManager] Forcefully saving data</color>");
                 SaveGame();

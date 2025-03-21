@@ -30,7 +30,7 @@ namespace UI
         {
             LoadData(GameStateManager.CurrentState);
 
-            OnPlayerPlantedSeed += SeedPlanted;
+            OnPlayerPlantedSeed = SeedPlanted;
         }
 
         public void LoadData(GameState state)
@@ -120,15 +120,14 @@ namespace UI
         private void SeedPlanted()
         {
             int seedId = _lastItemTapped.Item.ID;
-            int neededEnergy = Seeds.FromID(seedId).Energy;
 
             GardenManager.OnPlantSeed(seedId);
             GameStateManager.CurrentState.Energy -= 5;
-            GameStateManager.RemoveInventoryItem(_lastItemTapped.Item.ID);
+            GameStateManager.RemoveInventoryItem(seedId);
 
             Debug.Log("Planted seed with id: " + seedId + "and rarity: " + Seeds.FromID(seedId).Rarity);
 
-            FirebaseManager.TelemetryRecordEnergySpent(neededEnergy);
+            FirebaseManager.TelemetryRecordEnergySpent(5);
             canvas.SetActive(false);
         }
     }

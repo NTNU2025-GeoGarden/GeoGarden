@@ -84,7 +84,7 @@ namespace Map
 
         public void Update()
         {
-            text.transform.LookAt(player);
+            text.transform.LookAt(Camera.main.transform);
         }
 
         private IEnumerator FlyAndCollect()

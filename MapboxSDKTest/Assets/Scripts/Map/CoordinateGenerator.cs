@@ -7,7 +7,7 @@ using Random = System.Random;
 
 public class CoordinateGenerator
 {
-    private static Random random = new Random();
+    private static Random random = new Random(DateTime.Now.Year * 1000 + DateTime.Now.DayOfYear);
     private const double EarthRadius = 6378137.0; // Earth's radius in meters
 
     // Method to get the bounding box based on center coordinates and distance
@@ -32,7 +32,7 @@ public class CoordinateGenerator
     {
         var boundingBox = GetBoundingBox(centerLat, centerLng, distanceMeters);
         var points = new List<LatitudeLongitude>(numPoints);
-        var maxAttempts = numPoints * 10; // Limit attempts to prevent infinite loops
+        var maxAttempts = numPoints * 5; // Limit attempts to prevent infinite loops
         var attempts = 0;
 
         while (points.Count < numPoints && attempts < maxAttempts)

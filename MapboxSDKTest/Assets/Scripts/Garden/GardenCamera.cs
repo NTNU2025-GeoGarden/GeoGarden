@@ -221,6 +221,9 @@ namespace Garden
                 plantSeedCanvas.SetActive(true);
             }
 
+            Debug.Log(currentEnergy);
+            Debug.Log(neededEnergy);
+
             if (spot.needsWater)
             {
 
@@ -239,13 +242,14 @@ namespace Garden
                         spot.textField.text = "Not enough energy";
                         StartCoroutine(RemoveTextAfterDelay(spot));
                     }
+
                     return;
                 }
 
-                GameStateManager.CurrentState.Energy -= 15;
-                FirebaseManager.TelemetryRecordEnergySpent(15);
+                GameStateManager.CurrentState.Energy -= 5;
+                FirebaseManager.TelemetryRecordEnergySpent(5);
 
-                GameStateManager.CurrentState.Water -= 15;
+                GameStateManager.CurrentState.Water -= 5;
                 spot.UserPoppedWaterPopup();
                 GardenManager.OnPlantWater(spot);
             }
@@ -258,8 +262,8 @@ namespace Garden
                     StartCoroutine(RemoveTextAfterDelay(spot));
                     return;
                 }
-                GameStateManager.CurrentState.Energy -= 15;
-                FirebaseManager.TelemetryRecordEnergySpent(15);
+                GameStateManager.CurrentState.Energy -= 5;
+                FirebaseManager.TelemetryRecordEnergySpent(5);
                 spot.UserHarvestedPlant();
                 GardenManager.OnPlantHarvested(spot);
             }

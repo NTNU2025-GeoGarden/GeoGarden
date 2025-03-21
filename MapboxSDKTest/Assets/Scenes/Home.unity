@@ -4397,6 +4397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24bbd8cd3a21874eb377d463b23f5a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 256131434}
   baseItem: {fileID: 4437211428959029095, guid: f829cba02e944be4e8ac5fb04da2fd20, type: 3}
   previewItem: {fileID: 1887385177}
   plantButton: {fileID: 1962584934}
@@ -38531,7 +38532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264475343720986315, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -262.7998
+      value: -262.79987
       objectReference: {fileID: 0}
     - target: {fileID: 1264475343720986315, guid: 152399a7b8f864375be486362c930a52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

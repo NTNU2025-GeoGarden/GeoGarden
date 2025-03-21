@@ -15,6 +15,8 @@ namespace UI
         public delegate void PlayerPlantedSeed();
         public static PlayerPlantedSeed OnPlayerPlantedSeed;
 
+        public GameObject canvas;
+
         public ItemIcon baseItem;
         public ItemIcon previewItem;
         public Button plantButton;
@@ -90,6 +92,7 @@ namespace UI
                 int neededEnergy = seed.Energy;
                 TextMeshProUGUI buttonText = plantButton.GetComponentInChildren<TextMeshProUGUI>();
                 buttonText.text = "" + neededEnergy + "";
+
                 if (GameStateManager.CurrentState.Energy < neededEnergy)
                 {
                     //TODO give user feedback
@@ -120,12 +123,13 @@ namespace UI
             int neededEnergy = Seeds.FromID(seedId).Energy;
 
             GardenManager.OnPlantSeed(seedId);
-            GameStateManager.CurrentState.Energy -= neededEnergy;
+            GameStateManager.CurrentState.Energy -= 5;
+            GameStateManager.RemoveInventoryItem(_lastItemTapped.Item.ID);
 
             Debug.Log("Planted seed with id: " + seedId + "and rarity: " + Seeds.FromID(seedId).Rarity);
 
             FirebaseManager.TelemetryRecordEnergySpent(neededEnergy);
-            GameStateManager.RemoveInventoryItem(previewItem.DisplayedItem.Item.ID);
+            canvas.SetActive(false);
         }
     }
 }

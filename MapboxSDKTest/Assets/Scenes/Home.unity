@@ -4060,7 +4060,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: waterReward
@@ -4080,7 +4080,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x10
+      value: x20
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -4169,6 +4169,10 @@ PrefabInstance:
     - target: {fileID: 6996075225237116077, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Name
       value: DailyChallenge (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7003328363468486348, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9159601885387213501, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6609,11 +6613,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
-      value: 10
+      value: 640
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: waterReward
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: itemIDReward
@@ -6633,11 +6637,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4272902015072542972, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x10
+      value: x15
       objectReference: {fileID: 0}
     - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x10
+      value: x640
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -6987,13 +6991,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 946908129079157092, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: dayNum
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
-      value: 10
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: waterReward
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4015806311634937749, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
@@ -7001,7 +7013,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x10
+      value: x40
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -7187,7 +7199,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1073934835}
   m_HandleRect: {fileID: 1073934834}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.99999934
   m_Size: 0.82882756
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -10549,11 +10561,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
-      value: 10
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: waterReward
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: itemIDReward
@@ -10569,7 +10581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4272902015072542972, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x15
+      value: x10
       objectReference: {fileID: 0}
     - target: {fileID: 5360059711268204184, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_IsActive
@@ -10577,7 +10589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x10
+      value: x80
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -12053,11 +12065,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
-      value: 20
+      value: 1280
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: waterReward
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: itemIDReward
@@ -12077,7 +12089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4272902015072542972, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x15
+      value: x20
       objectReference: {fileID: 0}
     - target: {fileID: 4517939230641030838, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Color.b
@@ -12089,7 +12101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x20
+      value: x1280
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -14053,7 +14065,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.00008189678}
   m_SizeDelta: {x: 0, y: 2113.5}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &600388415
@@ -18174,11 +18186,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
-      value: 10
+      value: 640
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: waterReward
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4015806311634937749, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
@@ -18186,11 +18198,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4272902015072542972, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x10
+      value: x20
       objectReference: {fileID: 0}
     - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x10
+      value: x640
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -24523,17 +24535,29 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 946908129079157092, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: dayNum
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: waterReward
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4015806311634937749, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
       value: Day 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_text
+      value: x20
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -25471,7 +25495,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1933943408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.17117244}
+  m_AnchorMin: {x: 0, y: 0.17117232}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -27468,17 +27492,33 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 946908129079157092, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: dayNum
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
-      value: 5
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: waterReward
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4015806311634937749, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
       value: Day 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272902015072542972, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_text
+      value: x10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_text
+      value: x160
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -28641,19 +28681,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
-      value: 10
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: waterReward
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4015806311634937749, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
       value: Day 11
       objectReference: {fileID: 0}
+    - target: {fileID: 4272902015072542972, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_text
+      value: x15
+      objectReference: {fileID: 0}
     - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x10
+      value: x320
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -35025,7 +35069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
-      value: 5
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: waterReward
@@ -35042,6 +35086,10 @@ PrefabInstance:
     - target: {fileID: 4272902015072542972, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
       value: x10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_text
+      value: x80
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -36037,19 +36085,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
-      value: 10
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: waterReward
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4015806311634937749, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
       value: Day 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4272902015072542972, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_text
+      value: x15
+      objectReference: {fileID: 0}
     - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x10
+      value: x320
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -36979,11 +37031,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
-      value: 5
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: waterReward
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: itemIDReward
@@ -37000,6 +37052,14 @@ PrefabInstance:
     - target: {fileID: 4037516146501779885, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272902015072542972, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_text
+      value: x10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_text
+      value: x40
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -43753,21 +43813,33 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 946908129079157092, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: dayNum
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
-      value: 10
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: waterReward
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4015806311634937749, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
       value: Day 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4272902015072542972, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_text
+      value: x15
+      objectReference: {fileID: 0}
     - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_text
-      value: x10
+      value: x160
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -50125,8 +50197,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 946908129079157092, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: coinReward
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923143993720254128, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: waterReward
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2842029282045179621, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
@@ -50140,6 +50220,10 @@ PrefabInstance:
     - target: {fileID: 5360059711268204184, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5397104634054457173, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_text
+      value: x10
       objectReference: {fileID: 0}
     - target: {fileID: 5399704451218131048, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Pivot.x
@@ -50232,6 +50316,10 @@ PrefabInstance:
     - target: {fileID: 6996075225237116077, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_Name
       value: DailyChallenge
+      objectReference: {fileID: 0}
+    - target: {fileID: 7003328363468486348, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9159601885387213501, guid: 40da99fac43454ac48e7eba55e8562c0, type: 3}
       propertyPath: m_AnchoredPosition.y

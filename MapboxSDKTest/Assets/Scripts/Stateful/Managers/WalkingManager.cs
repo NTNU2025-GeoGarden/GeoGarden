@@ -3,6 +3,7 @@ using Mapbox.BaseModule.Data.Vector2d;
 using Mapbox.BaseModule.Map;
 using Mapbox.Example.Scripts.Map;
 using UnityEngine;
+using Structs;
 
 namespace Stateful.Managers
 {
@@ -15,7 +16,6 @@ namespace Stateful.Managers
         private LatitudeLongitude _lastPosition;
         private double _totalDistance;
         private double _rewardDistanceTracker; // Track distance for rewards
-
         private double _rewardDistance = 0.1; // Track distance for rewards
 
         void Start()

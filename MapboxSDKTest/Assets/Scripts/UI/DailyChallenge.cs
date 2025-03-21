@@ -1,5 +1,6 @@
 using Stateful;
 using UnityEngine;
+using Structs;
 
 namespace UI
 {
@@ -33,11 +34,10 @@ namespace UI
             else
                 GameStateManager.CurrentState.Coins = HouseUpgrades.CoinCapPerLevel[GameStateManager.CurrentState.HouseLevel];
 
-            if (GameStateManager.CurrentState.Water + waterGained < HouseUpgrades.WaterCapPerLevel[GameStateManager.CurrentState.HouseLevel])
-                GameStateManager.CurrentState.Water += waterGained;
+            if (GameStateManager.CurrentState.Water + waterReward < HouseUpgrades.WaterCapPerLevel[GameStateManager.CurrentState.HouseLevel])
+                GameStateManager.CurrentState.Water += waterReward;
             else
                 GameStateManager.CurrentState.Water = HouseUpgrades.WaterCapPerLevel[GameStateManager.CurrentState.HouseLevel];
-
 
             if (itemIDReward != -1)
                 GameStateManager.AddInventoryItem(new SerializableInventoryEntry { Amount = 1, Id = itemIDReward });

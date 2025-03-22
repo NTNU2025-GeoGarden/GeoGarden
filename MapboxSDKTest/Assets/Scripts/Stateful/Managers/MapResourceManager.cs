@@ -218,9 +218,9 @@ namespace Stateful.Managers
 
             string rarity = newEntry.Id switch
             {
-                < 24 => "Common",
-                < 40 => "Uncommon",
-                < 47 => "Rare",
+                < 1 => "Common",
+                < 2 => "Uncommon",
+                < 3 => "Rare",
                 _ => "Legendary"
             };
 

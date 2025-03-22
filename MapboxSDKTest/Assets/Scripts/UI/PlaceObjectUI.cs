@@ -19,17 +19,17 @@ namespace UI
         public bool onlyForDisplay;
         public EditableObjectType type;
         [Space(10)]
-        
+
         [Header("Links to other objects")]
         public GardenCamera gardenCamera;
         public GameObject editableObjectPrefab;
         public ObjectManager manager;
         [Space(10)]
-        
+
         [Header("Internal references")]
         public GameObject treeHolder;
         public GameObject fenceHolder;
-        public GameObject spotHolder; 
+        public GameObject spotHolder;
         public GameObject lanternHolder;
         public GameObject bannerHolder;
         public GameObject cartHolder;
@@ -38,20 +38,20 @@ namespace UI
         public GameObject feeTextHolder;
         public TMP_Text amountText;
         public TMP_Text feeText;
-        
+
         public int available;
         private int _used;
         private int _cost;
 
         private GameState _state;
-        
+
         public void Start()
         {
-            OnUpdatePlaceObjectUICount += UpdateAmount;
+            OnUpdatePlaceObjectUICount = UpdateAmount;
 
             _cost = EditableObjectCost.GetCostByType(type);
-            
-            switch(type)
+
+            switch (type)
             {
                 case EditableObjectType.Tree:
                     treeHolder.SetActive(true);
@@ -82,9 +82,9 @@ namespace UI
             }
 
             if (onlyForDisplay) return;
-            
+
             _used = manager.GetAmountUsed(type);
-            
+
             amountText.text = $"{_used}/{available}";
             feeText.text = _cost.ToString();
         }
@@ -97,10 +97,10 @@ namespace UI
         private void UpdateAmount()
         {
             if (onlyForDisplay) return;
-            
+
             _used = manager.GetAmountUsed(type);
             Debug.Log($"New amount for {type}: {_used}");
-            
+
             amountText.text = $"{_used}/{available}";
         }
 
@@ -109,7 +109,7 @@ namespace UI
             if (onlyForDisplay) return;
             if (_used >= available) return;
             if (GameStateManager.CurrentState.Coins < _cost) return;
-            
+
             amountText.text = $"{_used}/{available}";
 
             EditableObject obj = Instantiate(editableObjectPrefab, manager.transform)
@@ -120,7 +120,7 @@ namespace UI
             obj.gardenCamera = gardenCamera;
             obj.transform.position = Vector3.zero;
             manager.AddObject(obj);
-            
+
             GameStateManager.CurrentState.Coins -= _cost;
             FirebaseManager.TelemetryRecordCoinsUsed(_cost);
             GameStateManager.OnForceSaveGame();

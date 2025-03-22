@@ -3,6 +3,7 @@ using Mapbox.BaseModule.Data.Vector2d;
 using Mapbox.BaseModule.Map;
 using Mapbox.Example.Scripts.Map;
 using UnityEngine;
+using Structs;
 
 namespace Stateful.Managers
 {
@@ -15,7 +16,6 @@ namespace Stateful.Managers
         private LatitudeLongitude _lastPosition;
         private double _totalDistance;
         private double _rewardDistanceTracker; // Track distance for rewards
-
         private double _rewardDistance = 0.1; // Track distance for rewards
 
         void Start()
@@ -32,7 +32,7 @@ namespace Stateful.Managers
             if (!(_isReady && _loaded)) return;
             LatitudeLongitude newPosition = map.MapInformation.ConvertPositionToLatLng(playerPosition.position);
             // rewardDistanceTracker is now a class-level variable
-            
+
             int energyReward = 10;
             _rewardDistanceTracker += Distance(_lastPosition, newPosition);
             _totalDistance += Distance(_lastPosition, newPosition);
@@ -41,15 +41,18 @@ namespace Stateful.Managers
 
             GameStateManager.CurrentState.DistanceWalked = (float)Math.Round(_totalDistance, 1, MidpointRounding.ToEven);
 
-        
             if (_rewardDistanceTracker >= _rewardDistance)
             {
-                GameStateManager.CurrentState.Energy += energyReward;
+                if (GameStateManager.CurrentState.Energy + energyReward < HouseUpgrades.EnergyCapPerLevel[GameStateManager.CurrentState.HouseLevel])
+                    GameStateManager.CurrentState.Energy += energyReward;
+                else
+                    GameStateManager.CurrentState.Energy = HouseUpgrades.EnergyCapPerLevel[GameStateManager.CurrentState.HouseLevel];
+
                 FirebaseManager.TelemetryRecordEnergyGenerated(energyReward);
                 _rewardDistanceTracker = 0; // Reset reward distance tracker after awarding energy
             }
- 
-            
+
+
         }
 
         /// <summary>
@@ -64,10 +67,10 @@ namespace Stateful.Managers
             double R = 6378.137; // Radius of earth in KM
             double dLat = b.Latitude * Math.PI / 180 - a.Latitude * Math.PI / 180;
             double dLon = b.Longitude * Math.PI / 180 - a.Longitude * Math.PI / 180;
-            double _a = Math.Sin(dLat/2) * Math.Sin(dLat/2) +
+            double _a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
                     Math.Cos(a.Latitude * Math.PI / 180) * Math.Cos(b.Latitude * Math.PI / 180) *
-                    Math.Sin(dLon/2) * Math.Sin(dLon/2);
-            double c = 2 * Math.Atan2(Math.Sqrt(_a), Math.Sqrt(1-_a));
+                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+            double c = 2 * Math.Atan2(Math.Sqrt(_a), Math.Sqrt(1 - _a));
             double d = R * c;
             return d;
         }

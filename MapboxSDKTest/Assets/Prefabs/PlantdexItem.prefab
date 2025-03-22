@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4331191721282137032}
   - component: {fileID: 4437211428959029095}
   m_Layer: 5
-  m_Name: InventoryItemPrefab
+  m_Name: PlantdexItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,7 +254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3597317204288829345
 RectTransform:
   m_ObjectHideFlags: 0

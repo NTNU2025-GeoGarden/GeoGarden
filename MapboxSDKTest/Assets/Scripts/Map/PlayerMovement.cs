@@ -7,39 +7,39 @@ namespace Map
 	public class PlayerMovement : MonoBehaviour
 	{
 		public delegate void HandleResourceCollected();
-		
+
 		public static HandleResourceCollected OnCollectResource;
-		
+
 		//public GameObject resourcesUI;
 		private SpawnerOnMap _ref = null;
 		private Color _resourceColorRef;
-		
+
 		public MapBehaviourCore MapBehaviour;
 		private IMapInformation _mapInformation;
-		
+
 		public Transform Target;
 		public Animator CharacterAnimator;
 		public float Speed;
 		private float _scale;
 		private bool _readyForUpdates = false;
-		
+
 		public bool SnapToTerrain = false;
 
 
 
-	
+
 		private void Start()
 		{
-			OnCollectResource += CollectResource;
-			
+			OnCollectResource = CollectResource;
+
 			//resourcesUI.SetActive(false);
-			
+
 			MapBehaviour.Initialized += map =>
 			{
 				_mapInformation = map.mapInformation;
 				_scale = map.mapInformation.Scale;
 				_readyForUpdates = true;
-				
+
 				// Snap character to final position when the map scale changes
 				_mapInformation.WorldScaleChanged += _ =>
 				{
@@ -48,36 +48,36 @@ namespace Map
 			};
 		}
 
-		
+
 		private void DetectObjectClick()
 		{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
+			if (Physics.Raycast(ray, out RaycastHit hit))
+			{
 
-                if (!hit.collider.TryGetComponent<SpawnerOnMap>(out var clickedResource))
-                    return; // ✅ Ignore clicks on non-resource objects
+				if (!hit.collider.TryGetComponent<SpawnerOnMap>(out var clickedResource))
+					return; // ✅ Ignore clicks on non-resource objects
 
-                if (_ref == null)
-                {
-                    Debug.Log("❌ ERROR: Player is not close enough to collect this resource!");
-                    return;
-                }
+				if (_ref == null)
+				{
+					Debug.Log("❌ ERROR: Player is not close enough to collect this resource!");
+					return;
+				}
 
-                if (clickedResource != _ref)
-                {
-                    Debug.Log($"❌ ERROR: Clicked object ({clickedResource.gameObject.name}) is not the currently collided resource!");
-                    return;
-                }
+				if (clickedResource != _ref)
+				{
+					Debug.Log($"❌ ERROR: Clicked object ({clickedResource.gameObject.name}) is not the currently collided resource!");
+					return;
+				}
 
-                if (!_ref.collected) // ✅ Only collect if it's not already collected
-                {
-                    Debug.Log($"🖱️/📱 Player clicked on {clickedResource.gameObject.name} while inside collision area.");
-                    _ref.CollectThisResource();
-                }
-            }
-        }
+				if (!_ref.collected) // ✅ Only collect if it's not already collected
+				{
+					Debug.Log($"🖱️/📱 Player clicked on {clickedResource.gameObject.name} while inside collision area.");
+					_ref.CollectThisResource();
+				}
+			}
+		}
 
 
 
@@ -85,7 +85,7 @@ namespace Map
 		{
 			Debug.Log($"🚀 Player entered trigger of: {other.gameObject.name}");
 
-			
+
 			if (!other.TryGetComponent<SpawnerOnMap>(out var resource))
 			{
 				Debug.LogError($"❌ ERROR: SpawnerOnMap component is missing on {other.gameObject.name}!");
@@ -128,7 +128,7 @@ namespace Map
 
 		private void CollectResource()
 		{
-			  Debug.Log($"📢 CollectResource() was called from: {new System.Diagnostics.StackTrace()}");
+			Debug.Log($"📢 CollectResource() was called from: {new System.Diagnostics.StackTrace()}");
 			Debug.Log($"📌 BEFORE collecting: _ref = {_ref}");
 
 			if (_ref == null)
@@ -163,18 +163,18 @@ namespace Map
 
 			var direction = Vector3.ProjectOnPlane(Target.position - transform.position, Vector3.up);
 			var distance = direction.magnitude; // Vector3.Distance(transform.position, Target.position);
-			
+
 			if (distance > 1 / _scale)
 			{
 				transform.LookAt(transform.position + direction);
 				transform.Translate(Vector3.forward * (Speed / _scale));
 
-				if (CharacterAnimator) 
+				if (CharacterAnimator)
 					CharacterAnimator.SetBool("IsWalking", true);
 			}
 			else
 			{
-				if (CharacterAnimator) 
+				if (CharacterAnimator)
 					CharacterAnimator.SetBool("IsWalking", false);
 			}
 

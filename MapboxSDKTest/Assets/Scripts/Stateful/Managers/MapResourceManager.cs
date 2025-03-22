@@ -5,7 +5,9 @@ using Mapbox.BaseModule.Data.Vector2d;
 using Mapbox.BaseModule.Map;
 using Mapbox.Example.Scripts.Map;
 using UnityEngine;
+using Structs;
 using Random = System.Random;
+
 namespace Stateful.Managers
 {
     public class MapResourceManager : MonoBehaviour, IUsingGameState
@@ -19,7 +21,6 @@ namespace Stateful.Managers
         private int _todaysSeed;
         private Dictionary<int, List<SerializableSpawner>> _mapResources;
         private Random _random;
-        private int _lastGeneratedDay = -1;
         private List<GameObject> _spawnedObjects = new List<GameObject>();
         private bool _isInitialized;
         private static Random random = new Random();
@@ -30,6 +31,7 @@ namespace Stateful.Managers
             _map = mapObject.GetComponent<MapboxMapBehaviour>();
             _todaysSeed = DateTime.Now.Year * 1000 + DateTime.Now.DayOfYear;
             _random = new Random(_todaysSeed);
+
             LoadData(GameStateManager.CurrentState);
             _map.MapServiceReady += OnMapReady;
         }
@@ -38,134 +40,88 @@ namespace Stateful.Managers
         {
             if (!_isInitialized)
             {
-                InitializeTestCoordinates();
+                InitializeCoordinates();
             }
+
             ClearExistingSpawners();
             AddInGameSpawners();
         }
 
         private int GetWeightedRandomItemId()
         {
-            int roll = random.Next(100);
-            if (roll < 65)
-                return random.Next(0, 24);   // 65% chance common
-            else if (roll < 95)
-                return random.Next(24, 40);  // 30% chance uncommon
-            else if (roll < 99)
-                return random.Next(40, 47);  // 4% chance rare
+            double roll = _random.NextDouble();
+
+            if (roll < 0.8)
+                return 0;   // 80% chance common
+            else if (roll < 0.99)
+                return 1;  // 19% chance uncommon
+            else if (roll < 0.9995)
+                return 2;  // 0.95% chance rare
             else
-                return random.Next(47, 51);  // 1% chance legendary
+                return 3;  // 0.05% chance legendary
         }
 
-        private void InitializeTestCoordinates()
+        private void InitializeCoordinates()
         {
+            if (_mapResources.ContainsKey(_todaysSeed))
+                return;
 
-            if (_lastGeneratedDay != _todaysSeed)
+            LatitudeLongitude playerPosition = _map.MapInformation.ConvertPositionToLatLng(player.position);
+
+            List<LatitudeLongitude> spawnerLocs = CoordinateGenerator.GenerateUniquePoints(
+                playerPosition.Latitude,
+                playerPosition.Longitude,
+                5000,
+                2000,
+                0.3
+            );
+
+            clusters = new List<SpawnerCluster>();
+
+            foreach (LatitudeLongitude pos in spawnerLocs)
             {
-                LatitudeLongitude playerPosition = _map.MapInformation.ConvertPositionToLatLng(player.position);
-                Debug.Log("player position: " + playerPosition.Latitude + ", " + playerPosition.Longitude);
-
-                CoordinateGenerator.GenerateUniquePointsAndWriteToFile(
-                    playerPosition.Latitude,
-                    playerPosition.Longitude,
-                    5000,
-                    "Assets/Resources/points.txt",
-                    2000,
-                    0.3
-                );
-
-                //JALLA MEN det funker når vi må være ferdig til i morgen
-                // Add retry mechanism for file loading
-                TextAsset coordFile = null;
-                int maxRetries = 5;
-                int currentTry = 0;
-
-                while (coordFile == null && currentTry < maxRetries)
-                {
-#if UNITY_EDITOR
-                    UnityEditor.AssetDatabase.Refresh();
-#endif
-
-                    coordFile = Resources.Load<TextAsset>("points");
-                    if (coordFile == null)
-                    {
-                        currentTry++;
-                        Debug.Log($"<color=yellow>[MapResourceManager] Waiting for file... Attempt {currentTry}/{maxRetries}</color>");
-                        System.Threading.Thread.Sleep(100); // Short delay between attempts
-                    }
-                }
-
-                if (coordFile == null)
-                {
-                    Debug.LogError("[MapResourceManager] Could not load coordinates.txt file after multiple attempts!");
-                    return;
-                }
-
-
-                clusters = new List<SpawnerCluster>();
-
-                string[] lines = coordFile.text.Split('\n');
-                foreach (string line in lines)
-                {
-                    if (string.IsNullOrWhiteSpace(line)) continue;
-
-                    string[] parts = line.Trim().Split(',');
-                    if (parts.Length == 2 &&
-                        double.TryParse(parts[0], out double lat) &&
-                        double.TryParse(parts[1], out double lng))
-                    {
-                        AddTestSpawnerCluster(lat, lng);
-                    }
-                }
-
-                GenerateDailyResources();
-                Debug.Log($"<color=cyan>[MapResourceManager] Initialized {lines.Length} spawner clusters for new day</color>");
+                AddSpawnerCluster(pos.Latitude, pos.Longitude);
             }
+
+            GenerateDailyResources();
+
+            Debug.Log($"<color=cyan>[MapResourceManager] Initialized {spawnerLocs.Count} spawner clusters for new day</color>");
 
             _isInitialized = true;
         }
 
         private void GenerateDailyResources()
         {
-
-
-            _mapResources = GameStateManager.CurrentState.MapResources ?? new Dictionary<int, List<SerializableSpawner>>();
             _mapResources[_todaysSeed] = new List<SerializableSpawner>();
 
             foreach (SpawnerCluster cluster in clusters)
             {
-                if (!(_random.NextDouble() > 0.5)) continue;
-
                 SerializableSpawner newResource = new()
                 {
                     latLng = cluster.latLng,
-                    spawner = cluster.spawners[_random.Next(cluster.spawners.Count)],
+                    spawner = cluster.spawners[0],
                     collected = false
                 };
 
-                _mapResources[_todaysSeed].Add(newResource);
+                if (_random.NextDouble() > 0.25)
+                    _mapResources[_todaysSeed].Add(newResource);
             }
 
             GameStateManager.CurrentState.MapResources = _mapResources;
-            _lastGeneratedDay = _todaysSeed;
 
             Debug.Log($"<color=cyan>[MapResourceManager] Generated {_mapResources[_todaysSeed].Count} resources for today</color>");
         }
 
-        public void AddTestSpawnerCluster(double latitude, double longitude)
+        public void AddSpawnerCluster(double latitude, double longitude)
         {
             List<Spawner> testSpawners = new List<Spawner>();
-            int numberOfSpawners = random.Next(3, 6);
 
-            for (int i = 0; i < numberOfSpawners; i++)
+            testSpawners.Add(new Spawner
             {
-                testSpawners.Add(new Spawner
-                {
-                    itemId = GetWeightedRandomItemId(),
-                    minAmount = random.Next(1, 4),
-                    maxAmount = random.Next(3, 6)
-                });
-            }
+                itemId = GetWeightedRandomItemId(),
+                minAmount = 1,
+                maxAmount = 1
+            });
 
             SpawnerCluster newCluster = new SpawnerCluster
             {
@@ -174,7 +130,6 @@ namespace Stateful.Managers
             };
 
             clusters.Add(newCluster);
-            Debug.Log($"<color=cyan>[MapResourceManager] Added test spawner cluster at {latitude}, {longitude} with {numberOfSpawners} spawners</color>");
         }
 
         private void ClearExistingSpawners()
@@ -192,6 +147,7 @@ namespace Stateful.Managers
             {
                 Debug.Log("<color=red>[MapResourceManager] No resources available for today</color>");
                 LoadingScreen.OnLoadingError();
+
                 return;
             }
 
@@ -223,7 +179,6 @@ namespace Stateful.Managers
         {
             Debug.Log("<color=cyan>[MapResourceManager] Loading data</color>");
             _mapResources = state.MapResources;
-            _lastGeneratedDay = _mapResources?.ContainsKey(_todaysSeed) == true ? _todaysSeed : -1;
 
             if (_mapResources == null)
             {
@@ -245,8 +200,6 @@ namespace Stateful.Managers
                 return;
             }
 
-            var random = _random ?? new Random(_todaysSeed);
-
             _mapResources[_todaysSeed][mapSpawner.spawnerId].collected = true;
 
             SerializableInventoryEntry newEntry = new()
@@ -257,13 +210,17 @@ namespace Stateful.Managers
 
             int waterGained = 15 + random.Next(-5, 6);
             GameStateManager.AddInventoryItem(newEntry);
-            GameStateManager.CurrentState.Water += waterGained;
+
+            if (GameStateManager.CurrentState.Water + waterGained < HouseUpgrades.WaterCapPerLevel[GameStateManager.CurrentState.HouseLevel])
+                GameStateManager.CurrentState.Water += waterGained;
+            else
+                GameStateManager.CurrentState.Water = HouseUpgrades.WaterCapPerLevel[GameStateManager.CurrentState.HouseLevel];
 
             string rarity = newEntry.Id switch
             {
-                < 24 => "Common",
-                < 40 => "Uncommon",
-                < 47 => "Rare",
+                < 1 => "Common",
+                < 2 => "Uncommon",
+                < 3 => "Rare",
                 _ => "Legendary"
             };
 

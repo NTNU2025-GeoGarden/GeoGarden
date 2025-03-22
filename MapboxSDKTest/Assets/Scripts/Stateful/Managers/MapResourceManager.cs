@@ -103,7 +103,7 @@ namespace Stateful.Managers
                     collected = false
                 };
 
-                if (_random.NextDouble() > 0.75)
+                if (_random.NextDouble() > 0.25)
                     _mapResources[_todaysSeed].Add(newResource);
             }
 

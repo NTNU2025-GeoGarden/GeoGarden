@@ -28,7 +28,7 @@ public class CoordinateGenerator
     }
 
     // Public method to generate unique points and write them to a file
-    public static List<LatitudeLongitude> GenerateUniquePoints(double centerLat, double centerLng, double distanceMeters, int numPoints = 5, double minDistance = 0.001)
+    public static List<LatitudeLongitude> GenerateUniquePoints(double centerLat, double centerLng, double distanceMeters, int numPoints = 5, double minDistance = 0.0007)
     {
         var boundingBox = GetBoundingBox(centerLat, centerLng, distanceMeters);
         var points = new List<LatitudeLongitude>(numPoints);

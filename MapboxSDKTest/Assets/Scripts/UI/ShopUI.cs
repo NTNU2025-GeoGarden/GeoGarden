@@ -108,13 +108,16 @@ namespace UI
             if (_selectedItem != null)
             {
                 int sellValue = _selectedItem.Item.Value;
+                
                 GameStateManager.CurrentState.Coins = Math.Min(GameStateManager.CurrentState.Coins + sellValue, GameStateManager.CurrentState.CoinCap);
+                
                 FirebaseManager.TelemetryRecordCoinsGenerated(sellValue);
                 GameStateManager.RemoveInventoryItem(_selectedItem.Item.ID);
+                
                 _selectedItem = null;
                 previewItem.gameObject.SetActive(false);
                 sellButton.interactable = false;
-                Debug.Log($"Coins gathered: {GameStateManager.CurrentState.Coins}");
+                
                 coinIcon.gameObject.SetActive(false);
                 priceText.text = "";
                 OnPlayerSoldItem?.Invoke();

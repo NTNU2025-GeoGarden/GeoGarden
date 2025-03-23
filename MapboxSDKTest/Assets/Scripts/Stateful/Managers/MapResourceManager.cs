@@ -199,7 +199,11 @@ namespace Stateful.Managers
                 Debug.LogError("[MapResourceManager] Map resources not initialized!");
                 return;
             }
-
+            if (_mapResources[_todaysSeed][mapSpawner.spawnerId].collected)
+            {
+                Debug.Log("[MapResourceManager] Resource already collected!");
+                return;
+            }
             _mapResources[_todaysSeed][mapSpawner.spawnerId].collected = true;
 
             SerializableInventoryEntry newEntry = new()

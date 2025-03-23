@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Garden;
 using Structs;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,7 +20,8 @@ namespace Stateful.Managers
 
         public GardenCamera gardenCamera;
         public EditableObject editableObjectPrefab;
-
+        public RewardUI harvestUI;
+        
         private List<EditableObject> _objects;
         private List<SerializableGardenSpot> _serializedSpots;
         private List<PlantableSpot> _inGameSpots;
@@ -223,7 +225,10 @@ namespace Stateful.Managers
             GameStateManager.CurrentState.SeenPlants[itemToAdd.Id] = true;
             GameStateManager.AddInventoryItem(itemToAdd);
             GameStateManager.CurrentState.PlantsHarvested++;
-
+            
+            harvestUI.transform.parent.parent.parent.parent.gameObject.SetActive(true);
+            harvestUI.itemReward = new InventoryItem(itemToAdd.Id, itemToAdd.Amount);
+                
             updatedSerializedSpot.seedID = 0;
             _serializedSpots[spot.spotID] = updatedSerializedSpot;
 

@@ -30,6 +30,7 @@ namespace Garden
 
         public TMP_Text statusSymbolTimer;
         public AudioClip waterPopSoundEffect;
+        public AudioClip harvestSoundEffect;
         
         private AudioSource _audioSource;
         public void Start()
@@ -64,7 +65,7 @@ namespace Garden
         
         public void UserHarvestedPlant()
         {
-            _audioSource.PlayOneShot(waterPopSoundEffect);
+            _audioSource.PlayOneShot(harvestSoundEffect);
 
             harvestable = false;
         }

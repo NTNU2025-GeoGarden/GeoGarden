@@ -1271,6 +1271,7 @@ MonoBehaviour:
   boxCollider: {fileID: 24107329004808914}
   statusSymbolTimer: {fileID: 9017480925250607659}
   waterPopSoundEffect: {fileID: 8300000, guid: dc81d1b1f4436ca49b1704eeab56e247, type: 3}
+  harvestSoundEffect: {fileID: 8300000, guid: 8c77f2e977e09ff4599ceebf3a23f097, type: 3}
 --- !u!82 &1161704815449326887
 AudioSource:
   m_ObjectHideFlags: 0

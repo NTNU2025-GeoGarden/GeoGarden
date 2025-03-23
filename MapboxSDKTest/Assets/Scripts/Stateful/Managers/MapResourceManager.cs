@@ -72,8 +72,8 @@ namespace Stateful.Managers
                 playerPosition.Latitude,
                 playerPosition.Longitude,
                 5000,
-                2000,
-                0.3
+                1000,
+                0.2
             );
 
             clusters = new List<SpawnerCluster>();

@@ -69,10 +69,5 @@ namespace Garden
 
             harvestable = false;
         }
-
-
-
-
-
     }
 }

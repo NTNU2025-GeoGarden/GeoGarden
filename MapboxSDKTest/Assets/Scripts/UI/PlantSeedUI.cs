@@ -5,6 +5,7 @@ using Stateful;
 using Stateful.Managers;
 using Structs;
 using TMPro;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,6 +53,8 @@ namespace UI
             int count = 0;
             foreach (SerializableInventoryEntry entry in state.Inventory)
             {
+                if (Items.FromID(entry.Id).Type != ItemType.Seed) continue;
+                
                 ItemIcon newItem = Instantiate(baseItem.gameObject, transform).GetComponent<ItemIcon>();
                 newItem.DisplayedItem = new InventoryItem(entry.Id, entry.Amount);
                 newItem.transform.localPosition = new Vector3(
@@ -63,6 +66,7 @@ namespace UI
                 _inventoryUIitems.Add(newItem);
 
                 count++;
+
             }
 
             previewItem.gameObject.SetActive(false);

@@ -262,9 +262,11 @@ namespace Garden
                     StartCoroutine(RemoveTextAfterDelay(spot));
                     return;
                 }
+                
                 GameStateManager.CurrentState.Energy -= 5;
                 FirebaseManager.TelemetryRecordEnergySpent(5);
                 spot.UserHarvestedPlant();
+                
                 GardenManager.OnPlantHarvested(spot);
             }
         }

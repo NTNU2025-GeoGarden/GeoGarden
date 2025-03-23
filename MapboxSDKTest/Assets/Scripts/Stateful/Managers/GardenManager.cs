@@ -21,7 +21,7 @@ namespace Stateful.Managers
         public GardenCamera gardenCamera;
         public EditableObject editableObjectPrefab;
         public RewardUI harvestUI;
-        
+
         private List<EditableObject> _objects;
         private List<SerializableGardenSpot> _serializedSpots;
         private List<PlantableSpot> _inGameSpots;
@@ -114,8 +114,8 @@ namespace Stateful.Managers
             plantableSpot.statusSymbolTimer.gameObject.SetActive(false);
             int neededEnergy = Seeds.FromID(plantableSpot.seedID).Energy;
 
-            plantableSpot.boxCollider.center = new Vector3(0, 0, -0.61f);
-            plantableSpot.boxCollider.size = new Vector3(0.59f, 0.58f, 1.13f);
+            plantableSpot.boxCollider.center = new Vector3(0, 0, 0);
+            plantableSpot.boxCollider.size = new Vector3(0.43f, 0.57f, 1.42f);
 
             switch (plantableSpot.state)
             {
@@ -225,10 +225,10 @@ namespace Stateful.Managers
             GameStateManager.CurrentState.SeenPlants[itemToAdd.Id] = true;
             GameStateManager.AddInventoryItem(itemToAdd);
             GameStateManager.CurrentState.PlantsHarvested++;
-            
+
             harvestUI.transform.parent.parent.parent.parent.gameObject.SetActive(true);
             harvestUI.itemReward = new InventoryItem(itemToAdd.Id, itemToAdd.Amount);
-                
+
             updatedSerializedSpot.seedID = 0;
             _serializedSpots[spot.spotID] = updatedSerializedSpot;
 

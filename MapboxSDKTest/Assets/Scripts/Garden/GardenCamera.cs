@@ -235,13 +235,13 @@ namespace Garden
                     if (currentWater < neededWater)
                     {
 
-                        spot.textField.text = "Not enough water";
+                        spot.textField.text = "Not enough water, need " + neededWater;
                         StartCoroutine(RemoveTextAfterDelay(spot));
                     }
                     else if (currentEnergy < neededEnergy)
                     {
 
-                        spot.textField.text = "Not enough energy";
+                        spot.textField.text = "Not enough energy, need " + neededEnergy;
                         StartCoroutine(RemoveTextAfterDelay(spot));
                     }
 

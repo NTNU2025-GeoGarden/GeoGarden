@@ -58,7 +58,7 @@ namespace Structs
                 rarity: SeedRarity.Common,
                 growTime: TimeSpan.FromMinutes(2),
                 energy: 5,
-                water: 10,
+                water: 5,
                 value: 5
             ));
 
@@ -68,7 +68,7 @@ namespace Structs
                 rarity: SeedRarity.Uncommon,
                 growTime: TimeSpan.FromMinutes(10),
                 energy: 5,
-                water: 10,
+                water: 5,
                 value: 25
             ));
 
@@ -78,7 +78,7 @@ namespace Structs
                 rarity: SeedRarity.Rare,
                 growTime: TimeSpan.FromMinutes(30),
                 energy: 5,
-                water: 10,
+                water: 5,
                 value: 100
             ));
 
@@ -88,7 +88,7 @@ namespace Structs
                 rarity: SeedRarity.Legendary,
                 growTime: TimeSpan.FromHours(1),
                 energy: 5,
-                water: 10,
+                water: 5,
                 value: 200
             ));
         }

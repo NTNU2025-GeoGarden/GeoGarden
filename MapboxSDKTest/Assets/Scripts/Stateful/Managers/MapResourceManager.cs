@@ -51,12 +51,12 @@ namespace Stateful.Managers
         {
             double roll = _random.NextDouble();
 
-            if (roll < 0.8)
+            if (roll < 0.6)
                 return 0;   // 80% chance common
-            else if (roll < 0.99)
-                return 1;  // 19% chance uncommon
+            else if (roll < 0.95)
+                return 1;  // 29% chance uncommon
             else if (roll < 0.9995)
-                return 2;  // 0.95% chance rare
+                return 2;  // 3.95% chance rare
             else
                 return 3;  // 0.05% chance legendary
         }
@@ -116,11 +116,13 @@ namespace Stateful.Managers
         {
             List<Spawner> testSpawners = new List<Spawner>();
 
+            int itemID = GetWeightedRandomItemId();
+
             testSpawners.Add(new Spawner
             {
-                itemId = GetWeightedRandomItemId(),
+                itemId = itemID,
                 minAmount = 1,
-                maxAmount = 1
+                maxAmount = itemID == 0 ? 3 : 1
             });
 
             SpawnerCluster newCluster = new SpawnerCluster

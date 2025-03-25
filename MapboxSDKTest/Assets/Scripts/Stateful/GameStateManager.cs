@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using Structs;
 using UnityEngine;
@@ -53,6 +54,8 @@ namespace Stateful
                 Debug.Log("<color=lime>[GameStateManager] Forcefully saving data</color>");
                 SaveGame();
             };
+
+            StartCoroutine(AutoSaveRoutine());
         }
 
         public void Start()
@@ -60,10 +63,18 @@ namespace Stateful
             _dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
             _persistenceObjs = FindAllPersistenceObjs();
         }
-
-        public void OnApplicationQuit()
+        private IEnumerator AutoSaveRoutine()
         {
-            Debug.Log("<color=lime>[GameStateManager] Saving due to application exit</color>");
+            while (true)
+            {
+                yield return new WaitForSeconds(5f);
+                SaveToDisk();
+            }
+        }
+
+        private void SaveToDisk()
+        {
+            Debug.Log("<color=lime>[GameStateManager] Saving</color>");
             SaveGame();
         }
 

@@ -9,6 +9,9 @@ Supervisor: Prof. Alf Inge Wang
 
 ## Changelog
 
+### 1.3.2
++ Fixed the bug where research data did not update on application exit for Android users.
+
 ### 1.3.1
 + Watering plants now cost 5 water instead of 10
 + Common plant produce are now worth 10 more when selling on the market

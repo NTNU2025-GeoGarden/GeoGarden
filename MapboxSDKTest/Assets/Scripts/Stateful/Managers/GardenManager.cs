@@ -46,57 +46,64 @@ namespace Stateful.Managers
         }
 
         private void PlaceGardenSpots() 
-{
-    Debug.Log("<color=lime>[GardenManager] Generating growing spots</color>");
-    int count = 0;
+        {
+            Debug.Log("<color=lime>[GardenManager] Generating growing spots</color>");
+            int count = 0;
 
-    if (_inGameSpots != null)
-        foreach (PlantableSpot obj in _inGameSpots)
-            Destroy(obj.gameObject);
+            if (_inGameSpots != null)
+                foreach (PlantableSpot obj in _inGameSpots)
+                    Destroy(obj.gameObject);
 
-    _inGameSpots = new List<PlantableSpot>();
+            _inGameSpots = new List<PlantableSpot>();
 
-    if (_objects != null)
-        foreach (EditableObject obj in _objects)
-            Destroy(obj.gameObject);
+            if (_objects != null)
+                foreach (EditableObject obj in _objects)
+                    Destroy(obj.gameObject);
 
-    _objects = new List<EditableObject>();
+            _objects = new List<EditableObject>();
 
-    int totalSpots = _serializedSpots.Count;
-    for (int i = 0; i < totalSpots; i++)
-    {
-        SerializableGardenSpot spot = _serializedSpots[i];
-        EditableObject newObj = Instantiate(editableObjectPrefab, transform);
-        newObj.type = EditableObjectType.Spot;
+            int totalSpots = _serializedSpots.Count;
+            for (int i = 0; i < totalSpots; i++)
+            {
+                SerializableGardenSpot spot = _serializedSpots[i];
+                EditableObject newObj = Instantiate(editableObjectPrefab, transform);
+                newObj.type = EditableObjectType.Spot;
 
-        
-        float xPos = spot.X;
-        float zPos = spot.Z;
+                float xPos = spot.X;
+                float zPos = spot.Z;
 
-        // Hardcode additional spots (indices 4-7)
-        if (i == 4) { xPos = 2.1f; zPos = 0.3f; }
-        else if (i == 5) { xPos = 2.1f; zPos = 1.2f; }
-        else if (i == 6) { xPos = 3f; zPos = 0.3f; }
-        else if (i == 7) { xPos = 3f; zPos = 1.2f; }
+                // Only set hardcoded positions for new spots that haven't been moved
+                if (spot.X == 0 && spot.Z == 0)
+                {
+                    if (i == 4) { xPos = 2.1f; zPos = 0.3f; }
+                    else if (i == 5) { xPos = 2.1f; zPos = 1.2f; }
+                    else if (i == 6) { xPos = 3f; zPos = 0.3f; }
+                    else if (i == 7) { xPos = 3f; zPos = 1.2f; }
+                    
+                    // Update the serialized position
+                    spot.X = xPos;
+                    spot.Z = zPos;
+                    _serializedSpots[i] = spot;
+                }
 
-        newObj.transform.localPosition = new Vector3(xPos, spot.Y, zPos);
-        newObj.editControls.transform.Translate(new Vector3(0, -1, 0));
-        newObj.gardenCamera = gardenCamera;
+                newObj.transform.localPosition = new Vector3(xPos, spot.Y, zPos);
+                newObj.editControls.transform.Translate(new Vector3(0, -1, 0));
+                newObj.gardenCamera = gardenCamera;
 
-        _objects.Add(newObj);
+                _objects.Add(newObj);
 
-        PlantableSpot newSpot = newObj.spot;
-        _inGameSpots.Add(newSpot);
+                PlantableSpot newSpot = newObj.spot;
+                _inGameSpots.Add(newSpot);
 
-        newSpot.spotID = count;
-        newSpot.gardenCamera = gardenCamera;
-        SetPlantableSpotData(spot, newSpot);
+                newSpot.spotID = count;
+                newSpot.gardenCamera = gardenCamera;
+                SetPlantableSpotData(spot, newSpot);
 
-        newObj.GetComponent<BoxCollider>().enabled = false;
+                newObj.GetComponent<BoxCollider>().enabled = false;
 
-        count++;
-    }
-}
+                count++;
+            }
+        }
 
         public void ObjectChanged(EditableObject obj)
         {

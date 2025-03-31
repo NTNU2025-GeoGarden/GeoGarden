@@ -46,19 +46,18 @@ namespace Stateful.Managers
             ClearExistingSpawners();
             AddInGameSpawners();
         }
-
         private int GetWeightedRandomItemId()
         {
             double roll = _random.NextDouble();
 
-            if (roll < 0.6)
-                return 0;   // 80% chance common
+            if (roll < 0.65)
+            return 0;   // 65% chance common
             else if (roll < 0.95)
-                return 1;  // 29% chance uncommon
-            else if (roll < 0.9995)
-                return 2;  // 3.95% chance rare
+            return 1;  // 30% chance uncommon
+            else if (roll < 0.99)
+            return 2;  // 4% chance rare
             else
-                return 3;  // 0.05% chance legendary
+            return 3;  // 1% chance legendary
         }
 
         private void InitializeCoordinates()

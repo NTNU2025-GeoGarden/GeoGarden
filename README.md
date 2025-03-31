@@ -8,6 +8,9 @@ Supervisor: Prof. Alf Inge Wang
 
 
 ## Changelog
+### 1.3.4
++ Fixed a bug where the planting spots were not able to be moved
+
 ### 1.3.3
 + Corrected a typo on the title screen
 + Fixed a bug where the player was not awarded more planting spots when leveling up

@@ -8,7 +8,7 @@ Supervisor: Prof. Alf Inge Wang
 
 
 ## Changelog
-### 1.3.4
+### 1.3.4b, 1.3.4
 + Fixed a bug where the planting spots were not able to be moved
 
 ### 1.3.3

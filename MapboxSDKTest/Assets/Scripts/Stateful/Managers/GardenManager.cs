@@ -45,7 +45,7 @@ namespace Stateful.Managers
             OnPlantHarvested = PlantHarvested;
         }
 
-        private void PlaceGardenSpots()
+       private void PlaceGardenSpots() 
         {
             Debug.Log("<color=lime>[GardenManager] Generating growing spots</color>");
             int count = 0;
@@ -62,11 +62,32 @@ namespace Stateful.Managers
 
             _objects = new List<EditableObject>();
 
-            foreach (SerializableGardenSpot spot in _serializedSpots)
+            int totalSpots = _serializedSpots.Count;
+            for (int i = 0; i < totalSpots; i++)
             {
+                SerializableGardenSpot spot = _serializedSpots[i];
                 EditableObject newObj = Instantiate(editableObjectPrefab, transform);
                 newObj.type = EditableObjectType.Spot;
-                newObj.transform.localPosition = new Vector3(spot.X, spot.Y, spot.Z);
+
+                Transform gardenSpotTransform = newObj.transform.Find("Spot/GardenSpot");
+                if (gardenSpotTransform != null)
+                {
+                    float xPos = spot.X;
+                    float zPos = spot.Z;
+
+                    // Hardcode additional spots (indices 4-7)
+                    if (i == 4) { xPos = 2.1f; zPos = 0.3f; }
+                    else if (i == 5) { xPos = 2.1f; zPos = 1.2f; }
+                    else if (i == 6) { xPos = 3f; zPos = 0.3f; }
+                    else if (i == 7) { xPos = 3f; zPos = 1.2f; }
+
+                    gardenSpotTransform.localPosition = new Vector3(xPos, 0.25f, zPos);
+                }
+                else
+                {
+                    Debug.LogError("GardenSpot child object not found");
+                }
+
                 newObj.editControls.transform.Translate(new Vector3(0, -1, 0));
                 newObj.gardenCamera = gardenCamera;
 
@@ -84,6 +105,7 @@ namespace Stateful.Managers
                 count++;
             }
         }
+
 
         public void ObjectChanged(EditableObject obj)
         {

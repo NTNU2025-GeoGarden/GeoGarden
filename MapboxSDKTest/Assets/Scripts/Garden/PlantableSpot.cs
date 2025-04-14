@@ -3,6 +3,8 @@ using System.Globalization;
 using Stateful.Managers;
 using Structs;
 using TMPro;
+using UI;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -28,8 +30,11 @@ namespace Garden
         public GameObject growingStage4;
         public BoxCollider boxCollider;
 
+        public RewardUI harvestUI;
+        
         public TMP_Text statusSymbolTimer;
         public AudioClip waterPopSoundEffect;
+        public AudioClip harvestSoundEffect;
         
         private AudioSource _audioSource;
         public void Start()
@@ -64,14 +69,9 @@ namespace Garden
         
         public void UserHarvestedPlant()
         {
-            _audioSource.PlayOneShot(waterPopSoundEffect);
-
+            _audioSource.PlayOneShot(harvestSoundEffect);
+            
             harvestable = false;
         }
-
-
-
-
-
     }
 }

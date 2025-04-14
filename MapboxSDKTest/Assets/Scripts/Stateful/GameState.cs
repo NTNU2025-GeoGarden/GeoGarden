@@ -19,7 +19,7 @@ namespace Stateful
 
         public int HouseLevel;
         public DateTime LevelUpTime;
-        
+
         public int CoinCap;
         public int Coins;
 
@@ -31,41 +31,42 @@ namespace Stateful
 
         public int PlantsHarvested;
         public float DistanceWalked;
-        
+        public Dictionary<int, bool> SeenPlants;
         public List<SerializableInventoryEntry> Inventory;
         public List<SerializableGardenSpot> GardenSpots;
         public List<SerializableObject> Objects;
         public Dictionary<int, List<SerializableSpawner>> MapResources;
-        
+
         public GameState()
         {
-            Version        = 0;
-            UID            = "";
-            GardenTutorial  = false;
-            MapTutorial  = false;
+            Version = 0;
+            UID = "";
+            GardenTutorial = false;
+            MapTutorial = false;
             LayoutTutorial = false;
 
             DaysLoggedIn = 0;
-            LastLogin    = DateTime.MinValue;
+            LastLogin = DateTime.MinValue;
             DaysClaimed = new List<bool>(14);
-            
-            
+
+
             LevelUpTime = DateTime.MinValue;
-            
+
             HouseLevel = 0;
-            CoinCap    = 0;
-            Coins      = 0;
-            EnergyCap  = 0;
-            Energy     = 0;
-            WaterCap   = 0;
-            Water      = 0;
+            CoinCap = 0;
+            Coins = 0;
+            EnergyCap = 0;
+            Energy = 0;
+            WaterCap = 0;
+            Water = 0;
             PlantsHarvested = 0;
-            DistanceWalked  = 0;
-            
+            DistanceWalked = 0;
+
+            SeenPlants = new Dictionary<int, bool>();
             MapResources = new Dictionary<int, List<SerializableSpawner>>();
-            GardenSpots  = new List<SerializableGardenSpot>();
-            Objects      = new List<SerializableObject>();
-            Inventory    = new List<SerializableInventoryEntry>();
+            GardenSpots = new List<SerializableGardenSpot>();
+            Objects = new List<SerializableObject>();
+            Inventory = new List<SerializableInventoryEntry>();
         }
     }
 }

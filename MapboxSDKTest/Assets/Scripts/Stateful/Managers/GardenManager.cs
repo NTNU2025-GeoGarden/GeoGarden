@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Garden;
 using Structs;
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,7 +20,8 @@ namespace Stateful.Managers
 
         public GardenCamera gardenCamera;
         public EditableObject editableObjectPrefab;
-        
+        public RewardUI harvestUI;
+
         private List<EditableObject> _objects;
         private List<SerializableGardenSpot> _serializedSpots;
         private List<PlantableSpot> _inGameSpots;
@@ -28,7 +30,7 @@ namespace Stateful.Managers
         public void Start()
         {
             SetDelegates();
-            
+
             SceneManager.sceneLoaded += (_, _) =>
             {
                 SetDelegates();
@@ -37,48 +39,68 @@ namespace Stateful.Managers
 
         private void SetDelegates()
         {
-            OnPlantSeed      = HandlePlantSeed;
-            OnSeedTimeout    = SeedTimeOut;
-            OnPlantWater     = PlantWatered;
+            OnPlantSeed = HandlePlantSeed;
+            OnSeedTimeout = SeedTimeOut;
+            OnPlantWater = PlantWatered;
             OnPlantHarvested = PlantHarvested;
         }
 
-        private void PlaceGardenSpots()
+        private void PlaceGardenSpots() 
         {
             Debug.Log("<color=lime>[GardenManager] Generating growing spots</color>");
             int count = 0;
-            
-            if(_inGameSpots != null)
-                foreach(PlantableSpot obj in _inGameSpots)
+
+            if (_inGameSpots != null)
+                foreach (PlantableSpot obj in _inGameSpots)
                     Destroy(obj.gameObject);
-            
+
             _inGameSpots = new List<PlantableSpot>();
-            
-            if(_objects != null)
-                foreach(EditableObject obj in _objects)
+
+            if (_objects != null)
+                foreach (EditableObject obj in _objects)
                     Destroy(obj.gameObject);
-            
+
             _objects = new List<EditableObject>();
-            
-            foreach (SerializableGardenSpot spot in _serializedSpots)
+
+            int totalSpots = _serializedSpots.Count;
+            for (int i = 0; i < totalSpots; i++)
             {
+                SerializableGardenSpot spot = _serializedSpots[i];
                 EditableObject newObj = Instantiate(editableObjectPrefab, transform);
                 newObj.type = EditableObjectType.Spot;
-                newObj.transform.localPosition = new Vector3(spot.X, spot.Y, spot.Z);
+
+                float xPos = spot.X;
+                float zPos = spot.Z;
+
+                // Only set hardcoded positions for new spots that haven't been moved
+                if (spot.X == 0 && spot.Z == 0)
+                {
+                    if (i == 4) { xPos = 2.1f; zPos = 0.3f; }
+                    else if (i == 5) { xPos = 2.1f; zPos = 1.2f; }
+                    else if (i == 6) { xPos = 3f; zPos = 0.3f; }
+                    else if (i == 7) { xPos = 3f; zPos = 1.2f; }
+                    
+                    // Update the serialized position
+                    spot.X = xPos;
+                    spot.Z = zPos;
+                    _serializedSpots[i] = spot;
+                }
+
+                newObj.transform.localPosition = new Vector3(xPos, spot.Y, zPos);
                 newObj.editControls.transform.Translate(new Vector3(0, -1, 0));
                 newObj.gardenCamera = gardenCamera;
-                
+
                 _objects.Add(newObj);
-                
+
                 PlantableSpot newSpot = newObj.spot;
                 _inGameSpots.Add(newSpot);
-                
+
                 newSpot.spotID = count;
                 newSpot.gardenCamera = gardenCamera;
                 SetPlantableSpotData(spot, newSpot);
 
                 newObj.GetComponent<BoxCollider>().enabled = false;
-                
+
                 count++;
             }
         }
@@ -92,15 +114,15 @@ namespace Stateful.Managers
 
             _serializedSpots[obj.spot.spotID] = updatedSerializedObj;
         }
-        
+
         private static void SetPlantableSpotData(SerializableGardenSpot serializedSpot, PlantableSpot plantableSpot)
         {
             Debug.Log($"<color=lime>[GardenManager] Updating spot data (ID {plantableSpot.spotID})</color>");
-            
+
             plantableSpot.completionTime = serializedSpot.stateCompletionTime;
             plantableSpot.state = serializedSpot.state;
             plantableSpot.seedID = serializedSpot.seedID;
-            
+
             plantableSpot.growingStage1.SetActive(false);
             plantableSpot.growingStage2.SetActive(false);
             plantableSpot.growingStage3.SetActive(false);
@@ -112,33 +134,33 @@ namespace Stateful.Managers
             plantableSpot.statusSymbolTimer.gameObject.SetActive(false);
             int neededEnergy = Seeds.FromID(plantableSpot.seedID).Energy;
 
-            plantableSpot.boxCollider.center = new Vector3(0, 0, -0.61f);
-            plantableSpot.boxCollider.size   = new Vector3(0.59f, 0.58f, 1.13f);
-            
-            switch(plantableSpot.state)
+            plantableSpot.boxCollider.center = new Vector3(0, 0, 0);
+            plantableSpot.boxCollider.size = new Vector3(0.43f, 0.57f, 1.42f);
+
+            switch (plantableSpot.state)
             {
                 case GrowState.Vacant:
                     plantableSpot.boxCollider.center = new Vector3(0, 0, -0.1f);
-                    plantableSpot.boxCollider.size   = new Vector3(1, 1, 0.1f);
+                    plantableSpot.boxCollider.size = new Vector3(1, 1, 0.1f);
                     plantableSpot.perimeter.SetActive(true);
                     plantableSpot.statusSymbolAddPlant.SetActive(true);
                     plantableSpot.completionTime = DateTime.MinValue;
                     break;
                 case GrowState.Seeded:
                     plantableSpot.growingStage1.SetActive(true);
-                    
+
                     plantableSpot.completionTime = serializedSpot.stateCompletionTime;
                     plantableSpot.statusSymbolTimer.gameObject.SetActive(true);
                     break;
                 case GrowState.Stage2:
                     plantableSpot.growingStage2.SetActive(true);
-                    
+
                     plantableSpot.completionTime = serializedSpot.stateCompletionTime;
                     plantableSpot.statusSymbolTimer.gameObject.SetActive(true);
                     break;
                 case GrowState.Stage3:
                     plantableSpot.growingStage3.SetActive(true);
-                    
+
                     plantableSpot.completionTime = serializedSpot.stateCompletionTime;
                     plantableSpot.statusSymbolTimer.gameObject.SetActive(true);
                     break;
@@ -146,7 +168,7 @@ namespace Stateful.Managers
                     plantableSpot.growingStage4.SetActive(true);
                     plantableSpot.perimeter.SetActive(true);
                     plantableSpot.statusSymbolFinished.SetActive(true);
-                    
+
                     plantableSpot.completionTime = DateTime.MinValue;
                     break;
                 default:
@@ -173,17 +195,17 @@ namespace Stateful.Managers
             SerializableGardenSpot updatedSerializedSpot = _serializedSpots[_selectedSpot.spotID];
 
             updatedSerializedSpot.state = GrowState.Seeded;
-            
+
             DateTime newTime = DateTime.Now.Add(Seeds.FromID(seedID).GrowTime.Multiply(GrowStateTimeMultiplier.FromState(updatedSerializedSpot.state)));
             updatedSerializedSpot.stateCompletionTime = newTime;
-            
+
             updatedSerializedSpot.seedID = seedID;
 
             _serializedSpots[_selectedSpot.spotID] = updatedSerializedSpot;
-            
+
             SetPlantableSpotData(updatedSerializedSpot, _selectedSpot);
         }
-        
+
         private void SeedTimeOut(PlantableSpot spot)
         {
             spot.perimeter.SetActive(true);
@@ -195,35 +217,41 @@ namespace Stateful.Managers
         {
             Debug.Log($"<color=lime>[GardenManager] Watered spot (ID {spot.spotID})</color>");
             SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spot.spotID];
-            
+
             updatedSerializedSpot.state += 1;
-            
+
             DateTime newTime = DateTime.Now.Add(Seeds.FromID(spot.seedID).GrowTime.Multiply(GrowStateTimeMultiplier.FromState(updatedSerializedSpot.state)));
             updatedSerializedSpot.stateCompletionTime = newTime;
-            
+
             _serializedSpots[spot.spotID] = updatedSerializedSpot;
-            
+
             SetPlantableSpotData(_serializedSpots[spot.spotID], spot);
         }
 
         private void PlantHarvested(PlantableSpot spot)
         {
             Debug.Log($"<color=lime>[GardenManager] Harvested spot (ID {spot.spotID})</color>");
-            
+
             SerializableGardenSpot updatedSerializedSpot = _serializedSpots[spot.spotID];
             updatedSerializedSpot.stateCompletionTime = DateTime.MinValue;
             updatedSerializedSpot.state = 0;
 
-            GameStateManager.AddInventoryItem(new SerializableInventoryEntry()
+            SerializableInventoryEntry itemToAdd = new SerializableInventoryEntry()
             {
                 Id = Seeds.FromID(updatedSerializedSpot.seedID).GetRandomProduct(),
                 Amount = 1
-            });
+            };
+
+            GameStateManager.CurrentState.SeenPlants[itemToAdd.Id] = true;
+            GameStateManager.AddInventoryItem(itemToAdd);
             GameStateManager.CurrentState.PlantsHarvested++;
-            
+
+            harvestUI.transform.parent.parent.parent.parent.gameObject.SetActive(true);
+            harvestUI.itemReward = new InventoryItem(itemToAdd.Id, itemToAdd.Amount);
+
             updatedSerializedSpot.seedID = 0;
             _serializedSpots[spot.spotID] = updatedSerializedSpot;
-            
+
             SetPlantableSpotData(_serializedSpots[spot.spotID], spot);
         }
 

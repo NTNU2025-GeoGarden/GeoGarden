@@ -16,12 +16,12 @@ namespace UI
         public TextMeshProUGUI itemRarityText;
 
         public RectTransform scrollView;
-        
+
         public void Start()
         {
             LoadData(GameStateManager.CurrentState);
         }
-        
+
         public void LoadData(GameState state)
         {
             if (_inventoryUIitems != null)
@@ -30,7 +30,7 @@ namespace UI
                 {
                     Destroy(obj.gameObject);
                 }
-        
+
                 _inventoryUIitems.Clear();
             }
             else
@@ -44,13 +44,13 @@ namespace UI
                 ItemIcon newItem = Instantiate(baseItem.gameObject, transform).GetComponent<ItemIcon>();
                 newItem.DisplayedItem = new InventoryItem(entry.Id, entry.Amount);
                 newItem.transform.localPosition = new Vector3(
-                    count % 4 * 225 + 50, 
+                    count % 4 * 225 + 50,
                     -25 - (float)Math.Floor(count / 4f) * 225, 0
                     );
-                
+
                 newItem.ClickScreenWithItemIcons = this;
                 _inventoryUIitems.Add(newItem);
-                
+
                 count++;
             }
 
@@ -63,12 +63,9 @@ namespace UI
 
         public void HandleCallbackFromItem(InventoryItem item)
         {
-
-               
-               itemTypeText.text = item.Item.Type.ToString();
-               descriptionText.text = item.Item.Description;
-               itemRarityText.text = item.Item.Rarity.ToString();
-           
+            itemTypeText.text = item.Item.Name.ToString();
+            descriptionText.text = item.Item.Description;
+            itemRarityText.text = item.Item.Rarity.ToString();
         }
 
         private void OnEnable()

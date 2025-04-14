@@ -2,6 +2,7 @@ using System;
 using Firebase;
 using Firebase.Extensions;
 using Firebase.Firestore;
+using System.Collections;
 using UnityEngine;
 
 namespace Stateful
@@ -9,12 +10,12 @@ namespace Stateful
     public class FirebaseManager : MonoBehaviour
     {
         public static FirebaseManager Instance { get; private set; }
-        
+
         public static FirebaseApp App { get; private set; }
         public static FirebaseFirestore Database { get; private set; }
-        
+
         public static bool FirebaseAvailable { get; private set; }
-        
+
         public static float Playtime { get; private set; }
 
         public void Awake()
@@ -32,13 +33,13 @@ namespace Stateful
             {
                 DependencyStatus status = task.Result;
                 FirebaseAvailable = false;
-                
+
                 if (status == DependencyStatus.Available)
                 {
                     Debug.Log("<color=lime>[FirebaseManager] Google Play services dependencies resolved.");
                     App = FirebaseApp.DefaultInstance;
                     Database = FirebaseFirestore.DefaultInstance;
-                    
+
                     FirebaseAvailable = true;
                 }
                 else
@@ -47,6 +48,8 @@ namespace Stateful
                     Debug.LogError(status);
                 }
             });
+
+            StartCoroutine(AutoSaveRoutine());
         }
 
         public void Update()
@@ -54,7 +57,16 @@ namespace Stateful
             Playtime += Time.deltaTime;
         }
 
-        public void OnApplicationQuit()
+        private IEnumerator AutoSaveRoutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(5f);
+                SaveToFirebase();
+            }
+        }
+
+        private void SaveToFirebase()
         {
             Debug.Log("<color=lime>[FirebaseManager] Uploading telemetry on close</color>");
             TelemetryRecordLogout();
@@ -64,9 +76,9 @@ namespace Stateful
         public static void CreateNewUserDocument()
         {
             GameState state = GameStateManager.CurrentState;
-            
+
             if (!FirebaseAvailable) return;
-            
+
             Database.Collection("users").Document(state.UID).GetSnapshotAsync().ContinueWithOnMainThread(task =>
             {
                 FirebaseData data;
@@ -93,7 +105,7 @@ namespace Stateful
                         TotalEnergyUsed = GameStateManager.CurrentState.Energy,
                     };
                 }
-                
+
                 Database.Collection("users").Document(data.UID).SetAsync(data);
             });
         }
@@ -101,9 +113,9 @@ namespace Stateful
         public static void TelemetryRecordLogin()
         {
             if (!FirebaseAvailable) return;
-            
+
             DocumentReference thisUser = Database.Collection("users").Document(GameStateManager.CurrentState.UID);
-                
+
             thisUser.UpdateAsync("DaysLoggedIn", GameStateManager.CurrentState.DaysLoggedIn);
             thisUser.UpdateAsync("Logins", FieldValue.Increment(1));
             thisUser.UpdateAsync("LastLogin", DateTime.Now);
@@ -112,47 +124,48 @@ namespace Stateful
         public static void TelemetryRecordCoinsUsed(int amount)
         {
             if (!FirebaseAvailable) return;
-            
+
             DocumentReference thisUser = Database.Collection("users").Document(GameStateManager.CurrentState.UID);
-                
+
             thisUser.UpdateAsync("TotalCoinsUsed", FieldValue.Increment(amount));
         }
-        
+
         public static void TelemetryRecordCoinsGenerated(int amount)
         {
             if (!FirebaseAvailable) return;
-            
+
             DocumentReference thisUser = Database.Collection("users").Document(GameStateManager.CurrentState.UID);
-                
+
             thisUser.UpdateAsync("TotalCoinsGenerated", FieldValue.Increment(amount));
         }
 
         public static void TelemetryRecordEnergySpent(int amount)
         {
             if (!FirebaseAvailable) return;
-            
+
             DocumentReference thisUser = Database.Collection("users").Document(GameStateManager.CurrentState.UID);
-                
+
             thisUser.UpdateAsync("TotalEnergyUsed", FieldValue.Increment(amount));
         }
-        
+
         public static void TelemetryRecordEnergyGenerated(int amount)
         {
             if (!FirebaseAvailable) return;
-            
+
             DocumentReference thisUser = Database.Collection("users").Document(GameStateManager.CurrentState.UID);
-                
+
             thisUser.UpdateAsync("TotalEnergyGenerated", FieldValue.Increment(amount));
         }
-        
-        
+
+
         public static void TelemetryRecordLogout()
         {
             if (!FirebaseAvailable) return;
-            
+
             DocumentReference thisUser = Database.Collection("users").Document(GameStateManager.CurrentState.UID);
 
             thisUser.UpdateAsync("Playtime", FieldValue.Increment(Playtime));
+            Playtime = 0;
             thisUser.UpdateAsync("Level", GameStateManager.CurrentState.HouseLevel);
             thisUser.UpdateAsync("Harvests", GameStateManager.CurrentState.PlantsHarvested);
             thisUser.UpdateAsync("Distance", GameStateManager.CurrentState.DistanceWalked);

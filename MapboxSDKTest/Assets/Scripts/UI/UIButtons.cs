@@ -11,7 +11,7 @@ namespace UI
         public GameObject UICanvas;
         public GameObject SecondaryUICanvas;
         public bool openCloseState;
-        
+
         public void HandleMapButtonClick()
         {
             GameStateManager.OnForceSaveGame();
@@ -46,11 +46,12 @@ namespace UI
             UICanvas.SetActive(false);
             SecondaryUICanvas.SetActive(true);
         }
-        
-        public void HandleSell(){
+
+        public void HandleSell()
+        {
             ShopUI.OnPlayerSoldItem();
         }
-        
+
         public void HandleTryRestartMap()
         {
             SceneManager.LoadScene("Home");

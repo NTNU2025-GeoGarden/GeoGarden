@@ -1,5 +1,6 @@
 using Stateful;
 using UnityEngine;
+using Structs;
 
 namespace UI
 {
@@ -27,12 +28,20 @@ namespace UI
             collected = true;
             available = false;
             GameStateManager.CurrentState.DaysClaimed[dayNum] = true;
-            
-            GameStateManager.CurrentState.Coins += coinReward;
-            GameStateManager.CurrentState.Water += waterReward;
-            if(itemIDReward != -1)
-                GameStateManager.AddInventoryItem(new SerializableInventoryEntry{Amount = 1, Id = itemIDReward});
-            
+
+            if (GameStateManager.CurrentState.Coins + coinReward < HouseUpgrades.CoinCapPerLevel[GameStateManager.CurrentState.HouseLevel])
+                GameStateManager.CurrentState.Coins += coinReward;
+            else
+                GameStateManager.CurrentState.Coins = HouseUpgrades.CoinCapPerLevel[GameStateManager.CurrentState.HouseLevel];
+
+            if (GameStateManager.CurrentState.Water + waterReward < HouseUpgrades.WaterCapPerLevel[GameStateManager.CurrentState.HouseLevel])
+                GameStateManager.CurrentState.Water += waterReward;
+            else
+                GameStateManager.CurrentState.Water = HouseUpgrades.WaterCapPerLevel[GameStateManager.CurrentState.HouseLevel];
+
+            if (itemIDReward != -1)
+                GameStateManager.AddInventoryItem(new SerializableInventoryEntry { Amount = 1, Id = itemIDReward });
+
             SetTheAbsoluteState();
         }
 

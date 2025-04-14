@@ -5,6 +5,7 @@ using Stateful;
 using Stateful.Managers;
 using Structs;
 using TMPro;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,19 +15,23 @@ namespace UI
     {
         public delegate void PlayerPlantedSeed();
         public static PlayerPlantedSeed OnPlayerPlantedSeed;
-        
+
+        public GameObject canvas;
+
         public ItemIcon baseItem;
         public ItemIcon previewItem;
         public Button plantButton;
         public RectTransform scrollView;
-    
+
         private List<ItemIcon> _inventoryUIitems;
+
+        private InventoryItem _lastItemTapped;
 
         public void Start()
         {
             LoadData(GameStateManager.CurrentState);
 
-            OnPlayerPlantedSeed += SeedPlanted;
+            OnPlayerPlantedSeed = SeedPlanted;
         }
 
         public void LoadData(GameState state)
@@ -37,7 +42,7 @@ namespace UI
                 {
                     Destroy(obj.gameObject);
                 }
-        
+
                 _inventoryUIitems.Clear();
             }
             else
@@ -48,19 +53,22 @@ namespace UI
             int count = 0;
             foreach (SerializableInventoryEntry entry in state.Inventory)
             {
+                if (Items.FromID(entry.Id).Type != ItemType.Seed) continue;
+                
                 ItemIcon newItem = Instantiate(baseItem.gameObject, transform).GetComponent<ItemIcon>();
                 newItem.DisplayedItem = new InventoryItem(entry.Id, entry.Amount);
                 newItem.transform.localPosition = new Vector3(
-                    count % 4 * 225 + 50, 
+                    count % 4 * 225 + 50,
                     -25 - (float)Math.Floor(count / 4f) * 225, 0
                 );
                 newItem.ClickScreenWithItemIcons = this;
-            
+
                 _inventoryUIitems.Add(newItem);
-                
+
                 count++;
+
             }
-        
+
             previewItem.gameObject.SetActive(false);
             scrollView.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (float)Math.Floor(count / 4f) * 225);
         }
@@ -72,7 +80,9 @@ namespace UI
         public void HandleCallbackFromItem(InventoryItem item)
         {
             plantButton.interactable = false;
-            
+
+            _lastItemTapped = item;
+
             previewItem.gameObject.SetActive(true);
             previewItem.DisplayedItem = item;
             previewItem.DisplayedItem.Amount = 1;
@@ -82,17 +92,18 @@ namespace UI
             {
                 int seedId = previewItem.DisplayedItem.Item.AppendID;
                 Seed seed = Seeds.FromID(seedId);
-           
+
                 int neededEnergy = seed.Energy;
                 TextMeshProUGUI buttonText = plantButton.GetComponentInChildren<TextMeshProUGUI>();
                 buttonText.text = "" + neededEnergy + "";
-                if (GameStateManager.CurrentState.Energy < neededEnergy )
+
+                if (GameStateManager.CurrentState.Energy < neededEnergy)
                 {
                     //TODO give user feedback
                     Debug.Log("Not enough energy");
                     return;
                 }
-                
+
                 plantButton.interactable = true;
             }
         }
@@ -101,7 +112,7 @@ namespace UI
         {
             previewItem.gameObject.SetActive(false);
             plantButton.interactable = false;
-        
+
             previewItem.DisplayedItem = null;
         }
 
@@ -112,13 +123,16 @@ namespace UI
 
         private void SeedPlanted()
         {
-            int seedId = previewItem.DisplayedItem.Item.ID;
-            int neededEnergy = Seeds.FromID(seedId).Energy;
+            int seedId = _lastItemTapped.Item.ID;
+
             GardenManager.OnPlantSeed(seedId);
-            GameStateManager.CurrentState.Energy -= neededEnergy;
+            GameStateManager.CurrentState.Energy -= 5;
+            GameStateManager.RemoveInventoryItem(seedId);
+
             Debug.Log("Planted seed with id: " + seedId + "and rarity: " + Seeds.FromID(seedId).Rarity);
-            FirebaseManager.TelemetryRecordEnergySpent(neededEnergy);
-            GameStateManager.RemoveInventoryItem(previewItem.DisplayedItem.Item.ID);
+
+            FirebaseManager.TelemetryRecordEnergySpent(5);
+            canvas.SetActive(false);
         }
     }
 }

@@ -1108,8 +1108,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6.30001, y: 327}
-  m_SizeDelta: {x: 940.1, y: 326.7}
+  m_AnchoredPosition: {x: 0.012405, y: 289}
+  m_SizeDelta: {x: 1087.9, y: 326.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1044513345536217836
 CanvasRenderer:
@@ -1140,8 +1140,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "HVIS DU SER DENNE SKJERMEN UTEN TILSYN AV UTVIKLERNE, TA KONTAKT! IKKE
-    G\xC5 VIDERE!\nOla - ola.h.jacobsen@ntnu.no, tlf 46828054\nHaakon - haakon.t.kanter@ntnu.no,
-    tlf"
+    G\xC5 VIDERE!\n\nOla - ola.h.jacobsen@ntnu.no, tlf 46 82 80 54\nHaakon - haakon.t.kanter@ntnu.no,
+    tlf 90 23 84 20"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -1395,7 +1395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8, y: 511}
+  m_AnchoredPosition: {x: -0.0000042915, y: 495.3}
   m_SizeDelta: {x: 940.1, y: 85.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4716865564188838026
@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New user detected
+  m_text: Deltaker ID er ikke satt
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

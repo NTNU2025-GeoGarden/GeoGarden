@@ -30,9 +30,9 @@ namespace UI
         {
             LoadData(GameStateManager.CurrentState);
             sellButton.interactable = false;
-            
+
             sellButton.onClick.AddListener(SellSelectedItem);
-            OnPlayerSoldItem += ItemSold;
+            OnPlayerSoldItem = ItemSold;
 
             previewItem.gameObject.SetActive(false);
         }
@@ -60,14 +60,14 @@ namespace UI
                 ItemIcon newItem = Instantiate(baseItem.gameObject, transform).GetComponent<ItemIcon>();
                 newItem.DisplayedItem = new InventoryItem(entry.Id, entry.Amount);
                 newItem.transform.localPosition = new Vector3(
-                    count % 4 * 225 + 50, 
+                    count % 4 * 225 + 50,
                     -25 - (float)Math.Floor(count / 4f) * 225, 0
                 );
                 newItem.ClickScreenWithItemIcons = this;
                 _inventoryUIitems.Add(newItem);
                 count++;
             }
-            
+
             scrollView.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (float)Math.Floor(count / 4f) * 225);
         }
 
@@ -104,24 +104,27 @@ namespace UI
         }
 
         private void SellSelectedItem()
-        {   
+        {
             if (_selectedItem != null)
             {
                 int sellValue = _selectedItem.Item.Value;
+                
                 GameStateManager.CurrentState.Coins = Math.Min(GameStateManager.CurrentState.Coins + sellValue, GameStateManager.CurrentState.CoinCap);
+                
                 FirebaseManager.TelemetryRecordCoinsGenerated(sellValue);
                 GameStateManager.RemoveInventoryItem(_selectedItem.Item.ID);
+                
                 _selectedItem = null;
                 previewItem.gameObject.SetActive(false);
                 sellButton.interactable = false;
-                Debug.Log($"Coins gathered: {GameStateManager.CurrentState.Coins}");
+                
                 coinIcon.gameObject.SetActive(false);
                 priceText.text = "";
                 OnPlayerSoldItem?.Invoke();
             }
         }
 
-        
+
 
         private void ItemSold()
         {

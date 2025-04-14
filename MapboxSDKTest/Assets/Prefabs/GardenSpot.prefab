@@ -1269,8 +1269,10 @@ MonoBehaviour:
   growingStage3: {fileID: 5258806841265413487}
   growingStage4: {fileID: 3990665730144379734}
   boxCollider: {fileID: 24107329004808914}
+  harvestUI: {fileID: 0}
   statusSymbolTimer: {fileID: 9017480925250607659}
-  waterPopSoundEffect: {fileID: 8300000, guid: 7a859ac889a4ce64b9f07fbd800bcee8, type: 3}
+  waterPopSoundEffect: {fileID: 8300000, guid: 2bf397fc6af15dc4e80e79753749bdc4, type: 3}
+  harvestSoundEffect: {fileID: 8300000, guid: 8c77f2e977e09ff4599ceebf3a23f097, type: 3}
 --- !u!82 &1161704815449326887
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1387,8 +1389,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.11}
-  m_Center: {x: 0, y: 0, z: -0.1}
+  m_Size: {x: 0.43, y: 0.57, z: 1.42}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9121219317390090858
 GameObject:
   m_ObjectHideFlags: 0
